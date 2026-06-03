@@ -43,7 +43,7 @@ import FemaleBracelets9 from "../assets/products/Female Bracelets/Female Brac10.
 import FemaleBracelets10 from "../assets/products/Female Bracelets/Female Brac14.jpg"
 
 import JewelrySet1 from "..//assets/products/Jewelry Sets/Jewelry Set2.jpg"
-import JewelrySet2 from "..//assets/products/Jewelry Sets/Jewelry Set3.jpg"
+import JewelrySet2 from "..//assets/products/Jewelry Sets/Jewelry set3.jpg"
 import JewelrySet3 from "..//assets/products/Jewelry Sets/Jewelry Set4.jpg"
 
 import MaleBracelets1 from "../assets/products/Male Bracelets/Male Bracelets2.jpg"
