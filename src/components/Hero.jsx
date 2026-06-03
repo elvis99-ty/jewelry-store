@@ -1,3 +1,5 @@
+import { motion } from "framer-motion"
+
 function Hero() {
   return (
     <section className="relative w-full h-screen overflow-hidden">
@@ -15,7 +17,15 @@ function Hero() {
       {/* Hero Content */}
       <div className="relative z-10 flex items-center justify-center h-full px-6">
 
-        <div className="w-full max-w-[560px] flex flex-col items-center -mt-10">
+        <motion.div
+          initial={{ opacity: 0, y: 120 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 1.0,
+            ease: [0.22, 1, 0.36, 1]
+          }}
+          className="w-full max-w-[560px] flex flex-col items-center -mt-10"
+        >
 
           {/* Small Top Text */}
           <div className="flex items-center gap-3 mb-5">
@@ -85,7 +95,7 @@ function Hero() {
 
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
 
