@@ -3,14 +3,11 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import products from "../data/products";
 
-function Bracelets() {
+function Earrings() {
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const [activeCategory, setActiveCategory] = useState("all");
-
   useEffect(() => {
-
     const link = document.createElement("link");
 
     link.href =
@@ -19,27 +16,13 @@ function Bracelets() {
     link.rel = "stylesheet";
 
     document.head.appendChild(link);
-
   }, []);
 
-  const braceletProducts = products.filter(
-    product =>
-      product.category === "female-bracelets" ||
-      product.category === "male-bracelets"
+  const earringProducts = products.filter(
+    product => product.category === "ear-rings"
   );
 
-  const filteredProducts = braceletProducts.filter(product => {
-
-    if (activeCategory === "all") {
-      return true;
-    }
-
-    return product.category === activeCategory;
-
-  });
-
   const styles = {
-
     mainBg: {
       backgroundColor: "#fdfcfc",
       minHeight: "100vh",
@@ -61,7 +44,7 @@ function Bracelets() {
 
     heroSpace: {
       paddingTop: "50px",
-      paddingBottom: "25px"
+      paddingBottom: "30px"
     },
 
     title: {
@@ -77,46 +60,12 @@ function Bracelets() {
     subtext: {
       fontSize: "16px",
       color: "#6f6f6f",
-      marginBottom: "20px",
+      marginBottom: "24px",
       marginTop: 0
     },
 
-    controlsWrapper: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "16px"
-    },
-
-    filterGroup: {
-      display: "flex",
-      gap: "10px",
-      alignItems: "center",
-      flexWrap: "wrap"
-    },
-
-    activePill: {
-      padding: "10px 22px",
-      fontSize: "14px",
-      backgroundColor: "#cfa76e",
-      color: "#ffffff",
-      border: "none",
-      borderRadius: "9999px",
-      fontWeight: "500",
-      cursor: "pointer"
-    },
-
-    inactivePill: {
-      padding: "10px 22px",
-      fontSize: "14px",
-      backgroundColor: "#ffffff",
-      border: "1px solid #e7e1d8",
-      borderRadius: "9999px",
-      color: "#111111",
-      cursor: "pointer"
-    },
-
     productSection: {
-      paddingTop: "35px",
+      paddingTop: "40px",
       paddingBottom: "70px"
     },
 
@@ -201,8 +150,7 @@ function Bracelets() {
       color: "#8c8c8c",
       fontWeight: "600",
       marginBottom: "4px",
-      display: "block",
-      letterSpacing: "1px"
+      display: "block"
     },
 
     productTitle: {
@@ -235,57 +183,12 @@ function Bracelets() {
           <div style={styles.container}>
 
             <h1 style={styles.title}>
-              Bracelets Collection
+              Earrings Collection
             </h1>
 
             <p style={styles.subtext}>
-              {filteredProducts.length} Bracelets Available
+              {earringProducts.length} Earrings Available
             </p>
-
-            <div style={styles.controlsWrapper}>
-
-              <div style={styles.filterGroup}>
-
-                <button
-                  onClick={() => setActiveCategory("all")}
-                  style={
-                    activeCategory === "all"
-                      ? styles.activePill
-                      : styles.inactivePill
-                  }
-                >
-                  All Bracelets
-                </button>
-
-                <button
-                  onClick={() =>
-                    setActiveCategory("female-bracelets")
-                  }
-                  style={
-                    activeCategory === "female-bracelets"
-                      ? styles.activePill
-                      : styles.inactivePill
-                  }
-                >
-                  Female Bracelets
-                </button>
-
-                <button
-                  onClick={() =>
-                    setActiveCategory("male-bracelets")
-                  }
-                  style={
-                    activeCategory === "male-bracelets"
-                      ? styles.activePill
-                      : styles.inactivePill
-                  }
-                >
-                  Male Bracelets
-                </button>
-
-              </div>
-
-            </div>
 
           </div>
 
@@ -299,7 +202,7 @@ function Bracelets() {
 
             <div style={styles.grid}>
 
-              {filteredProducts.map((product, index) => {
+              {earringProducts.map((product, index) => {
 
                 const isHovered = hoveredIndex === index;
 
@@ -308,12 +211,8 @@ function Bracelets() {
                   <div
                     key={product.id}
                     style={styles.card}
-                    onMouseEnter={() =>
-                      setHoveredIndex(index)
-                    }
-                    onMouseLeave={() =>
-                      setHoveredIndex(null)
-                    }
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(null)}
                   >
 
                     <div style={styles.imageWrapper}>
@@ -329,19 +228,22 @@ function Bracelets() {
                         alt={product.name}
                         style={{
                           ...styles.image,
-                          transform: isHovered
-                            ? "scale(1.05)"
-                            : "scale(1)"
+                          transform:
+                            isHovered
+                              ? "scale(1.05)"
+                              : "scale(1)"
                         }}
                       />
 
                       <div
                         style={{
                           ...styles.cartOverlay,
-                          opacity: isHovered ? 1 : 0,
-                          transform: isHovered
-                            ? "translateY(0)"
-                            : "translateY(10px)"
+                          opacity:
+                            isHovered ? 1 : 0,
+                          transform:
+                            isHovered
+                              ? "translateY(0)"
+                              : "translateY(10px)"
                         }}
                       >
 
@@ -356,20 +258,18 @@ function Bracelets() {
                     <div style={styles.infoContainer}>
 
                       <span style={styles.category}>
-                        {product.category
-                          .replaceAll("-", " ")
-                          .toUpperCase()}
+                        Ear Rings
                       </span>
 
                       <h3 style={styles.productTitle}>
                         {product.name}
                       </h3>
 
-                      {product.price && (
-                        <p style={styles.price}>
-                          ₦{product.price.toLocaleString()}
-                        </p>
-                      )}
+                      <p style={styles.price}>
+                        {product.price
+                          ? `₦${product.price.toLocaleString()}`
+                          : "Luxury Piece"}
+                      </p>
 
                     </div>
 
@@ -391,4 +291,4 @@ function Bracelets() {
   );
 }
 
-export default Bracelets;
+export default Earrings;

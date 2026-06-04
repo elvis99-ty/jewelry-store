@@ -27,6 +27,7 @@ function Navbar() {
           <Link to="/rings" className="text-[#6b6b6b] hover:text-[#d4af37] transition duration-300">RINGS</Link>
           <Link to="/Necklace" className="text-[#6b6b6b] hover:text-[#d4af37] transition duration-300">NECKLACE</Link>
           <Link to="/bracelets" className="text-[#6b6b6b] hover:text-[#d4af37] transition duration-300">BRACELETS</Link>
+          <Link to="/earrings" className="text-[#6b6b6b] hover:text-[#d4af37] transition duration-300">EAR RINGS</Link>
           <Link to="/myorders" className="text-[#6b6b6b] hover:text-[#d4af37] transition duration-300">MY ORDERS</Link>
         </div>
       </div>
@@ -144,6 +145,7 @@ function Navbar() {
           <Link to="/rings" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">RINGS</Link>
           <Link to="/necklace" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">CHAINS</Link>
           <Link to="/bracelets" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">BRACELETS</Link>
+           <Link to="/earrings" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">EAR RINGS</Link>
           <Link to="/myorders" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">MY ORDERS</Link>
         </div>
       </div>

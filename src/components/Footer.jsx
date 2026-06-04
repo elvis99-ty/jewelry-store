@@ -84,6 +84,15 @@ function Footer() {
 
   <li>
     <Link
+      to="/earrings"
+      className="hover:text-[#cda052] transition-colors duration-200"
+    >
+      Ear rings
+    </Link>
+  </li>
+
+  <li>
+    <Link
       to="/myorders"
       className="hover:text-[#cda052] transition-colors duration-200"
     >

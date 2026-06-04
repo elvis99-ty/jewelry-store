@@ -5,6 +5,7 @@ import Shop from '../pages/Shop.jsx'
 import ProductDetails from '../pages/ProductDetails.jsx'
 import Cart from '../pages/Cart.jsx'
 import Bracelets from "../pages/Bracelets.jsx";
+import Earrings from "../pages/Earrings.jsx";
 import Rings from "../pages/Rings.jsx";
 import MyOrders from "../pages/MyOrders.jsx";
 import ScrollToTop from "../components/ScrollToTop.jsx";
@@ -24,6 +25,7 @@ function AppRouter() {
                 <Route path="/bracelets" element={<Bracelets />} />
                 <Route path="/rings" element={<Rings />} />
                 <Route path="/necklace" element={<Necklace />} />
+                <Route path="/earrings" element={<Earrings />} />
                 <Route path="/myorders" element={<MyOrders />} />
             </Routes>
 

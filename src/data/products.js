@@ -42,9 +42,9 @@ import FemaleBracelets8 from "../assets/products/Female Bracelets/Female Brac9.j
 import FemaleBracelets9 from "../assets/products/Female Bracelets/Female Brac10.jpg"
 import FemaleBracelets10 from "../assets/products/Female Bracelets/Female Brac14.jpg"
 
-import JewelrySet1 from "..//assets/products/Jewelry Sets/Jewelry Set2.jpg"
-import JewelrySet2 from "..//assets/products/Jewelry Sets/Jewelry set3.jpg"
-import JewelrySet3 from "..//assets/products/Jewelry Sets/Jewelry Set4.jpg"
+import JewelrySet1 from "../assets/products/Jewelry Sets/Jewelry Set2.jpg"
+import JewelrySet2 from "../assets/products/Jewelry Sets/Jewelry set3.jpg"
+import JewelrySet3 from "../assets/products/Jewelry Sets/Jewelry Set4.jpg"
 
 import MaleBracelets1 from "../assets/products/Male Bracelets/Male Bracelets2.jpg"
 import MaleBracelets2 from "../assets/products/Male Bracelets/Male Bracelets3.jpg"
@@ -54,6 +54,12 @@ import Necklace1 from "../assets/products/Necklace/Necklace2.jpg"
 import Necklace2 from "../assets/products/Necklace/Necklace3.jpg"
 import Necklace3 from "../assets/products/Necklace/Necklace4.jpg"
 import Necklace4 from "../assets/products/Necklace/Necklace5.jpg"
+import Necklace5 from "../assets/products/Necklace/Necklace6.jpg"
+import Necklace6 from "../assets/products/Necklace/Necklace7.jpg"
+import Necklace7 from "../assets/products/Necklace/Necklace8.jpg"
+import Necklace8 from "../assets/products/Necklace/Necklace9.jpg"
+import Necklace9 from "../assets/products/Necklace/Necklace10.jpg"
+import Necklace10 from "../assets/products/Necklace/Necklace11.jpg"
 
 import WeddingRing1 from "../assets/products/Wedding Rings/Zirconia Stone + Silver Plated/Wedding Ring2.jpg"
 import WeddingRing2 from "../assets/products/Wedding Rings/Zirconia Stone + Silver Plated/Wedding Ring3.jpg"
@@ -71,7 +77,7 @@ const products = [
     {
         id : 1,
         name : "Ear Rings",
-        category : "Ear rings",
+        category : "ear-rings",
         image : Earing1,
         featured : true
     },
@@ -79,7 +85,7 @@ const products = [
     {
         id : 2,
         name : "Ear Rings",
-        category : "Ear rings",
+        category : "ear-rings",
         image : Earing2,
         featured : true
     },
@@ -87,7 +93,7 @@ const products = [
     {
         id : 3,
         name : "Ear Rings",
-        category : "Ear rings",
+        category : "ear-rings",
         image : Earing3,
         featured : true
     },
@@ -95,7 +101,7 @@ const products = [
     {
         id : 4,
         name : "Ear Rings",
-        category : "Ear rings",
+        category : "ear-rings",
         image : Earing4,
         featured : true
     },
@@ -103,7 +109,7 @@ const products = [
     {
         id : 5,
         name : "Ear Rings",
-        category : "Ear rings",
+        category : "ear-rings",
         image : Earing5,
         featured : true
     },
@@ -111,7 +117,7 @@ const products = [
     {
         id : 6,
         name : "Ear Rings",
-        category : "Ear rings",
+        category : "ear-rings",
         image : Earing6,
         featured : true
     },
@@ -119,7 +125,7 @@ const products = [
     {
         id : 7,
         name : "Ear Rings",
-        category : "Ear rings",
+        category : "ear-rings",
         image : Earing7,
         featured : true
     },
@@ -127,7 +133,7 @@ const products = [
     {
         id : 8,
         name : "Ear Rings",
-        category : "Ear rings",
+        category : "ear-rings",
         image : Earing8,
         featured : true
     },
@@ -135,7 +141,7 @@ const products = [
     {
         id : 9,
         name : "Ear Rings",
-        category : "Ear rings",
+        category : "ear-rings",
         image : Earing9,
         featured : true
     },
@@ -143,167 +149,208 @@ const products = [
     {
         id : 10,
         name : "Ear Rings",
-        category : "Ear rings",
+        category : "ear-rings",
         image : Earing10,
         featured : true
     },
 
     {
         id : 11,
-        name : "Engagment Ring",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-moissanite-stone",
         image : Engagement1,
         featured : true
     },
     
+
     {
         id : 12,
-        name : "Engagment Ring",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-moissanite-stone",
         image : Engagement2,
         featured : true
     },
 
     {
         id : 13,
-        name : "Engagment Ring",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-moissanite-stone",
         image : Engagement3,
         featured : true
     },
 
     {
         id : 14,
-        name : "Engagment Ring",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-moissanite-stone",
         image : Engagement4,
         featured : true
     },
 
     {
         id : 15,
-        name : "Engagment Ring",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-moissanite-stone",
         image : Engagement5,
         featured : true
     },
 
     {
         id : 16,
-        name : "Engagment Ring",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-moissanite-stone",
         image : Engagement6,
         featured : true
     },
 
     {
         id : 17,
-        name : "Engagment Ring",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-moissanite-stone",
         image : Engagement7,
         featured : true
     },
 
     {
         id : 18,
-        name : "Engagment Ring",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-moissanite-stone",
         image : Engagement8,
         featured : true
     },
 
     {
         id : 19,
-        name : "Engagment Ring",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-moissanite-stone",
         image : Engagement9,
         featured : true
     },
 
     {
         id : 20,
-        name : "Engagment Ring",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-moissanite-stone",
         image : Engagement10,
         featured : true
     },
 
     {
         id : 21,
-        name : "Engagement RIng",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-zirconia-stone",
         image : Engagementa,
         featured : true
     },
 
     {
         id : 22,
-        name : "Engagement RIng",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-zirconia-stone",
         image : Engagementb,
         featured : true
     },
 
     {
         id : 23,
-        name : "Engagement RIng",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-zirconia-stone",
         image : Engagementc,
         featured : true
     },
 
     {
         id : 24,
-        name : "Engagement RIng",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-zirconia-stone",
         image : Engagementd,
         featured : true
     },
 
     {
         id : 25,
-        name : "Engagement RIng",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-zirconia-stone",
         image : Engagemente,
         featured : true
     },
 
     {
         id : 26,
-        name : "Engagement RIng",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-zirconia-stone",
         image : Engagementf,
         featured : true
     },
 
     {
         id : 27,
-        name : "Engagement RIng",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-zirconia-stone",
         image : Engagementg,
         featured : true
     },
 
     {
         id : 28,
-        name : "Engagement RIng",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-zirconia-stone",
         image : Engagementh,
         featured : true
     },
 
     {
         id : 29,
-        name : "Engagement RIng",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-zirconia-stone",
         image : Engagementi,
         featured : true
     },
 
     {
         id : 30,
-        name : "Engagement RIng",
-        category : "Engagement Ring",
+        name : "Engagement Ring",
+        category : "rings",
+        subCategory : "engagement-rings",
+        type : "s925-zirconia-stone",
         image : Engagementj,
         featured : true
     },
@@ -311,7 +358,7 @@ const products = [
     {
         id : 31,
         name : "Female Bracelets",
-        category : "Female Bracelets",
+        category : "female-bracelets",
         image : FemaleBracelets1,
         featured : true
     },
@@ -319,7 +366,7 @@ const products = [
     {
         id : 32,
         name : "Female Bracelets",
-        category : "Female Bracelets",
+        category : "female-bracelets",
         image : FemaleBracelets2,
         featured : true
     },
@@ -327,7 +374,7 @@ const products = [
     {
         id : 33,
         name : "Female Bracelets",
-        category : "Female Bracelets",
+        category : "female-bracelets",
         image : FemaleBracelets3,
         featured : true
     },
@@ -335,7 +382,7 @@ const products = [
     {
         id : 34,
         name : "Female Bracelets",
-        category : "Female Bracelets",
+        category : "female-bracelets",
         image : FemaleBracelets4,
         featured : true
     },
@@ -343,7 +390,7 @@ const products = [
     {
         id : 35,
         name : "Female Bracelets",
-        category : "Female Bracelets",
+        category : "female-bracelets",
         image : FemaleBracelets5,
         featured : true
     },
@@ -351,7 +398,7 @@ const products = [
     {
         id : 36,
         name : "Female Bracelets",
-        category : "Female Bracelets",
+        category : "female-bracelets",
         image : FemaleBracelets6,
         featured : true
     },
@@ -359,7 +406,7 @@ const products = [
     {
         id : 37,
         name : "Female Bracelets",
-        category : "Female Bracelets",
+        category : "female-bracelets",
         image : FemaleBracelets7,
         featured : true
     },
@@ -367,7 +414,7 @@ const products = [
     {
         id : 38,
         name : "Female Bracelets",
-        category : "Female Bracelets",
+        category : "female-bracelets",
         image : FemaleBracelets8,
         featured : true
     },
@@ -375,7 +422,7 @@ const products = [
     {
         id : 39,
         name : "Female Bracelets",
-        category : "Female Bracelets",
+        category : "female-bracelets",
         image : FemaleBracelets9,
         featured : true
     },
@@ -383,7 +430,7 @@ const products = [
     {
         id : 40,
         name : "Female Bracelets",
-        category : "Female Bracelets",
+        category : "female-bracelets",
         image : FemaleBracelets10,
         featured : true
     },
@@ -391,7 +438,7 @@ const products = [
     {
         id : 41,
         name : "Jewelry Set",
-        category : "Jewelry Set",
+        category : "jewelry-sets",
         image : JewelrySet1,
         featured : true
     },
@@ -399,7 +446,7 @@ const products = [
     {
         id : 42,
         name : "Jewelry Set",
-        category : "Jewelry Set",
+        category : "jewelry-sets",
         image : JewelrySet2,
         featured : true
     },
@@ -407,7 +454,7 @@ const products = [
     {
         id : 43,
         name : "Jewelry Set",
-        category : "Jewelry Set",
+        category : "jewelry-sets",
         image : JewelrySet3,
         featured : true
     },
@@ -415,7 +462,7 @@ const products = [
     {
         id : 44,
         name : "Male Bracelets",
-        category : "Male Bracelets",
+        category : "male-bracelets",
         image : MaleBracelets1,
         featured : true
     },
@@ -423,7 +470,7 @@ const products = [
     {
         id : 45,
         name : "Male Bracelets",
-        category : "Male Bracelets",
+        category : "male-bracelets",
         image : MaleBracelets2,
         featured : true
     },
@@ -431,7 +478,7 @@ const products = [
     {
         id : 46,
         name : "Male Bracelets",
-        category : "Male Bracelets",
+        category : "male-bracelets",
         image : MaleBracelets3,
         featured : true
     },
@@ -439,7 +486,7 @@ const products = [
     {
         id : 47,
         name : "Necklace",
-        category : "Necklace",
+        category : "necklace",
         image : Necklace1,
         featured : true
     },
@@ -447,7 +494,7 @@ const products = [
     {
         id : 48,
         name : "Necklace",
-        category : "Necklace",
+        category : "necklace",
         image : Necklace2,
         featured : true
     },
@@ -455,7 +502,7 @@ const products = [
     {
         id : 49,
         name : "Necklace",
-        category : "Necklace",
+        category : "necklace",
         image : Necklace3,
         featured : true
     },
@@ -463,91 +510,179 @@ const products = [
     {
         id : 50,
         name : "Necklace",
-        category : "Necklace",
+        category : "necklace",
         image : Necklace4,
-        featured : true
+        featured : true 
     },
 
     {
         id : 51,
-        name : "Wedding Ring",
-        category : "Wedding Ring",
-        image : WeddingRing1,
-        featured : true
+        name : "Necklace",
+        category : "necklace",
+        image : Necklace6,
+        featured : true 
     },
-
+    
     {
         id : 52,
-        name : "Wedding Ring",
-        category : "Wedding Ring",
-        image : WeddingRing2,
-        featured : true
+        name : "Necklace",
+        category : "necklace",
+        image : Necklace6,
+        featured : true 
     },
+    
 
     {
         id : 53,
-        name : "Wedding Ring",
-        category : "Wedding Ring",
-        image : WeddingRing3,
+        name : "Necklace",
+        category : "necklace",
+        image : Necklace7,
         featured : true
     },
 
     {
         id : 54,
-        name : "Wedding Ring",
-        category : "Wedding Ring",
-        image : WeddingRing4,
-        featured : true
+        name : "Necklace",
+        category : "necklace",
+        image : Necklace8,
+        featured : true 
     },
-
+    
     {
         id : 55,
-        name : "Wedding Ring",
-        category : "Wedding Ring",
-        image : WeddingRing5,
-        featured : true
+        name : "Necklace",
+        category : "necklace",
+        image : Necklace9,
+        featured : true 
     },
-
+    
     {
         id : 56,
-        name : "Wedding Ring",
-        category : "Wedding Ring",
-        image : WeddingRing6,
-        featured : true
+        name : "Necklace",
+        category : "necklace",
+        image : Necklace10,
+        featured : true 
     },
-
+    
     {
         id : 57,
         name : "Wedding Ring",
-        category : "Wedding Ring",
-        image : WeddingRing7,
+        category : "rings",
+        subCategory : "wedding-rings",
+        type : "zirconia-stone",
+        price : 50000,
+        image : WeddingRing1,
+        description : "Luxury Ring",
         featured : true
     },
 
     {
         id : 58,
         name : "Wedding Ring",
-        category : "Wedding Ring",
-        image : WeddingRing8,
-        featured : true
+        category : "rings",
+        subCategory : "wedding-rings",
+        type : "zirconia-stone",
+        price : 50000,
+        image : WeddingRing2,
+        description : "Luxury Ring",
+        featured : true,
     },
 
     {
         id : 59,
         name : "Wedding Ring",
-        category : "Wedding Ring",
-        image : WeddingRing9,
-        featured : true
+        category : "rings",
+        subCategory : "wedding-rings",
+        type :"zirconia-stone",
+        price : 50000,
+        image : WeddingRing3,
+        description : "Luxury Ring",
+        featured : true,
     },
 
     {
         id : 60,
         name : "Wedding Ring",
-        category : "Wedding Ring",
-        image : WeddingRing10,
-        featured : true
+        category : "rings",
+        subCategory : "wedding-rings",
+        type :"zirconia-stone",
+        price : 50000,
+        image : WeddingRing4,
+        description : "Luxury Ring",
+        featured : true,
     },
 
+    {
+        id : 61,
+        name : "Wedding Ring",
+        category : "rings",
+        subCategory : "wedding-rings",
+        type :"zirconia-stone",
+        price : 40000,
+        image : WeddingRing5,
+        description : "Luxury Ring",
+        featured : true,
+    },
+
+    {
+        id : 62,
+        name : "Wedding Ring",
+        category : "rings",
+        subCategory : "wedding-rings",
+        type :"zirconia-stone",
+        price : 50000,
+        image : WeddingRing6,
+        description : "Luxury Ring",
+        featured : true,
+    },
+
+    {
+        id : 63,
+        name : "Wedding Ring",
+        category : "rings",
+        subCategory : "wedding-rings",
+        type :"zirconia-stone",
+        price : 50000,
+        image : WeddingRing7,
+        description : "Luxury Ring",
+        featured : true,
+    },
+
+    {
+        id : 64,
+        name : "Wedding Ring",
+        category : "rings",
+        subCategory : "wedding-rings",
+        type :"zirconia-stone",
+        price : 50000,
+        image : WeddingRing8,
+        description : "Luxury Ring",
+        featured : true,
+    },
+
+    {
+        id : 65,
+        name : "Wedding Ring",
+        category : "rings",
+        subCategory : "wedding-rings",
+        type :"zirconia-stone",
+        price : 50000,
+        image : WeddingRing9,
+        description : "Luxury Ring",
+        featured : true,
+    },
+
+    {
+        id : 66,
+        name : "Wedding Ring",
+        category : "rings",
+        subCategory : "wedding-rings",
+        type :"zirconia-stone",
+        price : 40000,
+        image : WeddingRing10,
+        description : "Luxury Ring",
+        featured : true,
+    },
 ]
 
 export default products
