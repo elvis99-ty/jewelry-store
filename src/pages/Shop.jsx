@@ -11,19 +11,6 @@ function Shop() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-
-    const link = document.createElement("link");
-
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap";
-
-    link.rel = "stylesheet";
-
-    document.head.appendChild(link);
-
-  }, []);
-
   const styles = {
 
     mainBg: {
@@ -262,6 +249,14 @@ function Shop() {
                   onClick={() => navigate("/necklace")}
                 >
                   Necklace
+                </button>
+
+                {/* JEWELRY SET */}
+                <button
+                  style={styles.inactivePill}
+                  onClick={() => navigate("/jewelryset")}
+                >
+                  Jewelry Set
                 </button>
 
                 {/* EARRINGS */}

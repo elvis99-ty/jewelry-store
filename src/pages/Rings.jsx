@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import products from "../data/products";
+import { useSearchParams, Link } from "react-router-dom";
 
 function Rings() {
 
@@ -11,38 +13,64 @@ function Rings() {
 
   const [activeType, setActiveType] = useState("all");
 
-  // GOOGLE FONT
+  const [searchParams ] = useSearchParams();
+
+
   useEffect(() => {
+  const subCategory = searchParams.get("subcategory");
+  const type = searchParams.get("type");
 
-    const link = document.createElement("link");
+  if (subCategory) {
+    setActiveSubCategory(subCategory);
+  }
 
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap";
+  if (type) {
+    setActiveType(type);
+  }
+}, [searchParams]);
 
-    link.rel = "stylesheet";
-
-    document.head.appendChild(link);
-
-  }, []);
 
   // ALL RINGS
-  const ringProducts = products.filter(
-    product => product.category === "rings"
-  );
+const ringProducts = products.filter(
+  product => product.category === "rings"
+);
 
-  // FILTER PRODUCTS
-  const filteredProducts = ringProducts.filter(product => {
+// FILTER PRODUCTS
+const filteredProducts = ringProducts.filter(product => {
 
-    const matchesSubCategory =
-      activeSubCategory === "all" ||
-      product.subCategory === activeSubCategory;
+  const matchesSubCategory =
+    activeSubCategory === "all" ||
+    product.subCategory === activeSubCategory;
 
-    const matchesType =
-      activeType === "all" ||
-      product.type === activeType;
+  const matchesType =
+    activeType === "all" ||
+    product.type === activeType;
 
-    return matchesSubCategory && matchesType;
-  });
+  return matchesSubCategory && matchesType;
+});
+
+const [shuffledProducts ] = useState(() =>
+[...ringProducts].sort(() => Math.random() - 0.5)
+);
+
+const productVariants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+    scale: 0.98
+  },
+
+  visible: (index) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+
+    transition: {
+      duration: 0.5,
+      delay: index * 0.03
+    }
+  })
+};
 
   const styles = {
 
@@ -328,7 +356,7 @@ function Rings() {
                         : styles.inactivePill
                     }
                   >
-                    S925 MOISSANITE STONE
+                    S925+MOISSANITE STONE
                   </button>
 
                   <button
@@ -341,7 +369,7 @@ function Rings() {
                         : styles.inactivePill
                     }
                   >
-                    S925 ZIRCONIA STONE
+                    S925+ZIRCONIA STONE
                   </button>
 
                 </div>
@@ -351,35 +379,110 @@ function Rings() {
               {/* WEDDING TYPES */}
               {activeSubCategory === "wedding-rings" && (
 
-                <div style={styles.filterGroup}>
+          <div style={styles.filterGroup}>  
 
-                  <button
-                    onClick={() => setActiveType("all")}
-                    style={
-                      activeType === "all"
-                        ? styles.activePill
-                        : styles.inactivePill
-                    }
-                  >
-                    All Types
-                  </button>
+      <button
+        onClick={() => setActiveType("all")}
+        style={
+          activeType === "all"
+          ? styles.activePill
+          : styles.inactivePill
+      }
+    >
+      All Types
+    </button>
 
-                  <button
-                    onClick={() =>
-                      setActiveType("zirconia-stone")
-                    }
-                    style={
-                      activeType === "zirconia-stone"
-                        ? styles.activePill
-                        : styles.inactivePill
-                    }
-                  >
-                    ZIRCONIA STONE
-                  </button>
+    <button
+      onClick={() => setActiveType("s925-black")}
+      style={
+        activeType === "s925-black"
+          ? styles.activePill
+          : styles.inactivePill
+      }
+    >
+      S925-BLACK
+    </button>
 
-                </div>
+    <button
+      onClick={() => setActiveType("s925-moissanite-stone")}
+      style={
+        activeType === "s925-moissanite-stone"
+          ? styles.activePill
+          : styles.inactivePill
+      }
+    >
+      S925 + MOISSANITE
+    </button>
 
-              )}
+    <button
+      onClick={() => setActiveType("titanium-steel-gold")}
+      style={
+        activeType === "titanium-steel-gold"
+          ? styles.activePill
+          : styles.inactivePill
+      }
+    >
+      TITANIUM STEEL- GOLD
+    </button>
+
+    <button
+      onClick={() => setActiveType("titanium-steel-silver")}
+      style={
+        activeType === "titanium-steel-silver"
+          ? styles.activePill
+          : styles.inactivePill
+      }
+    >
+      TITANIUM STEEL - SILVER
+    </button>
+
+    <button
+      onClick={() => setActiveType("zirconia-black")}
+      style={
+        activeType === "zirconia-black"
+          ? styles.activePill
+          : styles.inactivePill
+      }
+    >
+      ZIRCONIA BLACK
+    </button>
+
+    <button
+      onClick={() => setActiveType("zirconia-silver-plated")}
+      style={
+        activeType === "zirconia-silver-plated"
+          ? styles.activePill
+          : styles.inactivePill
+      }
+    >
+      ZIRCONIA STONE + SILVER PLATED
+    </button>
+
+    <button
+      onClick={() => setActiveType("s925-zirconia-stone")}
+      style={
+        activeType === "s925-zirconia-stone"
+          ? styles.activePill
+          : styles.inactivePill
+      }
+    >
+      S925 + ZIRCONIA STONE
+    </button>
+
+    <button
+      onClick={() => setActiveType("zirconia-gold-plated")}
+      style={
+        activeType === "zirconia-gold-plated"
+          ? styles.activePill
+          : styles.inactivePill
+      }
+    >
+      ZIRCONIA STONE + GOLD PLATED
+    </button>
+
+  </div>
+
+)}
 
             </div>
 
@@ -396,22 +499,32 @@ function Rings() {
 
             <div style={styles.grid}>
 
-              {filteredProducts.map((product, index) => {
+              {(
+              activeSubCategory === "all" &&
+              activeType === "all"
+              ? shuffledProducts
+              : filteredProducts
+              ).map((product, index) => {
 
                 const isHovered = hoveredIndex === index;
 
                 return (
-
-                  <div
+                  <Link to={`/product/${product.id}`}>
+                  <motion.div
                     key={product.id}
                     style={styles.card}
+                    custom={index}
+                    variants={productVariants}
+                    initial="hidden"
+                    animate="visible"
                     onMouseEnter={() =>
-                      setHoveredIndex(index)
+                    setHoveredIndex(index)
                     }
                     onMouseLeave={() =>
-                      setHoveredIndex(null)
+                    setHoveredIndex(null)
                     }
-                  >
+                    >
+                    
 
                     {/* IMAGE */}
                     <div style={styles.imageWrapper}>
@@ -423,12 +536,13 @@ function Rings() {
                       )}
 
                       <img
+                      loading="lazy"
                         src={product.image}
                         alt={product.name}
                         style={{
                           ...styles.image,
                           transform: isHovered
-                            ? "scale(1.05)"
+                            ? "scale(1.08)"
                             : "scale(1)"
                         }}
                       />
@@ -476,8 +590,8 @@ function Rings() {
                       )}
 
                     </div>
-
-                  </div>
+                  </motion.div>
+                  </Link>
 
                 );
               })}

@@ -10,6 +10,7 @@ import Rings from "../pages/Rings.jsx";
 import MyOrders from "../pages/MyOrders.jsx";
 import ScrollToTop from "../components/ScrollToTop.jsx";
 import Necklace from "../pages/Necklace.jsx";
+import JewelrySet from "../pages/JewelrySet.jsx";
 
 function AppRouter() {
     return (
@@ -26,6 +27,7 @@ function AppRouter() {
                 <Route path="/rings" element={<Rings />} />
                 <Route path="/necklace" element={<Necklace />} />
                 <Route path="/earrings" element={<Earrings />} />
+                <Route path="/jewelryset" element={<JewelrySet/>}/>
                 <Route path="/myorders" element={<MyOrders />} />
             </Routes>
 

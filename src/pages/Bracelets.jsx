@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import products from "../data/products";
@@ -7,20 +8,17 @@ function Bracelets() {
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [searchParams] = useSearchParams();
 
-  useEffect(() => {
+  const categoryFromUrl = searchParams.get("type");
 
-    const link = document.createElement("link");
-
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap";
-
-    link.rel = "stylesheet";
-
-    document.head.appendChild(link);
-
-  }, []);
+  const [activeCategory, setActiveCategory] = useState(
+    categoryFromUrl === "female"
+    ? "female-bracelets"
+    : categoryFromUrl === "male"
+    ? "male-bracelets"
+    : "all"
+);
 
   const braceletProducts = products.filter(
     product =>
@@ -325,6 +323,7 @@ function Bracelets() {
                       )}
 
                       <img
+                      loading="lazy"
                         src={product.image}
                         alt={product.name}
                         style={{

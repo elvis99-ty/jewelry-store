@@ -1,15 +1,22 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import logo from "../assets/images/LOGO.jpeg"
+import { useCart } from "../context/CartContext"
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { cartItems } = useCart();
+
+  const cartCount = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-[#fdfcfc] py-5 md:px-12 md:py-14 flex items-center justify-between md:justify-start">
+    <nav className="sticky top-0 z-50 w-full bg-[#fdfcfc] py-5 md:px-12 md:py-14 flex items-center justify-between md:justify-relative">
 
       {/* Logo Container */}
-      <div className="w-[120px] md:w-[175px] flex justify-start md:justify-end pl-6 md:pl-0">
+      <div className="w-[120px] md:w-[160px] flex justify-start md:justify-end pl-6 md:pl-0">
         <Link to="/">
           <img
             src={logo}
@@ -33,25 +40,49 @@ function Navbar() {
       </div>
 
       {/* Desktop Cart Icon Container (Hidden on mobile) */}
-      <div className="hidden md:flex w-[80px] justify-start">
-        <Link to="/cart">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.4}
-            stroke="currentColor"
-            className="w-6 h-6 text-black"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 10.5V7.875a3.75 3.75 0 10-7.5 0V10.5m-3 0h13.5l-.825 8.25a1.5 1.5 0 01-1.492 1.35H7.567a1.5 1.5 0 01-1.492-1.35L5.25 10.5z"
-            />
-          </svg>
-        </Link>
-      </div>
+      <div className="hidden md:flex w-[80px] justify-start relative">
+  <Link to="/cart" className="relative">
+    
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.4}
+      stroke="currentColor"
+      className="w-6 h-6 text-black"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.75 10.5V7.875a3.75 3.75 0 10-7.5 0V10.5m-3 0h13.5l-.825 8.25a1.5 1.5 0 01-1.492 1.35H7.567a1.5 1.5 0 01-1.492-1.35L5.25 10.5z"
+      />
+    </svg>
 
+    {cartCount > 0 && (
+      <span
+        className="
+          absolute
+          -top-2
+          -right-3
+          bg-[#cfa76e]
+          text-white
+          text-[11px]
+          font-bold
+          min-w-[18px]
+          h-[18px]
+          rounded-full
+          flex
+          items-center
+          justify-center
+          px-1
+        "
+      >
+        {cartCount}
+      </span>
+    )}
+
+  </Link>
+</div>
       {/* Mobile Right Icons Group */}
       {/* Changing mr-8 to mr-12 or mr-16 will push the icons further left */}
       <div className="flex items-center gap-6 md:hidden mr-8">

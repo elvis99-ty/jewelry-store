@@ -5,7 +5,7 @@ import logo from "../assets/images/Logoo.jpeg";
 function Footer() {
   return (
     <footer 
-      className="w-full bg-[#131421] text-white mt-[120px]"
+      className="w-full bg-[#151521] text-white mt-[120px]"
       style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
     >
       {/* Centered Alignment Main Stage Box Frame Wrapper */}
@@ -23,7 +23,7 @@ function Footer() {
             <img
               src={logo}
               alt="Royal Rings Identity"
-              className="w-[110px] h-auto object-contain" // Slightly adjusted width for brand visibility
+              className="w-[160px] h-auto object-contain"
               style={{ marginBottom: "24px" }}
             />
             </Link>

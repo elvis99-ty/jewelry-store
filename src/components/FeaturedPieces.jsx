@@ -1,18 +1,32 @@
 import { useEffect } from "react";
 import { ShoppingBag } from "lucide-react";
 import products from "../data/products";
+import { motion } from "framer-motion";
 
 function FeaturedPieces() {
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
-  }, []);
 
   const items = [...products]
   .sort(() => 0.5 - Math.random())
-  .slice(0,16);
+  .slice(0,28);
+
+  const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+    scale: 0.95
+  },
+
+  visible: (index) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+
+    transition: {
+      duration: 0.7,
+      delay: index * 0.03
+    }
+  })
+};
   
   return (
     <section 
@@ -39,7 +53,14 @@ function FeaturedPieces() {
       >
 
         {/* Heading Component Grid Line */}
-        <div className="flex items-end justify-between" style={{ marginBottom: "48px" }}>
+        <motion.div
+  className="flex items-end justify-between"
+  style={{ marginBottom: "48px" }}
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.8 }}
+>
           <div>
             <p className="uppercase tracking-[4px] text-[#cda052] text-[12px] font-semibold" style={{ marginBottom: "12px" }}>
               Curated For You
@@ -57,7 +78,7 @@ function FeaturedPieces() {
             View All
             <span className="text-[13px]">➔</span>
           </button>
-        </div>
+        </motion.div>
 
         {/* 16-Item Grid Container Frame */}
         <div 
@@ -67,16 +88,30 @@ function FeaturedPieces() {
             rowGap: "44px" 
           }}
         >
-          {items.map((item) => (
-            <div key={item.id} className="group flex flex-col">
+              {items.map((item, index) => (
+              <motion.div
+              key={item.id}
+              className="group flex flex-col"
+              custom={index}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              >
               
               {/* Product Card Container Box Frame */}
               <div className="relative overflow-hidden aspect-square w-full bg-[#0d0d0d] flex items-center justify-center rounded-[20px]">
-
-                <img
+                  <motion.img
+                  loading="lazy"
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover"
+                  whileHover={{
+                  scale: 1.08
+                  }}
+                  transition={{
+                  duration: 0.5
+                 }}
                 />
 
                 {/* Bottom Fixed Action Button Tray */}
@@ -95,7 +130,7 @@ function FeaturedPieces() {
                 </p>
               </div>
 
-            </div>
+            </motion.div>
           ))}
         </div>
 

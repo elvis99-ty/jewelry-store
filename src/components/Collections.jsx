@@ -1,21 +1,40 @@
 import { useState, useEffect } from "react";
-import WeddingRing from "../assets/products/Wedding Rings/Zirconia Stone + Silver Plated/Wedding Ring1.jpg"
+import { motion } from "framer-motion";
+
+import { Link } from "react-router-dom";
+import RingS925 from "../assets/products/Wedding Rings/S925 - Black/S925-Black1.png"
+import RingS925Moissanite from "../assets/products/Wedding Rings/S925 + Moissanite Stone/S925+Moissanite1.png"
+import RingTitaniumSteelGold from "../assets/products/Wedding Rings/Titanium Steel - Gold/TitaniumSteelGold1.png"
+import RingTitaniumSteelSilver from "../assets/products/Wedding Rings/Titanium Steel - Silver/TitaniumSteelSilver1.png"
+import RingZirconia from "../assets/products/Wedding Rings/Zirconia - Black/ZirconiaBlack1.png"
+import RingZirconiaStoneSilver from "../assets/products/Wedding Rings/Zirconia Stone + Silver Plated/Wedding Ring1.jpg"
+import EngRingS925Moissanite from "../assets/products/Engagment or Proposal/S925 + Moissanite Stone/Engring Moiss1.jpg"
+import EngRingS925Zirconia from "../assets/products/Engagment or Proposal/S925 + Zirconia Stone/Engrng Zir1.png"
 import Earings from "../assets/products/Earings/Ear ring1.jpg"
-import EngagmentRing from "../assets/products/Engagment or Proposal/S925 + Moissanite Stone/Engring Moiss1.jpg"
-import EngagmentRing2 from "../assets/products/Engagment or Proposal/S925 + Zirconia Stone/Engrng Zir17.png"
-import JewelrySet from "../assets/products/Jewelry Sets/Jewelry Set1.jpg"
+import FemaleBracelets from "../assets/products/Female Bracelets/Female Brac2.jpg"
+import MaleBracelets from "../assets/products/Male Bracelets/Male Bracelets2.jpg"
+import JewelrySets from "../assets/products/Jewelry Sets/Jewelry Set1.jpg"
 import Necklace from "../assets/products/Necklace/Necklace1.jpg"
-import MaleBracelets from "../assets/products/Male Bracelets/Male Bracelets1.jpg"
-import FemaleBracelets from "../assets/products/Female Bracelets/Female Brac1.jpg"
+
+
 function Collections() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
-  }, []);
+  const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 60
+  },
+
+  visible: (index) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      delay: index * 0.05
+    }
+  })
+};
 
   const styles = {
     section: {
@@ -126,52 +145,99 @@ function Collections() {
   const collectionsData = [
   {
     id: 1,
-    name: "Wedding Ring",
-    src: WeddingRing
+    name: "Wedding Ring S925-Black",
+    src: RingS925,
+    link : "/rings?subcategory=wedding-rings&type=s925-black",
   },
 
   {
     id: 2,
-    name: "Ear Rings",
-    src: Earings
+    name: "Wedding Ring S925+Moissanite Stone",
+    src: RingS925Moissanite,
+    link : "/rings?subcategory=wedding-rings&type=s925-moissanite-stone"
   },
 
   {
     id: 3,
-    name: "Engagement Ring 1",
-    src: EngagmentRing
+    name: "Wedding Ring Titanium Steel Gold",
+    src: RingTitaniumSteelGold,
+    link : "/rings?subcategory=wedding-rings&type=titanium-steel-gold"
   },
 
   {
     id: 4,
-    name: "Engagement Ring 2",
-    src: EngagmentRing2
+    name: "Wedding Ring Titanium Steel Silver",
+    src: RingTitaniumSteelSilver,
+    link : "/rings?subcategory=wedding-rings&type=titanium-steel-silver"
   },
 
   {
     id: 5,
-    name: "Jewelry Set",
-    src: JewelrySet
+    name: "Wedding Ring Zirconia Black",
+    src: RingZirconia,
+    link : "/rings?subcategory=wedding-rings&type=zirconia-black"
   },
 
   {
     id: 6,
-    name : "Necklace",
-    src : Necklace
+    name : "Wedding Ring Zirconia Stone Silver Plated",
+    src : RingZirconiaStoneSilver,
+    link : "/rings?subcategory=wedding-rings&type=zirconia-silver-plated"
   },
 
   {
     id : 7,
-    name : "Male Bracelets",
-    src : MaleBracelets
+    name : "Engagement Ring S925 Moissanite Stone",
+    src : EngRingS925Moissanite,
+    link : "/rings?subcategory=wedding-rings&type=moissanite-stone"
   },
-  
+
   {
     id : 8,
+    name : "Engagement Ring S925 Zirconia Stone",
+    src : EngRingS925Zirconia,
+    link : "/rings?subcategory=wedding-rings&type=s925-zirconia-stone"
+  },
+
+  {
+    id : 9,
+    name : "Ear Rings",
+    src : Earings,
+    link : "/earrings"
+  },
+
+  {
+    id : 10,
     name : "Female Bracelets",
     src : FemaleBracelets,
+    link : "/bracelets?type=female"
+  },
+
+  {
+    id : 11,
+    name : "Male Bracelets",
+    src : MaleBracelets,
+    link : "/bracelets?type=male",
+  },
+
+  {
+    id : 12,
+    name : "Jewelry Set",
+    src : JewelrySets,
+    link : "/jewelryset"
+  },
+
+  {
+    id : 13,
+    name : "Necklace",
+    src : Necklace,
+    link : "/necklace"
   }
 ];
+
+const [shuffledCollections] = useState(() => {
+  return [...collectionsData].sort(() => Math.random() - 0.5)
+});
 
   return (
     <section style={styles.section}>
@@ -183,54 +249,80 @@ function Collections() {
           <h2 style={styles.mainTitle}>Our Collections</h2>
         </div>
 
-        {/* COLLECTIONS ITEM RENDER ENGINE */}
+                {/* COLLECTIONS ITEM RENDER ENGINE */}
         <div style={styles.gridContainer}>
-          {collectionsData.map((item, index) => {
+          {shuffledCollections.map((item, index) => {
             const isHovered = hoveredIndex === index;
 
             return (
-              <div
+              <Link
                 key={item.id}
+                to={item.link || "/"}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "block"
+                }}
+              >
+                <motion.div
                 style={styles.cardFrame}
+                custom={index}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-              >
-                {/* BACKGROUND IMAGE WITH ZOOM EFFECT */}
-                <img
-                  src={item.src || "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=1974&auto=format&fit=crop"}
-                  alt={item.name}
-                  style={{
-                    ...styles.imageAsset,
-                    transform: isHovered ? "scale(1.04)" : "scale(1)"
-                  }}
-                  onError={(e) => {
-                    // Generates fallback soft neutral placeholder fill if image source is empty or missing
-                    e.target.style.opacity = "0.15";
-                  }}
-                />
+                >
+                  {/* BACKGROUND IMAGE WITH ZOOM EFFECT */}
+                  <img
+                  loading="lazy"
+                    src={item.src}
+                    alt={item.name}
+                    style={{
+                      ...styles.imageAsset,
+                      transform: isHovered
+                        ? "scale(1.04)"
+                        : "scale(1)"
+                    }}
+                    onError={(e) => {
+                      e.target.style.opacity = "0.15";
+                    }}
+                  />
 
-                {/* THE INSIDE TEXT OVERLAY PANEL */}
-                <div style={styles.contentOverlay}>
-                  <h3 style={styles.cardTitle}>{item.name}</h3>
-                  
-                  <div style={styles.exploreGroup}>
-                    <p style={styles.exploreText}>Explore</p>
-                    <svg 
-                      style={{
-                        ...styles.arrowIcon,
-                        transform: isHovered ? "translateX(4px)" : "translateX(0px)"
-                      }} 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                  {/* THE INSIDE TEXT OVERLAY PANEL */}
+                  <div style={styles.contentOverlay}>
+                    <h3 style={styles.cardTitle}>
+                      {item.name}
+                    </h3>
+
+                    <div style={styles.exploreGroup}>
+                      <p style={styles.exploreText}>
+                        Explore
+                      </p>
+
+                      <svg
+                        style={{
+                          ...styles.arrowIcon,
+                          transform: isHovered
+                            ? "translateX(4px)"
+                            : "translateX(0px)"
+                        }}
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
+                    </div>
                   </div>
-                </div>
-
-              </div>
+                </motion.div>
+              </Link>
             );
           })}
         </div>

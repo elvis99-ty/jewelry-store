@@ -7,17 +7,6 @@ function Earrings() {
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  useEffect(() => {
-    const link = document.createElement("link");
-
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap";
-
-    link.rel = "stylesheet";
-
-    document.head.appendChild(link);
-  }, []);
-
   const earringProducts = products.filter(
     product => product.category === "ear-rings"
   );
@@ -224,6 +213,7 @@ function Earrings() {
                       )}
 
                       <img
+                      loading="lazy"
                         src={product.image}
                         alt={product.name}
                         style={{

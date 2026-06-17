@@ -8,13 +8,6 @@ function MyOrdersPage() {
   // Set to true later when implementing active dynamic order lists
   const [hasOrders, setHasOrders] = useState(false);
 
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
-  }, []);
-
   return (
     <div className="w-full min-h-screen bg-white flex flex-col justify-between select-none">
       
