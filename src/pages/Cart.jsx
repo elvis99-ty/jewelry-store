@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useCart } from "../context/CartContext";
 
 function Cart() {
+  const navigate = useNavigate();
   const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, updateQuantity } = useCart();
   const styles = {
     mainBg: { 
@@ -69,6 +70,7 @@ function Cart() {
       outline: "none"
     }
   };
+
 
   const handleButtonPress = (e, press) => {
     e.target.style.backgroundColor = press ? "#b8935c" : "#cfa76e";
@@ -389,6 +391,20 @@ function Cart() {
           >Total Pieces
           </span>
 
+          <span style={{
+            color : "#111",
+            fontWeight : "700",
+            fontSize : "18px"
+          }}>
+            {cartItems.reduce(
+              (total, item) =>
+                total + item.quantity,
+              0
+            )}
+          </span>
+        </div>
+
+        
           <div
   style={{
     marginTop: "20px",
@@ -420,19 +436,6 @@ function Cart() {
   </h3>
 </div>
 
-          <span style={{
-            color : "#111",
-            fontWeight : "700",
-            fontSize : "18px"
-          }}>
-            {cartItems.reduce(
-              (total, item) =>
-                total + item.quantity,
-              0
-            )}
-          </span>
-        </div>
-
         <hr
           style={{
             border: "none",
@@ -442,7 +445,7 @@ function Cart() {
           }}
         />
 
-        <button
+        <button onClick={() => navigate("/checkout")}
           style={{
             width: "100%",
             height: "52px",

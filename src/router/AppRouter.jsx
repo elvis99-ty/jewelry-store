@@ -11,6 +11,7 @@ import MyOrders from "../pages/MyOrders.jsx";
 import ScrollToTop from "../components/ScrollToTop.jsx";
 import Necklace from "../pages/Necklace.jsx";
 import JewelrySet from "../pages/JewelrySet.jsx";
+import Checkout from "../pages/Checkout.jsx";
 
 function AppRouter() {
     return (
@@ -29,6 +30,7 @@ function AppRouter() {
                 <Route path="/earrings" element={<Earrings />} />
                 <Route path="/jewelryset" element={<JewelrySet/>}/>
                 <Route path="/myorders" element={<MyOrders />} />
+                <Route path="/checkout" element={<Checkout/>}/>
             </Routes>
 
         </BrowserRouter>

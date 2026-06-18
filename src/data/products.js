@@ -146,9 +146,9 @@ import ZirconiaStoneSilver18 from "../assets/products/Wedding Rings/Zirconia Sto
 import ZirconiaStoneSilver19 from "../assets/products/Wedding Rings/Zirconia Stone + Silver Plated/Wedding Ring19.jpg"
 import ZirconiaStoneSilver20 from "../assets/products/Wedding Rings/Zirconia Stone + Silver Plated/Wedding Ring20.jpg"
 
-import ZirconiaStoneGold1 from "../assets/products/Wedding Rings/Zirconia Stone + Gold Plated/ZirconiaStoneGold1.png"
-import ZirconiaStoneGold2 from "../assets/products/Wedding Rings/Zirconia Stone + Gold Plated/ZirconiaStoneGold2.png"
-import ZirconiaStoneGold3 from "../assets/products/Wedding Rings/Zirconia Stone + Gold Plated/ZirconiaStoneGold3.png"
+import ZirconiaStoneGold1 from "../assets/products/Wedding Rings/Zirconia Stone + Gold Plated/ZirconiaStoneGold1.jpg"
+import ZirconiaStoneGold2 from "../assets/products/Wedding Rings/Zirconia Stone + Gold Plated/ZirconiaStoneGold2.jpg"
+import ZirconiaStoneGold3 from "../assets/products/Wedding Rings/Zirconia Stone + Gold Plated/ZirconiaStoneGold3.jpg"
 import ZirconiaStoneGold4 from "../assets/products/Wedding Rings/Zirconia Stone + Gold Plated/ZirconiaStoneGold4.png"
 import ZirconiaStoneGold5 from "../assets/products/Wedding Rings/Zirconia Stone + Gold Plated/ZirconiaStoneGold5.png"
 import ZirconiaStoneGold6 from "../assets/products/Wedding Rings/Zirconia Stone + Gold Plated/ZirconiaStoneGold6.png"
