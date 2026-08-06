@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link, useNavigate} from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import products from "../data/products";
@@ -11,6 +11,8 @@ function Bracelets() {
   const [searchParams] = useSearchParams();
 
   const categoryFromUrl = searchParams.get("type");
+
+  const navigate = useNavigate();
 
   const [activeCategory, setActiveCategory] = useState(
     categoryFromUrl === "female"
@@ -304,24 +306,17 @@ function Bracelets() {
                 return (
 
                   <div
-                    key={product.id}
-                    style={styles.card}
-                    onMouseEnter={() =>
-                      setHoveredIndex(index)
-                    }
-                    onMouseLeave={() =>
-                      setHoveredIndex(null)
-                    }
-                  >
+  key={product.id}
+  style={{
+    ...styles.card,
+    cursor: "pointer",
+  }}
+  onMouseEnter={() => setHoveredIndex(index)}
+  onMouseLeave={() => setHoveredIndex(null)}
+  onClick={() => navigate(`/product/${product.id}`)}
+>
 
                     <div style={styles.imageWrapper}>
-
-                      {product.featured && (
-                        <span style={styles.badge}>
-                          Featured
-                        </span>
-                      )}
-
                       <img
                       loading="lazy"
                         src={product.image}
@@ -343,10 +338,6 @@ function Bracelets() {
                             : "translateY(10px)"
                         }}
                       >
-
-                        <button style={styles.addToCartBtn}>
-                          Add To Cart
-                        </button>
 
                       </div>
 

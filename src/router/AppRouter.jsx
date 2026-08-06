@@ -12,6 +12,16 @@ import ScrollToTop from "../components/ScrollToTop.jsx";
 import Necklace from "../pages/Necklace.jsx";
 import JewelrySet from "../pages/JewelrySet.jsx";
 import Checkout from "../pages/Checkout.jsx";
+import PaymentSuccess from "../pages/PaymentSuccess.jsx";
+import OrderHistory from "../pages/OrderHistory.jsx";
+import AdminLogin from "../admin/pages/AdminLogin.jsx";
+import Dashboard from "../admin/pages/Dashboard.jsx";
+import Orders from "../admin/pages/Orders.jsx";
+import Products from "../admin/pages/Products.jsx";
+import Customers from "../admin/pages/Customers.jsx";
+import Reports from "../admin/pages/Reports.jsx";
+import PaymentIssues from "../admin/pages/PaymentIssues.jsx";
+import Settings from "../admin/pages/Settings.jsx";
 
 function AppRouter() {
     return (
@@ -31,6 +41,16 @@ function AppRouter() {
                 <Route path="/jewelryset" element={<JewelrySet/>}/>
                 <Route path="/myorders" element={<MyOrders />} />
                 <Route path="/checkout" element={<Checkout/>}/>
+                <Route path="/payment-success" element={<PaymentSuccess/>}/>
+                <Route path="/myorders/history" element={<OrderHistory/>}/>
+                <Route path="/admin" element={<AdminLogin />} />
+                <Route path="/admin/dashboard" element={<Dashboard />} />
+                <Route path="/admin/orders" element={<Orders />} />
+                <Route path="/admin/products" element={<Products />} />
+                <Route path="/admin/customers" element={<Customers />} />
+                <Route path="/admin/reports" element={<Reports />} />
+                <Route path="/admin/settings" element={<Settings />} />
+                <Route path="/admin/payment-issues" element={<PaymentIssues />} />
             </Routes>
 
         </BrowserRouter>

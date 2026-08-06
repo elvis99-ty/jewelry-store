@@ -33,14 +33,9 @@ function FeaturedPieces() {
       className="w-full bg-[#f7f6f6] overflow-hidden"
       style={{ 
         fontFamily: "'Plus Jakarta Sans', sans-serif",
-        // Force an intentional margin-top block to clear your floating header completely
         marginTop: "120px" 
       }}
     >
-      {/* 
-        Main Alignment Wrapper: 
-        Using explicit side paddings to provide gorgeous breathing room matching your storefront view.
-      */}
       <div 
         className="mx-auto w-full"
         style={{ 
@@ -51,8 +46,6 @@ function FeaturedPieces() {
           paddingBottom: "100px"
         }}
       >
-
-        {/* Heading Component Grid Line */}
         <motion.div
   className="flex items-end justify-between"
   style={{ marginBottom: "48px" }}
@@ -72,15 +65,8 @@ function FeaturedPieces() {
               Featured Pieces
             </h2>
           </div>
-
-          {/* View All Action Nav */}
-          <button className="flex items-center gap-2 text-[#cda052] text-[14px] font-medium tracking-wide pb-1 transition-opacity hover:opacity-80">
-            View All
-            <span className="text-[13px]">➔</span>
-          </button>
         </motion.div>
 
-        {/* 16-Item Grid Container Frame */}
         <div 
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full"
           style={{ 
@@ -99,7 +85,7 @@ function FeaturedPieces() {
               viewport={{ once: true, amount: 0.2 }}
               >
               
-              {/* Product Card Container Box Frame */}
+         
               <div className="relative overflow-hidden aspect-square w-full bg-[#0d0d0d] flex items-center justify-center rounded-[20px]">
                   <motion.img
                   loading="lazy"
@@ -114,16 +100,10 @@ function FeaturedPieces() {
                  }}
                 />
 
-                {/* Bottom Fixed Action Button Tray */}
                 <div className="absolute left-4 right-4 bottom-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-20">
-                  <button className="w-full h-[44px] rounded-lg bg-[#cfa76e] text-white flex items-center justify-center gap-2 text-[13px] font-medium hover:bg-[#bfa065] transition-colors shadow-sm">
-                    <ShoppingBag size={14} />
-                    Add to Cart
-                  </button>
                 </div>
               </div>
 
-              {/* Spacing and Category Label Stack */}
               <div style={{ marginTop: "14px" }} className="pl-0.5">
                 <p className="uppercase tracking-[2.5px] text-[#9c9c9c] text-[11px] font-semibold">
                   {item.category}

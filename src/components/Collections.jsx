@@ -54,7 +54,6 @@ function Collections() {
       boxSizing: "border-box"
     },
     
-    // Header Style Typography
     headerBlock: { textAlign: "center", marginBottom: "64px" },
     subTitle: {
       color: "#cfa76e",
@@ -74,7 +73,6 @@ function Collections() {
       lineHeight: "1.1"
     },
 
-    // Horizontal Layout Wrapper Setup
     gridContainer: {
       display: "grid",
       gridTemplateColumns: "repeat(4, minmax(200px, 1fr))",
@@ -82,11 +80,10 @@ function Collections() {
       width: "100%"
     },
 
-    // Card Core Styling Architecture
     cardFrame: {
       position: "relative",
-      aspectRatio: "3/4", // Clean, elegant vertically tall aspect footprint
-      borderRadius: "20px", // Exact rounded smooth edge contour matching screenshot
+      aspectRatio: "3/4", 
+      borderRadius: "20px",
       overflow: "hidden",
       cursor: "pointer",
       backgroundColor: "#f5f5f5"
@@ -99,7 +96,6 @@ function Collections() {
       transition: "transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
     },
 
-    // Overlay Panel holding the text copy on top of the image container
     contentOverlay: {
       position: "absolute",
       inset: 0,
@@ -243,13 +239,11 @@ const [shuffledCollections] = useState(() => {
     <section style={styles.section}>
       <div style={styles.container}>
         
-        {/* HEADER */}
         <div style={styles.headerBlock}>
           <p style={styles.subTitle}>Browse By</p>
           <h2 style={styles.mainTitle}>Our Collections</h2>
         </div>
 
-                {/* COLLECTIONS ITEM RENDER ENGINE */}
         <div style={styles.gridContainer}>
           {shuffledCollections.map((item, index) => {
             const isHovered = hoveredIndex === index;

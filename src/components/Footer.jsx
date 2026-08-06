@@ -8,17 +8,13 @@ function Footer() {
       className="w-full bg-[#151521] text-white mt-[120px]"
       style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
     >
-      {/* Centered Alignment Main Stage Box Frame Wrapper */}
       <div 
         className="mx-auto w-full" 
         style={{ maxWidth: "1380px", paddingLeft: "48px", paddingRight: "48px", paddingTop:"50px", paddingBottom: "20px" }}
       >
-        {/* 3 Column Grid Stack - Formatted for Perfect Brand Alignment */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-10 items-start">
           
-          {/* LEFT COLUMN: Brand Manifesto Identity block */}
           <div className="flex flex-col items-start">
-            {/* Fixed Logo rendering by passing the imported reference object variable */}
             <Link to="/">
             <img
               src={logo}
@@ -35,7 +31,6 @@ function Footer() {
             </p>
           </div>
 
-          {/* CENTER COLUMN: Navigation Hierarchy */}
           <div className="flex flex-col md:pl-12">
             <h3 
               className="text-[24px] text-white tracking-wide"
@@ -61,15 +56,6 @@ function Footer() {
       className="hover:text-[#cda052] transition-colors duration-200"
     >
       Rings
-    </Link>
-  </li>
-
-  <li>
-    <Link
-      to="/chains"
-      className="hover:text-[#cda052] transition-colors duration-200"
-    >
-      Chains
     </Link>
   </li>
 
@@ -103,8 +89,6 @@ function Footer() {
 </ul>
             </ul>
           </div>
-
-          {/* RIGHT COLUMN: Contact Meta Block with Integrated Luxury Framework Icons */}
           <div className="flex flex-col">
             <h3 
               className="text-[24px] text-white tracking-wide"
@@ -130,13 +114,8 @@ function Footer() {
 
         </div>
 
-        {/* Space Before Horizontal Divider Rule Line Block */}
         <div style={{ height: "25px" }} />
-
-        {/* Flat Luxury Graphic Divider Grid Border */}
         <div className="w-full h-[1px] bg-[#1f1a16]" />
-
-        {/* Bottom copyright segment row layout */}
         <div style={{ paddingTop: "24px", paddingBottom: "28px" }}>
           <p className="text-center text-[#6e6861] text-[13px] tracking-wide">
             © 2026 Royal Rings & Jewelries Limited. All rights reserved.

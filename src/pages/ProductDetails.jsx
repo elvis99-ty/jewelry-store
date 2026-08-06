@@ -132,7 +132,9 @@ function ProductDetails() {
                 alt={product.name}
                 style={{
                   width: "100%",
-                  maxWidth: "380px",
+                  maxWidth: "280px",
+                  aspectRatio : "1/1",
+                  objectFit : "cover",
                   borderRadius: "20px",
                   boxShadow:
                     "0 10px 30px rgba(0,0,0,0.08)"

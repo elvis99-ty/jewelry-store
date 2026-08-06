@@ -260,10 +260,12 @@ function Shop() {
                 </button>
 
                 {/* EARRINGS */}
-                <button style={styles.inactivePill}>
+                <button
+                style={styles.inactivePill}
+                onClick={() => navigate("/earrings")}
+                >
                   Earrings
                 </button>
-
               </div>
 
             </div>
@@ -295,49 +297,56 @@ function Shop() {
 
                     onClick={() => {
 
-                      // RINGS
-                      if (product.category === "rings") {
+  // RINGS
+  if (product.category === "rings") {
+    navigate("/rings", {
+      state: {
+        subCategory: product.subCategory || "all",
+      },
+    });
+  }
 
-                        navigate("/rings", {
-                          state: {
-                            subCategory:
-                              product.subCategory || "all"
-                          }
-                        });
+  // BRACELETS
+  else if (
+    product.category === "female-bracelets" ||
+    product.category === "male-bracelets"
+  ) {
+    navigate("/bracelets");
+  }
 
-                      }
+  // NECKLACE
+  else if (
+    product.category === "Necklace"
+  ) {
+    navigate("/necklace");
+  }
 
-                      // BRACELETS
-                      else if (
-                        product.category === "female-bracelets" ||
-                        product.category === "male-bracelets"
-                      ) {
+  // EARRINGS
+  else if (
+    product.category === "ear-rings"
+  ) {
+    navigate("/earrings");
+  }
 
-                        navigate("/bracelets");
+  // JEWELRY SET
+  else if (
+    product.category === "jewelry-set"
+  ) {
+    navigate("/jewelryset");
+  }
 
-                      }
-
-                      // NECKLACE
-                      else if (
-                        product.category === "Necklace"
-                      ) {
-
-                        navigate("/necklace");
-
-                      }
-
-                    }}
+}}
                   >
 
                     {/* IMAGE */}
                     <div style={styles.imageWrapper}>
 
-                      {product.featured && (
+                      {/* {product.featured && (
                         <span style={styles.badge}>
                           Featured
                         </span>
                       )}
-
+ */}
                       <img
                         src={product.image}
                         alt={product.name}
@@ -357,12 +366,8 @@ function Shop() {
                           transform: isHovered
                             ? "translateY(0px)"
                             : "translateY(10px)"
-                        }}
+                       }}
                       >
-
-                        <button style={styles.addToCartBtn}>
-                          Add to Cart
-                        </button>
 
                       </div>
 

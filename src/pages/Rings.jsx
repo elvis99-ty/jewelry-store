@@ -528,13 +528,6 @@ const productVariants = {
 
                     {/* IMAGE */}
                     <div style={styles.imageWrapper}>
-
-                      {product.featured && (
-                        <span style={styles.badge}>
-                          Featured
-                        </span>
-                      )}
-
                       <img
                       loading="lazy"
                         src={product.image}
@@ -557,10 +550,6 @@ const productVariants = {
                             : "translateY(10px)"
                         }}
                       >
-
-                        <button style={styles.addToCartBtn}>
-                          Add To Cart
-                        </button>
 
                       </div>
 

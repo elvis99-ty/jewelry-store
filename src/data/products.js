@@ -203,7 +203,8 @@ const products = [
         name : "Ear Rings",
         category : "ear-rings",
         image : Earing1,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -211,7 +212,8 @@ const products = [
         name : "Ear Rings",
         category : "ear-rings",
         image : Earing2,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -219,7 +221,8 @@ const products = [
         name : "Ear Rings",
         category : "ear-rings",
         image : Earing3,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -227,7 +230,8 @@ const products = [
         name : "Ear Rings",
         category : "ear-rings",
         image : Earing4,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -235,7 +239,8 @@ const products = [
         name : "Ear Rings",
         category : "ear-rings",
         image : Earing5,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -243,7 +248,8 @@ const products = [
         name : "Ear Rings",
         category : "ear-rings",
         image : Earing6,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -251,7 +257,8 @@ const products = [
         name : "Ear Rings",
         category : "ear-rings",
         image : Earing7,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -259,7 +266,8 @@ const products = [
         name : "Ear Rings",
         category : "ear-rings",
         image : Earing8,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -267,7 +275,8 @@ const products = [
         name : "Ear Rings",
         category : "ear-rings",
         image : Earing9,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -275,7 +284,8 @@ const products = [
         name : "Ear Rings",
         category : "ear-rings",
         image : Earing10,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -285,7 +295,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-moissanite-stone",
         image : Engagement1,
-        featured : true
+        featured : true,
+        price : 70000
     },
     
 
@@ -296,7 +307,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-moissanite-stone",
         image : Engagement2,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -306,7 +318,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-moissanite-stone",
         image : Engagement3,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -316,7 +329,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-moissanite-stone",
         image : Engagement4,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -326,7 +340,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-moissanite-stone",
         image : Engagement5,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -336,7 +351,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-moissanite-stone",
         image : Engagement6,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -346,7 +362,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-moissanite-stone",
         image : Engagement7,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -356,7 +373,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-moissanite-stone",
         image : Engagement8,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -366,7 +384,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-moissanite-stone",
         image : Engagement9,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -376,7 +395,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-moissanite-stone",
         image : Engagement10,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -386,7 +406,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-zirconia-stone",
         image : Engagementa,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -396,7 +417,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-zirconia-stone",
         image : Engagementb,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -406,7 +428,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-zirconia-stone",
         image : Engagementc,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -416,7 +439,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-zirconia-stone",
         image : Engagementd,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -426,7 +450,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-zirconia-stone",
         image : Engagemente,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -436,7 +461,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-zirconia-stone",
         image : Engagementf,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -446,7 +472,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-zirconia-stone",
         image : Engagementg,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -456,7 +483,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-zirconia-stone",
         image : Engagementh,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -466,7 +494,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-zirconia-stone",
         image : Engagementi,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -476,7 +505,8 @@ const products = [
         subCategory : "engagement-rings",
         type : "s925-zirconia-stone",
         image : Engagementj,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -484,7 +514,8 @@ const products = [
         name : "Female Bracelets",
         category : "female-bracelets",
         image : FemaleBracelets1,
-        featured : true
+        featured : true,
+        price : 85000
     },
     
     {
@@ -492,7 +523,8 @@ const products = [
         name : "Female Bracelets",
         category : "female-bracelets",
         image : FemaleBracelets2,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -500,7 +532,8 @@ const products = [
         name : "Female Bracelets",
         category : "female-bracelets",
         image : FemaleBracelets3,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -508,7 +541,8 @@ const products = [
         name : "Female Bracelets",
         category : "female-bracelets",
         image : FemaleBracelets4,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -516,7 +550,8 @@ const products = [
         name : "Female Bracelets",
         category : "female-bracelets",
         image : FemaleBracelets5,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -524,7 +559,8 @@ const products = [
         name : "Female Bracelets",
         category : "female-bracelets",
         image : FemaleBracelets6,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -532,7 +568,8 @@ const products = [
         name : "Female Bracelets",
         category : "female-bracelets",
         image : FemaleBracelets7,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -540,7 +577,8 @@ const products = [
         name : "Female Bracelets",
         category : "female-bracelets",
         image : FemaleBracelets8,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -548,7 +586,8 @@ const products = [
         name : "Female Bracelets",
         category : "female-bracelets",
         image : FemaleBracelets9,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -556,7 +595,8 @@ const products = [
         name : "Female Bracelets",
         category : "female-bracelets",
         image : FemaleBracelets10,
-        featured : true
+        featured : true,
+        price : 85000
     },
 
     {
@@ -564,7 +604,8 @@ const products = [
         name : "Jewelry Set",
         category : "jewelry-sets",
         image : JewelrySet1,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -572,7 +613,8 @@ const products = [
         name : "Jewelry Set",
         category : "jewelry-sets",
         image : JewelrySet2,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -580,7 +622,8 @@ const products = [
         name : "Jewelry Set",
         category : "jewelry-sets",
         image : JewelrySet3,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -588,7 +631,8 @@ const products = [
         name : "Male Bracelets",
         category : "male-bracelets",
         image : MaleBracelets1,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -596,7 +640,8 @@ const products = [
         name : "Male Bracelets",
         category : "male-bracelets",
         image : MaleBracelets2,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -604,7 +649,8 @@ const products = [
         name : "Male Bracelets",
         category : "male-bracelets",
         image : MaleBracelets3,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -612,7 +658,8 @@ const products = [
         name : "Necklace",
         category : "necklace",
         image : Necklace1,
-        featured : true
+        featured : true,
+        price : 80000
     },
 
     {
@@ -620,7 +667,8 @@ const products = [
         name : "Necklace",
         category : "necklace",
         image : Necklace2,
-        featured : true
+        featured : true,
+        price : 80000
     },
 
     {
@@ -628,7 +676,8 @@ const products = [
         name : "Necklace",
         category : "necklace",
         image : Necklace3,
-        featured : true
+        featured : true,
+        price : 80000
     },
 
     {
@@ -636,7 +685,8 @@ const products = [
         name : "Necklace",
         category : "necklace",
         image : Necklace4,
-        featured : true 
+        featured : true,
+        price : 80000 
     },
 
     {
@@ -644,7 +694,8 @@ const products = [
         name : "Necklace",
         category : "necklace",
         image : Necklace6,
-        featured : true 
+        featured : true,
+        price : 80000 
     },
     
     {
@@ -652,7 +703,8 @@ const products = [
         name : "Necklace",
         category : "necklace",
         image : Necklace7,
-        featured : true 
+        featured : true,
+        price : 80000 
     },
     
 
@@ -661,7 +713,8 @@ const products = [
         name : "Necklace",
         category : "necklace",
         image : Necklace7,
-        featured : true
+        featured : true,
+        price : 80000
     },
 
     {
@@ -669,7 +722,8 @@ const products = [
         name : "Necklace",
         category : "necklace",
         image : Necklace8,
-        featured : true 
+        featured : true,
+        price : 80000 
     },
     
     {
@@ -677,7 +731,8 @@ const products = [
         name : "Necklace",
         category : "necklace",
         image : Necklace9,
-        featured : true 
+        featured : true,
+        price : 80000 
     },
     
     {
@@ -685,7 +740,8 @@ const products = [
         name : "Necklace",
         category : "necklace",
         image : Necklace10,
-        featured : true 
+        featured : true,
+        price : 80000 
     },
 
     {
@@ -695,7 +751,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black1,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -705,7 +762,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black2,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -715,7 +773,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black3,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -725,7 +784,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black4,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -735,7 +795,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black5,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -745,7 +806,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black6,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -755,7 +817,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black7,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -765,7 +828,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black8,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -775,7 +839,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black9,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -785,7 +850,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black10,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -795,7 +861,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black11,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -805,7 +872,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-black",
         image : S925Black12,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -815,7 +883,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-moissanite-stone",
         image : S925Moiss1,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -825,7 +894,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-moissanite-stone",
         image : S925Moiss2,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -835,7 +905,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-moissanite-stone",
         image : S925Moiss3,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -845,7 +916,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-moissanite-stone",
         image : S925Moiss4,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -855,7 +927,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-moissanite-stone",
         image : S925Moiss5,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -865,7 +938,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "s925-moissanite-stone",
         image : S925Moiss6,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -875,7 +949,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel1,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -885,7 +960,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel2,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -895,7 +971,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel3,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -905,7 +982,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel4,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -915,7 +993,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel5,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -925,7 +1004,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel6,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -935,7 +1015,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel7,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -945,7 +1026,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel8,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -955,7 +1037,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel9,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -965,7 +1048,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel10,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -975,7 +1059,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel11,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -985,7 +1070,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel12,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -995,7 +1081,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel13,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1005,7 +1092,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel14,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1015,7 +1103,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-gold",
         image : TitaniumSteel15,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1025,7 +1114,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-silver",
         image : TitaniumSteelSilver1,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1035,7 +1125,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-silver",
         image : TitaniumSteelSilver2,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1045,7 +1136,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-silver",
         image : TitaniumSteelSilver3,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1055,7 +1147,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-silver",
         image : TitaniumSteelSilver4,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1065,7 +1158,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-silver",
         image : TitaniumSteelSilver5,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1075,7 +1169,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-silver",
         image : TitaniumSteelSilver6,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1085,7 +1180,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-silver",
         image : TitaniumSteelSilver7,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1095,7 +1191,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-silver",
         image : TitaniumSteelSilver8,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1105,7 +1202,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-silver",
         image : TitaniumSteelSilver9,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1115,7 +1213,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "titanium-steel-silver",
         image : TitaniumSteelSilver10,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1125,7 +1224,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-black",
         image : ZirconiaBlack1,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1135,7 +1235,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-black",
         image : ZirconiaBlack2,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1145,7 +1246,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver1,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1155,7 +1257,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver2,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1165,7 +1268,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver3,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1175,7 +1279,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver4,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1185,7 +1290,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver5,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1195,7 +1301,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver6,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1205,7 +1312,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver7,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1215,7 +1323,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver8,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1225,7 +1334,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver9,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1235,7 +1345,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver10,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1245,7 +1356,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver11,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1255,7 +1367,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver12,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1265,7 +1378,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver12,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1275,7 +1389,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver13,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1285,7 +1400,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver14,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1295,7 +1411,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver15,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1305,7 +1422,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver16,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1315,7 +1433,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver17,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1325,7 +1444,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver18,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1335,7 +1455,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver19,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1345,7 +1466,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-silver-plated",
         image : ZirconiaStoneSilver20,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1355,7 +1477,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold1,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1365,7 +1488,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold2,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1375,7 +1499,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold3,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1385,7 +1510,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold4,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1395,7 +1521,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold5,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1405,7 +1532,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold6,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1415,7 +1543,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold7,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1425,7 +1554,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold8,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1435,7 +1565,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold9,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1445,7 +1576,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold10,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1455,7 +1587,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold11,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1465,7 +1598,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold12,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1475,7 +1609,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold13,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1485,7 +1620,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold14,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1495,7 +1631,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold15,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1505,7 +1642,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold16,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1515,7 +1653,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold17,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1525,7 +1664,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold17,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1535,7 +1675,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold18,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1545,7 +1686,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold19,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1555,7 +1697,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold20,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1565,7 +1708,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold21,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1575,7 +1719,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold22,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1585,7 +1730,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold23,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1595,7 +1741,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold24,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1605,7 +1752,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold25,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1615,7 +1763,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold26,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1625,7 +1774,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold27,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1635,7 +1785,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold28,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1645,7 +1796,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold29,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1655,7 +1807,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold30,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1665,7 +1818,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold31,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1675,7 +1829,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold32,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1685,7 +1840,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold33,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1695,7 +1851,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold34,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1705,7 +1862,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold35,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1715,7 +1873,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold36,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1725,7 +1884,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold37,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1735,7 +1895,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold38,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1745,7 +1906,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold39,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1755,7 +1917,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold40,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1765,7 +1928,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold41,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1775,7 +1939,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold42,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1785,7 +1950,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold43,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1795,7 +1961,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold44,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1805,7 +1972,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold45,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1815,7 +1983,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold46,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1825,7 +1994,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold47,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1835,7 +2005,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold48,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1845,7 +2016,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold49,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
     {
@@ -1855,7 +2027,8 @@ const products = [
         subCategory : "wedding-rings",
         type : "zirconia-gold-plated",
         image : ZirconiaStoneGold50,
-        featured : true
+        featured : true,
+        price : 70000
     },
 
 ]

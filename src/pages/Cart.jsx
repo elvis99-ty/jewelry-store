@@ -6,6 +6,13 @@ import { useCart } from "../context/CartContext";
 function Cart() {
   const navigate = useNavigate();
   const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, updateQuantity } = useCart();
+  const subtotal = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  const deliveryFee = 5000;
+  const total = subtotal + deliveryFee;
+
   const styles = {
     mainBg: { 
       backgroundColor: "#fdfcfc", 
@@ -414,28 +421,64 @@ function Cart() {
     borderRadius: "12px"
   }}
 >
-  <p
-    style={{
-      margin: 0,
-      fontSize: "13px",
-      color: "#777"
-    }}
-  >
-    Order Total
-  </p>
+  
+  <div
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "10px"
+  }}
+>
+  <span style={{color : "black"}}>Subtotal</span>
 
-  <h3
-    style={{
-      margin: "8px 0 0",
-      color: "#cfa76e",
-      fontSize: "28px",
-      fontWeight: "700"
-    }}
-  >
-    Coming Soon
-  </h3>
+  <strong style={{color : "black"}}>
+    ₦{subtotal.toLocaleString()}
+  </strong>
 </div>
 
+<div
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "20px"
+  }}
+>
+  <span style={{color : "black"}}>Delivery</span>
+
+  <strong style={{color : "black"}}>
+    ₦{deliveryFee.toLocaleString()}
+  </strong>
+</div>
+
+<hr
+  style={{
+    border: "none",
+    borderTop: "1px solid #e7e1d8",
+    marginBottom: "20px"
+  }}
+/>
+
+<p
+  style={{
+    margin: 0,
+    fontSize: "13px",
+    color: "#777"
+  }}
+>
+  Order Total
+</p>
+
+<h3
+  style={{
+    margin: "8px 0 0",
+    color: "#cfa76e",
+    fontSize: "30px",
+    fontWeight: "700"
+  }}
+>
+  ₦{total.toLocaleString()}
+</h3>
+</div>
         <hr
           style={{
             border: "none",

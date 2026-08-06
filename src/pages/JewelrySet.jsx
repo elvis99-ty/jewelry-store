@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import products from "../data/products";
@@ -6,6 +7,8 @@ import products from "../data/products";
 function JewelrySet() {
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  const navigate = useNavigate();
 
   const jewelryProducts = products.filter(
     product => product.category === "jewelry-sets"
@@ -184,24 +187,17 @@ function JewelrySet() {
                 return (
 
                   <div
-                    key={product.id}
-                    style={styles.card}
-                    onMouseEnter={() =>
-                      setHoveredIndex(index)
-                    }
-                    onMouseLeave={() =>
-                      setHoveredIndex(null)
-                    }
-                  >
+  key={product.id}
+  style={{
+    ...styles.card,
+    cursor: "pointer",
+  }}
+  onMouseEnter={() => setHoveredIndex(index)}
+  onMouseLeave={() => setHoveredIndex(null)}
+  onClick={() => navigate(`/product/${product.id}`)}
+>
 
                     <div style={styles.imageWrapper}>
-
-                      {product.featured && (
-                        <span style={styles.badge}>
-                          Featured
-                        </span>
-                      )}
-
                       <img
                       loading="lazy"
                         src={product.image}
@@ -223,10 +219,6 @@ function JewelrySet() {
                             : "translateY(10px)"
                         }}
                       >
-
-                        <button style={styles.addToCartBtn}>
-                          Add To Cart
-                        </button>
 
                       </div>
 

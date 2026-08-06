@@ -15,7 +15,6 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full bg-[#fdfcfc] py-5 md:px-12 md:py-14 flex items-center justify-between md:justify-relative">
 
-      {/* Logo Container */}
       <div className="w-[120px] md:w-[160px] flex justify-start md:justify-end pl-6 md:pl-0">
         <Link to="/">
           <img
@@ -25,8 +24,6 @@ function Navbar() {
           />
         </Link>
       </div>
-
-      {/* Nav Links - Desktop only (Hidden on mobile) */}
       <div className="hidden md:flex flex-1 justify-center">
         <div className="flex items-center gap-12 text-[15px] uppercase tracking-wide text-[#6b6b6b] whitespace-nowrap">
           <Link to="/" className="text-[#6b6b6b] hover:text-[#d4af37] transition duration-300">HOME</Link>
@@ -38,8 +35,6 @@ function Navbar() {
           <Link to="/myorders" className="text-[#6b6b6b] hover:text-[#d4af37] transition duration-300">MY ORDERS</Link>
         </div>
       </div>
-
-      {/* Desktop Cart Icon Container (Hidden on mobile) */}
       <div className="hidden md:flex w-[80px] justify-start relative">
   <Link to="/cart" className="relative">
     
@@ -83,10 +78,7 @@ function Navbar() {
 
   </Link>
 </div>
-      {/* Mobile Right Icons Group */}
-      {/* Changing mr-8 to mr-12 or mr-16 will push the icons further left */}
       <div className="flex items-center gap-6 md:hidden mr-8">
-        {/* Mobile Cart */}
         <Link to="/cart">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -103,8 +95,6 @@ function Navbar() {
             />
           </svg>
         </Link>
-
-        {/* Hamburger Toggle */}
         <button 
           onClick={() => setIsMobileMenuOpen(true)}
           className="text-black focus:outline-none"
@@ -121,8 +111,6 @@ function Navbar() {
           </svg>
         </button>
       </div>
-
-      {/* Full Overlay Mobile Menu Side-Drawer */}
       <div 
         className={`fixed inset-0 z-50 bg-[#fdfcfc] transition-transform duration-300 ease-in-out md:hidden flex flex-col ${
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
@@ -132,8 +120,6 @@ function Navbar() {
           <div className="w-[120px] pl-6">
             <img src={logo} alt="Logo" className="w-full h-auto object-contain" />
           </div>
-
-          {/* Matches the same left margin setting as the outer bar header structure */}
           <div className="flex items-center gap-6 mr-8">
             <Link to="/cart" onClick={() => setIsMobileMenuOpen(false)} className="text-black">
               <svg

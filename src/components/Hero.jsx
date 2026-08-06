@@ -4,17 +4,12 @@ function Hero() {
   return (
     <section className="relative w-full h-screen overflow-hidden">
 
-      {/* Background Image */}
       <img
         src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=1974&auto=format&fit=crop"
         alt="Jewelry"
         className="absolute inset-0 w-full h-full object-cover"
       />
-
-      {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/60"></div>
-
-      {/* Hero Content */}
       <div className="relative z-10 flex items-center justify-center h-full px-6">
 
         <motion.div
@@ -41,8 +36,6 @@ function Hero() {
             </p>
 
           </div>
-
-          {/* Heading Block */}
           <div className="w-full leading-[0.92]">
 
             <h1 className="text-[88px] font-light text-white">
@@ -58,8 +51,6 @@ function Hero() {
             </h1>
 
           </div>
-
-          {/* Paragraph */}
           <div className="w-full mt-8">
 
             <p className="text-gray-300 text-[18px] leading-[46px] font-light">
@@ -71,11 +62,7 @@ function Hero() {
             </p>
 
           </div>
-
-          {/* Buttons */}
           <div className="w-full flex items-center gap-5 mt-9">
-
-            {/* Shop Collection */}
             <button className="w-[200px] h-[42px] bg-[#f59e0b] hover:bg-[#c29d2c] transition-all duration-300 rounded-full flex items-center justify-center gap-4 text-[13px] font-semibold text-black">
 
               Shop Collection
@@ -85,8 +72,6 @@ function Hero() {
               </span>
 
             </button>
-
-            {/* View Rings */}
             <button className="w-[200px] h-[42px] bg-[#2f2f2f]/70 hover:bg-[#3a3a3a] transition-all duration-300 rounded-full border border-gray-500 backdrop-blur-sm text-[13px] text-white">
 
               View Rings
