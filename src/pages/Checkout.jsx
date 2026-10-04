@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useCart } from "../context/CartContext";
 import { createOrder } from "../api/orderApi";
 import { initializePayment } from "../api/paymentApi";
+import { getStoreSettings } from "../api/settingsApi";
+import { ShieldCheck, CreditCard, Landmark, Smartphone } from "lucide-react";
 
 function Checkout() {
   const { cartItems } = useCart();
   const [errors, setErrors] = useState({});
   const [deliveryMethod, setDeliveryMethod] = useState("delivery");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const [formData, setFormData] = useState({
     contact: "",
@@ -20,6 +23,33 @@ function Checkout() {
     state: "",
   });
 
+  const [storeSettings, setStoreSettings] = useState({
+    deliveryFee: 5000,
+    pickupAddressLine: "70 International Airport Road",
+    pickupCityState: "Lagos State, Nigeria",
+  });
+
+  useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        const data = await getStoreSettings();
+        if (data.success && data.settings) {
+          setStoreSettings({
+            deliveryFee: data.settings.deliveryFee ?? 5000,
+            pickupAddressLine:
+              data.settings.pickupAddressLine || "70 International Airport Road",
+            pickupCityState:
+              data.settings.pickupCityState || "Lagos State, Nigeria",
+          });
+        }
+      } catch (err) {
+        // Fall back gracefully to defaults
+      }
+    };
+
+    loadSettings();
+  }, []);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -28,13 +58,11 @@ function Checkout() {
   };
 
   const handleCheckout = async () => {
-    console.log("checkout clicked");
-
   if (!validateForm()) {
-    console.log("Validation failed");
     return;
   }
-  console.log("Validation passed");
+
+  setIsProcessing(true);
 
   try {
     const orderData = {
@@ -63,22 +91,18 @@ function Checkout() {
       totalAmount: total,
     };
 
-    console.log(orderData);
-
     const orderResponse = await createOrder(orderData);
 
-console.log(orderResponse);
+    const paymentResponse = await initializePayment({
+      orderId : orderResponse.order._id,
+      email: formData.contact,
+    });
 
-const paymentResponse = await initializePayment({
-  orderId : orderResponse.order._id,
-  email: formData.contact,
-  amount: total,
-});
-  window.location.href = paymentResponse.data.authorization_url;
+    window.location.href = paymentResponse.data.authorization_url;
   } catch (error) {
     console.error(error);
-
-    alert("Unable to save order.");
+    setIsProcessing(false);
+    alert("Unable to process your order. Please try again.");
   }
 };
 
@@ -112,7 +136,6 @@ const paymentResponse = await initializePayment({
       }
     }
 
-    console.log(newErrors);
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -127,11 +150,18 @@ const paymentResponse = await initializePayment({
     0
   );
 
-  const deliveryFee = deliveryMethod === "pickup" ? 0 : 5000;
+  const deliveryFee = deliveryMethod === "pickup" ? 0 : (storeSettings.deliveryFee ?? 5000);
   const total = subtotal + deliveryFee;
 
   return (
     <>
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+
       <Navbar />
 
       <main
@@ -327,9 +357,9 @@ const paymentResponse = await initializePayment({
                     ROYAL RINGS JEWELRIES
                   </strong>
                   <p style={{ margin: 0, lineHeight: "1.8", color: "#555" }}>
-                    70 International Airport Road
+                    {storeSettings.pickupAddressLine || "70 International Airport Road"}
                     <br />
-                    Lagos State, Nigeria
+                    {storeSettings.pickupCityState || "Lagos State, Nigeria"}
                   </p>
                 </div>
               </div>
@@ -339,11 +369,77 @@ const paymentResponse = await initializePayment({
             <h2 style={{ marginTop: "40px", marginBottom: "20px", color: "#111" }}>
               Payment Method
             </h2>
-            <div style={{ border: "1px solid #e7e1d8", borderRadius: "12px", padding: "20px" }}>
-              <strong>Paystack</strong>
-              <p style={{ marginTop: "10px", color: "#777", fontSize: "14px" }}>
-                You'll pay securely via card or bank transfer using Paystack layers.
+            <div
+              style={{
+                border: "1px solid #e7e1d8",
+                borderRadius: "16px",
+                padding: "24px",
+                background: "linear-gradient(135deg, #fdfcfc 0%, #faf6ef 100%)",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
+                <ShieldCheck size={20} color="#cfa76e" />
+                <strong style={{ color: "#111", fontSize: "16px" }}>
+                  Secured by Paystack
+                </strong>
+              </div>
+
+              <p style={{ color: "#777", fontSize: "14px", marginBottom: "18px", lineHeight: "1.6" }}>
+                You'll be redirected to a secure Paystack checkout to complete your payment.
               </p>
+
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    backgroundColor: "#fff",
+                    border: "1px solid #e7e1d8",
+                    borderRadius: "9999px",
+                    padding: "6px 14px",
+                    fontSize: "13px",
+                    color: "#555",
+                  }}
+                >
+                  <CreditCard size={14} color="#cfa76e" />
+                  Card
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    backgroundColor: "#fff",
+                    border: "1px solid #e7e1d8",
+                    borderRadius: "9999px",
+                    padding: "6px 14px",
+                    fontSize: "13px",
+                    color: "#555",
+                  }}
+                >
+                  <Landmark size={14} color="#cfa76e" />
+                  Bank Transfer
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    backgroundColor: "#fff",
+                    border: "1px solid #e7e1d8",
+                    borderRadius: "9999px",
+                    padding: "6px 14px",
+                    fontSize: "13px",
+                    color: "#555",
+                  }}
+                >
+                  <Smartphone size={14} color="#cfa76e" />
+                  USSD
+                </div>
+              </div>
             </div>
           </div>
 
@@ -424,19 +520,37 @@ const paymentResponse = await initializePayment({
 
             <button
               onClick={handleCheckout}
+              disabled={isProcessing}
               style={{
                 width: "100%",
                 height: "55px",
                 marginTop: "25px",
                 border: "none",
                 borderRadius: "12px",
-                backgroundColor: "#cfa76e",
+                backgroundColor: isProcessing ? "#e0cba8" : "#cfa76e",
                 color: "#fff",
                 fontWeight: "600",
-                cursor: "pointer",
+                cursor: isProcessing ? "default" : "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
               }}
             >
-              CONTINUE TO PAYMENT
+              {isProcessing && (
+                <span
+                  style={{
+                    width: "18px",
+                    height: "18px",
+                    border: "2px solid rgba(255,255,255,0.5)",
+                    borderTopColor: "#fff",
+                    borderRadius: "50%",
+                    display: "inline-block",
+                    animation: "spin 0.8s linear infinite",
+                  }}
+                />
+              )}
+              {isProcessing ? "Processing..." : "CONTINUE TO PAYMENT"}
             </button>
           </div>
         </div>

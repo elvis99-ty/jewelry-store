@@ -2,17 +2,33 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import products from "../data/products";
+import { getProducts } from "../api/productApi";
+import { ProductGridSkeleton } from "../components/LuxuryLoader";
 
 function Earrings() {
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [earringProducts, setEarringProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
-  const earringProducts = products.filter(
-    product => product.category === "ear-rings"
-  );
+  useEffect(() => {
+    const loadEarrings = async () => {
+      try {
+        setLoading(true);
+        const fetched = await getProducts("ear-rings");
+        setEarringProducts(fetched);
+      } catch (error) {
+        console.error(error);
+        setEarringProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadEarrings();
+  }, []);
 
   const styles = {
     mainBg: {
@@ -162,6 +178,7 @@ function Earrings() {
     }
   };
 
+
   return (
     <>
       <Navbar />
@@ -192,85 +209,76 @@ function Earrings() {
 
           <div style={styles.container}>
 
-            <div style={styles.grid}>
+            {loading ? (
+              <ProductGridSkeleton count={8} />
+            ) : earringProducts.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "60px 0", color: "#78716C" }}>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "28px", color: "#1C1917", margin: "0 0 10px" }}>
+                  No Earrings Found
+                </p>
+                <p style={{ margin: 0, fontSize: "15px" }}>No pieces currently available in this category.</p>
+              </div>
+            ) : (
+              <div style={styles.grid}>
+                {earringProducts.map((product, index) => {
+                  const isHovered = hoveredIndex === index;
 
-              {earringProducts.map((product, index) => {
-
-                const isHovered = hoveredIndex === index;
-
-                return (
-
-                  <div
-  key={product.id}
-  style={{
-    ...styles.card,
-    cursor: "pointer",
-  }}
-  onMouseEnter={() => setHoveredIndex(index)}
-  onMouseLeave={() => setHoveredIndex(null)}
-  onClick={() => navigate(`/product/${product.id}`)}
->
-
-                    <div style={styles.imageWrapper}>
-
-                      {/* {product.featured && (
-                        <span style={styles.badge}>
-                          Featured
-                        </span>
-                      )} */}
-
-                      <img
-                      loading="lazy"
-                        src={product.image}
-                        alt={product.name}
-                        style={{
-                          ...styles.image,
-                          transform:
-                            isHovered
+                  return (
+                    <div
+                      key={product.id}
+                      style={{
+                        ...styles.card,
+                        cursor: "pointer",
+                      }}
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      onClick={() => navigate(`/product/${product.id}`)}
+                    >
+                      <div style={styles.imageWrapper}>
+                        <img
+                          loading="lazy"
+                          src={product.image}
+                          alt={product.name}
+                          style={{
+                            ...styles.image,
+                            transform: isHovered
                               ? "scale(1.05)"
                               : "scale(1)"
-                        }}
-                      />
+                          }}
+                        />
 
-                      <div
-                        style={{
-                          ...styles.cartOverlay,
-                          opacity:
-                            isHovered ? 1 : 0,
-                          transform:
-                            isHovered
+                        <div
+                          style={{
+                            ...styles.cartOverlay,
+                            opacity: isHovered ? 1 : 0,
+                            transform: isHovered
                               ? "translateY(0)"
                               : "translateY(10px)"
-                        }}
-                      >
+                          }}
+                        >
+                        </div>
                       </div>
 
+                      <div style={styles.infoContainer}>
+                        <span style={styles.category}>
+                          Ear Rings
+                        </span>
+
+                        <h3 style={styles.productTitle}>
+                          {product.name}
+                        </h3>
+
+                        <p style={styles.price}>
+                          {product.price
+                            ? `₦${product.price.toLocaleString()}`
+                            : "Luxury Piece"}
+                        </p>
+                      </div>
                     </div>
-
-                    <div style={styles.infoContainer}>
-
-                      <span style={styles.category}>
-                        Ear Rings
-                      </span>
-
-                      <h3 style={styles.productTitle}>
-                        {product.name}
-                      </h3>
-
-                      <p style={styles.price}>
-                        {product.price
-                          ? `₦${product.price.toLocaleString()}`
-                          : "Luxury Piece"}
-                      </p>
-
-                    </div>
-
-                  </div>
-
-                );
-              })}
-
-            </div>
+                  );
+                })}
+              </div>
+            )}
 
           </div>
 

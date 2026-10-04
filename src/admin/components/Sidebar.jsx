@@ -148,8 +148,9 @@ function Sidebar() {
 
       <button
         onClick={() => {
+          sessionStorage.removeItem("adminToken");
           sessionStorage.removeItem("adminLoggedIn");
-          navigate("/admin");
+          navigate("/admin", { replace: true });
         }}
         style={{
           display: "flex",

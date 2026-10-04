@@ -1,13 +1,33 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ShoppingBag } from "lucide-react";
-import products from "../data/products";
+import { getProducts } from "../api/productApi";
 import { motion } from "framer-motion";
+import { ProductGridSkeleton } from "./LuxuryLoader";
 
 function FeaturedPieces() {
 
-  const items = [...products]
-  .sort(() => 0.5 - Math.random())
-  .slice(0,28);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadFeatured = async () => {
+      try {
+        setLoading(true);
+        const fetched = await getProducts();
+        const shuffled = [...fetched]
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 28);
+        setItems(shuffled);
+      } catch (error) {
+        console.error(error);
+        setItems([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadFeatured();
+  }, []);
 
   const cardVariants = {
   hidden: {
@@ -27,7 +47,7 @@ function FeaturedPieces() {
     }
   })
 };
-  
+
   return (
     <section 
       className="w-full bg-[#f7f6f6] overflow-hidden"
@@ -37,7 +57,7 @@ function FeaturedPieces() {
       }}
     >
       <div 
-        className="mx-auto w-full"
+        className="mx-auto w-full" 
         style={{ 
           maxWidth: "1380px", 
           paddingLeft: "48px", 
@@ -67,13 +87,16 @@ function FeaturedPieces() {
           </div>
         </motion.div>
 
-        <div 
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full"
-          style={{ 
-            columnGap: "28px", 
-            rowGap: "44px" 
-          }}
-        >
+        {loading ? (
+          <ProductGridSkeleton count={8} />
+        ) : (
+          <div 
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full"
+            style={{ 
+              columnGap: "28px", 
+              rowGap: "44px" 
+            }}
+          >
               {items.map((item, index) => (
               <motion.div
               key={item.id}
@@ -86,7 +109,7 @@ function FeaturedPieces() {
               >
               
          
-              <div className="relative overflow-hidden aspect-square w-full bg-[#0d0d0d] flex items-center justify-center rounded-[20px]">
+              <div className="relative overflow-hidden aspect-square w-full bg-[#F5F2EC] flex items-center justify-center rounded-[20px]">
                   <motion.img
                   loading="lazy"
                   src={item.image}
@@ -109,10 +132,10 @@ function FeaturedPieces() {
                   {item.category}
                 </p>
               </div>
-
             </motion.div>
           ))}
         </div>
+      )}
 
       </div>
     </section>

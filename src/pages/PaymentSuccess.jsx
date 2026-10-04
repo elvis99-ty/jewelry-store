@@ -1,234 +1,286 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { getMyOrders } from "../services/orderService";
+import { verifyPayment } from "../api/paymentApi";
+import { ShieldCheck, CreditCard, Landmark, Smartphone } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
-function OrderHistory() {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+function PaymentSuccess() {
+  const [searchParams] = useSearchParams();
+  const { clearCart } = useCart();
 
-  const [email, setEmail] = useState("");
-
-  const [view, setView] = useState("summary");
-
-  const [selectedOrder, setSelectedOrder] = useState(null);
-
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const ordersPerPage = 10;
+  const [status, setStatus] = useState("verifying"); // "verifying" | "success" | "failed"
+  const [orderInfo, setOrderInfo] = useState(null);
 
   useEffect(() => {
-    loadOrders();
-  }, []);
+    const reference =
+      searchParams.get("reference") || searchParams.get("trxref");
 
-  const loadOrders = async () => {
-    try {
-      const token = sessionStorage.getItem("orderToken");
-
-      if (!token) {
-        setLoading(false);
-        return;
-      }
-
-      const response = await getMyOrders(token);
-
-      const fetchedOrders = response.orders || [];
-
-      setOrders(fetchedOrders);
-
-      if (fetchedOrders.length > 0) {
-        setEmail(
-          fetchedOrders[0]?.customer?.email ||
-            fetchedOrders[0]?.customerEmail ||
-            ""
-        );
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
+    if (!reference) {
+      setStatus("failed");
+      return;
     }
-  };
 
-  const totalSpent = useMemo(() => {
-    return orders.reduce(
-      (sum, order) => sum + Number(order.totalAmount || 0),
-      0
-    );
-  }, [orders]);
+    const confirmPayment = async () => {
+      try {
+        const response = await verifyPayment(reference);
 
-  const totalPages = Math.ceil(orders.length / ordersPerPage);
+        if (response?.data?.status === "success") {
+          setOrderInfo({
+            reference: response.data.reference,
+            amount: response.data.amount / 100,
+          });
+          setStatus("success");
+          clearCart();
+        } else {
+          setStatus("failed");
+        }
+      } catch (error) {
+        console.error(error);
+        setStatus("failed");
+      }
+    };
 
-  const currentOrders = useMemo(() => {
-    const start = (currentPage - 1) * ordersPerPage;
+    confirmPayment();
+  }, [searchParams]);
 
-    return orders.slice(start, start + ordersPerPage);
-  }, [orders, currentPage]);
-
-  const handleOpenOrder = (order) => {
-    setSelectedOrder(order);
-    setView("detail");
-  };
-
-  const handleViewOrders = () => {
-    setView("list");
-  };
-
-  const handleViewSpent = () => {
-    setView("list");
-  };
-
-  const handleBackToSummary = () => {
-    setSelectedOrder(null);
-    setView("summary");
-  };
-
-  const handleBackToList = () => {
-    setView("list");
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#FCFBF9] flex items-center justify-center">
-        <div className="w-14 h-14 rounded-full border-4 border-[#ECE7DF] border-t-[#C89B2C] animate-spin"></div>
-      </div>
-    );
-  }
-
-    return (
-    <div className="min-h-screen bg-[#FCFBF9] flex flex-col">
+  return (
+    <>
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
 
       <Navbar />
 
-      <main className="flex-1">
-
-        {/* Header */}
-
-        <section className="border-b border-[#ECE7DF] bg-white">
-
-          <div className="max-w-7xl mx-auto px-8 py-16">
-
-            <div className="max-w-3xl">
-
-              <span className="uppercase tracking-[0.35em] text-[#C89B2C] text-[11px] font-semibold">
-                ROYAL RINGS
-              </span>
-
+      <main
+        style={{
+          backgroundColor: "#fdfcfc",
+          minHeight: "80vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "60px 20px",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "520px",
+            width: "100%",
+            backgroundColor: "#fff",
+            border: "1px solid #e7e1d8",
+            borderRadius: "24px",
+            padding: "50px 40px",
+            textAlign: "center",
+          }}
+        >
+          {status === "verifying" && (
+            <>
+              <div
+                style={{
+                  width: "56px",
+                  height: "56px",
+                  border: "4px solid #f0ebe4",
+                  borderTopColor: "#cfa76e",
+                  borderRadius: "50%",
+                  margin: "0 auto 28px",
+                  animation: "spin 0.9s linear infinite",
+                }}
+              />
               <h1
-                className="mt-4 text-[#1A1A1A]"
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: "clamp(48px,6vw,74px)",
-                  lineHeight: 1.05,
-                  fontWeight: 400,
+                  fontSize: "32px",
+                  color: "#111",
+                  marginBottom: "12px",
                 }}
               >
-                Purchase History
+                Confirming Your Payment
               </h1>
-
-              <p className="mt-4 text-[#7D766F] text-[17px] leading-8 max-w-xl">
-                View and manage every Royal Rings purchase made using your
-                verified email address.
+              <p style={{ color: "#777", fontSize: "15px" }}>
+                Please wait a moment, this won't take long.
               </p>
+            </>
+          )}
 
-            </div>
-
-            {/* Customer Card */}
-
-            <div className="mt-12">
-
+          {status === "success" && (
+            <>
               <div
-                className="
-                  bg-white
-                  border
-                  border-[#ECE7DF]
-                  rounded-[28px]
-                  shadow-[0_12px_35px_rgba(0,0,0,.04)]
-                  p-8
-                  max-w-xl
-                "
+                style={{
+                  width: "72px",
+                  height: "72px",
+                  borderRadius: "50%",
+                  backgroundColor: "#e9f5ec",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 24px",
+                  fontSize: "36px",
+                  color: "#2e7d32",
+                }}
               >
-
-                <p className="uppercase tracking-[0.25em] text-[#A89F91] text-[11px] font-semibold">
-                  Verified Customer
-                </p>
-
-                <h3
-                  className="mt-3 text-[#1A1A1A]"
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: 500,
-                  }}
-                >
-                  {email}
-                </h3>
-
-                <div className="mt-5 flex items-center gap-3">
-
-                  <div className="w-9 h-9 rounded-full bg-[#FBF7EF] flex items-center justify-center">
-
-                    ✓
-
-                  </div>
-
-                  <p className="text-[#7D766F]">
-                    Your purchase history has been securely verified.
-                  </p>
-
-                </div>
-
+                ✓
               </div>
 
-            </div>
+              <h1
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "36px",
+                  color: "#111",
+                  marginBottom: "12px",
+                }}
+              >
+                Payment Successful
+              </h1>
 
-          </div>
+              <p style={{ color: "#777", fontSize: "15px", marginBottom: "28px" }}>
+                Thank you for your order — a confirmation has been recorded and your items are being prepared.
+              </p>
 
-        </section>
+              {orderInfo && (
+                <div
+                  style={{
+                    backgroundColor: "#faf6ef",
+                    border: "1px solid #e7d6b5",
+                    borderRadius: "14px",
+                    padding: "20px",
+                    marginBottom: "28px",
+                    textAlign: "left",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
+                    <span style={{ color: "#777", fontSize: "14px" }}>Reference</span>
+                    <strong style={{ color: "#111", fontSize: "14px" }}>{orderInfo.reference}</strong>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span style={{ color: "#777", fontSize: "14px" }}>Amount Paid</span>
+                    <strong style={{ color: "#cfa76e", fontSize: "16px" }}>
+                      ₦{orderInfo.amount.toLocaleString()}
+                    </strong>
+                  </div>
+                </div>
+              )}
 
-        {/* Content */}
-
-        <section className="max-w-7xl mx-auto w-full px-8 py-14">
-
-          {view === "summary" && (
-
-            <SummaryCards
-              totalOrders={orders.length}
-              totalSpent={totalSpent}
-              onViewOrders={handleViewOrders}
-              onViewSpent={handleViewSpent}
-            />
-
+              <div style={{ display: "flex", gap: "12px" }}>
+                <Link
+                  to="/myorders"
+                  style={{
+                    flex: 1,
+                    height: "50px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "12px",
+                    border: "1px solid #cfa76e",
+                    color: "#cfa76e",
+                    textDecoration: "none",
+                    fontWeight: "600",
+                  }}
+                >
+                  View Orders
+                </Link>
+                <Link
+                  to="/shop"
+                  style={{
+                    flex: 1,
+                    height: "50px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "12px",
+                    backgroundColor: "#cfa76e",
+                    color: "#fff",
+                    textDecoration: "none",
+                    fontWeight: "600",
+                  }}
+                >
+                  Continue Shopping
+                </Link>
+              </div>
+            </>
           )}
 
-          {view === "list" && (
+          {status === "failed" && (
+            <>
+              <div
+                style={{
+                  width: "72px",
+                  height: "72px",
+                  borderRadius: "50%",
+                  backgroundColor: "#fdecea",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 24px",
+                  fontSize: "36px",
+                  color: "#d32f2f",
+                }}
+              >
+                ✕
+              </div>
 
-            <OrderList
-              orders={currentOrders}
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setCurrentPage}
-              onSelectOrder={handleOpenOrder}
-            />
+              <h1
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "32px",
+                  color: "#111",
+                  marginBottom: "12px",
+                }}
+              >
+                We Couldn't Confirm Your Payment
+              </h1>
 
+              <p style={{ color: "#777", fontSize: "15px", marginBottom: "28px" }}>
+                If you were charged, please don't worry — reach out to us with your reference and we'll sort it out. If the payment didn't go through, you can try again.
+              </p>
+
+              <div style={{ display: "flex", gap: "12px" }}>
+                <Link
+                  to="/cart"
+                  style={{
+                    flex: 1,
+                    height: "50px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "12px",
+                    border: "1px solid #cfa76e",
+                    color: "#cfa76e",
+                    textDecoration: "none",
+                    fontWeight: "600",
+                  }}
+                >
+                  Back to Cart
+                </Link>
+                <Link
+                  to="/"
+                  style={{
+                    flex: 1,
+                    height: "50px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "12px",
+                    backgroundColor: "#cfa76e",
+                    color: "#fff",
+                    textDecoration: "none",
+                    fontWeight: "600",
+                  }}
+                >
+                  Go Home
+                </Link>
+              </div>
+            </>
           )}
-
-          {view === "detail" && (
-
-            <OrderDetails
-              order={selectedOrder}
-              onBack={handleBackToList}
-            />
-
-          )}
-
-        </section>
-
+        </div>
       </main>
 
       <Footer />
-
-    </div>
+    </>
   );
 }
 
-export default OrderHistory;
+export default PaymentSuccess;

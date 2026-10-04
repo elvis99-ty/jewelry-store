@@ -1,20 +1,56 @@
-import { Bell, Menu, ChevronDown } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { Bell, Menu, ChevronDown, ExternalLink, LogOut, Settings as SettingsIcon } from "lucide-react";
 
 function Topbar() {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const getPageTitle = () => {
+    const p = location.pathname;
+    if (p.includes("/orders")) return "Orders Management";
+    if (p.includes("/products")) return "Product Inventory";
+    if (p.includes("/customers")) return "Customers Directory";
+    if (p.includes("/reports")) return "Analytics & Reports";
+    if (p.includes("/payment-issues")) return "Payment Issues & Reconciliation";
+    if (p.includes("/settings")) return "Store Settings & Logistics";
+    return "Dashboard Overview";
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("adminToken");
+    sessionStorage.removeItem("adminLoggedIn");
+    navigate("/admin", { replace: true });
+  };
+
   return (
     <header
       style={{
-        height: "78px",
+        height: "76px",
         background: "#FFFFFF",
         borderBottom: "1px solid #ECE7DF",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         padding: "0 32px",
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
       }}
     >
       {/* Left Side */}
-
       <div
         style={{
           display: "flex",
@@ -22,88 +58,169 @@ function Topbar() {
           gap: "18px",
         }}
       >
-        <Menu
-          size={22}
-          color="#555"
-          style={{ cursor: "pointer" }}
-        />
-
         <h3
           style={{
             margin: 0,
-            fontSize: "22px",
+            fontSize: "20px",
             color: "#1C1917",
             fontWeight: "600",
+            fontFamily: "'Plus Jakarta Sans', sans-serif",
           }}
         >
-          Dashboard
+          {getPageTitle()}
         </h3>
       </div>
 
       {/* Right Side */}
-
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "26px",
+          gap: "22px",
         }}
       >
-        <div
+        {/* Live Store Link */}
+        <a
+          href="/"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
-            position: "relative",
-            cursor: "pointer",
-          }}
-        >
-          <Bell size={22} color="#444" />
-
-          <span
-            style={{
-              position: "absolute",
-              right: "-2px",
-              top: "-4px",
-              width: "8px",
-              height: "8px",
-              background: "#C89B2C",
-              borderRadius: "50%",
-            }}
-          />
-        </div>
-
-        <div
-          style={{
-            display: "flex",
+            display: "inline-flex",
             alignItems: "center",
-            gap: "10px",
-            cursor: "pointer",
+            gap: "6px",
+            color: "#78716C",
+            fontSize: "13px",
+            fontWeight: "500",
+            textDecoration: "none",
+            padding: "6px 12px",
+            borderRadius: "8px",
+            border: "1px solid #EBE6DE",
+            transition: "all 0.2s ease",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = "#C89B2C";
+            e.currentTarget.style.borderColor = "#C89B2C";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = "#78716C";
+            e.currentTarget.style.borderColor = "#EBE6DE";
           }}
         >
+          <span>Live Store</span>
+          <ExternalLink size={13} />
+        </a>
+
+        {/* Admin Profile Dropdown */}
+        <div style={{ position: "relative" }} ref={dropdownRef}>
           <div
+            onClick={() => setDropdownOpen(!dropdownOpen)}
             style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "50%",
-              background: "#1C1917",
-              color: "#FFF",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
-              fontWeight: "700",
+              gap: "10px",
+              cursor: "pointer",
+              padding: "4px 8px",
+              borderRadius: "10px",
+              backgroundColor: dropdownOpen ? "#FAF7F2" : "transparent",
             }}
           >
-            A
+            <div
+              style={{
+                width: "36px",
+                height: "36px",
+                borderRadius: "50%",
+                background: "#1C1917",
+                color: "#C89B2C",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: "700",
+                fontSize: "14px",
+                border: "1.5px solid #C89B2C",
+              }}
+            >
+              RR
+            </div>
+
+            <span
+              style={{
+                fontWeight: "600",
+                fontSize: "14px",
+                color: "#1C1917",
+              }}
+            >
+              Admin
+            </span>
+
+            <ChevronDown size={14} color="#78716C" />
           </div>
 
-          <span
-            style={{
-              fontWeight: "600",
-              color: "#1C1917",
-            }}
-          >
-            Admin
-          </span>
+          {dropdownOpen && (
+            <div
+              style={{
+                position: "absolute",
+                right: 0,
+                top: "48px",
+                width: "200px",
+                backgroundColor: "#FFFFFF",
+                borderRadius: "14px",
+                border: "1px solid #ECE7DF",
+                boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
+                padding: "8px 0",
+                zIndex: 200,
+              }}
+            >
+              <div style={{ padding: "10px 16px", borderBottom: "1px solid #F5F2EB" }}>
+                <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#A8A29E", fontWeight: "700" }}>
+                  Authenticated
+                </div>
+                <div style={{ fontSize: "13px", fontWeight: "600", color: "#1C1917", marginTop: "2px" }}>
+                  Royal Rings Staff
+                </div>
+              </div>
 
-          <ChevronDown size={16} />
+              <Link
+                to="/admin/settings"
+                onClick={() => setDropdownOpen(false)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "10px 16px",
+                  color: "#1C1917",
+                  fontSize: "13px",
+                  textDecoration: "none",
+                  fontWeight: "500",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#FAF7F2")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+              >
+                <SettingsIcon size={14} color="#C89B2C" /> Store Settings
+              </Link>
+
+              <button
+                onClick={handleLogout}
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "10px 16px",
+                  color: "#DC2626",
+                  fontSize: "13px",
+                  background: "none",
+                  border: "none",
+                  fontWeight: "500",
+                  cursor: "pointer",
+                  textAlign: "left",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#FEF2F2")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+              >
+                <LogOut size={14} color="#DC2626" /> Sign Out
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

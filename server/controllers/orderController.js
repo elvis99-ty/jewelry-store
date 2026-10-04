@@ -1,25 +1,65 @@
 import Order from "../models/Order.js";
 import Counter from "../models/Counter.js";
+import Product from "../models/Product.js";
 
 export const createOrder = async (req, res) => {
   try {
-    let counter = await Counter.findById("orders");
+    const { items, customer, deliveryMethod } = req.body;
 
-    if (!counter) {
-      counter = await Counter.create({
-        _id: "orders",
-        sequence: 100000,
+    if (!items || items.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "No items in order.",
       });
     }
 
-    counter.sequence += 1;
-    await counter.save();
+    const verifiedItems = [];
+    let totalAmount = 0;
 
-    const orderNumber = `RR${counter.sequence}`;
+    for (const clientItem of items) {
+      const product = await Product.findById(clientItem.productId);
+
+      if (!product) {
+        return res.status(400).json({
+          success: false,
+          message: `Product not found: ${clientItem.productId}`,
+        });
+      }
+
+      if (!product.available || product.stock < clientItem.quantity) {
+        return res.status(400).json({
+          success: false,
+          message: `${product.name} is out of stock.`,
+        });
+      }
+
+      verifiedItems.push({
+        productId: product._id.toString(),
+        name: product.name,
+        category: product.category,
+        type: product.type,
+        image: product.image,
+        quantity: clientItem.quantity,
+        price: product.price,
+      });
+
+      totalAmount += product.price * clientItem.quantity;
+    }
+
+    const counter = await Counter.findByIdAndUpdate(
+      "orders",
+      { $inc : {sequence : 1} },
+      { new : true, upsert : true, setDefaultsOnInsert : true}
+    );
+
+    const orderNumber = `RRS${counter.sequence}`;
 
     const order = await Order.create({
-      ...req.body,
+      customer,
+      deliveryMethod,
       orderNumber,
+      items: verifiedItems,
+      totalAmount,
     });
 
     return res.status(201).json({
@@ -28,6 +68,7 @@ export const createOrder = async (req, res) => {
       order,
     });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({
       success: false,
       message: "Something went wrong.",
@@ -95,17 +136,55 @@ export const getOrderDetails = async (req, res) => {
 
 export const getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find()
-      .sort({ createdAt: -1 });
+    const orders = await Order.find().sort({ createdAt: -1 });
 
     return res.status(200).json({
       success: true,
       count: orders.length,
       orders,
     });
-
   } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong.",
+    });
+  }
+};
 
+export const updateOrderStatus = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { orderStatus } = req.body;
+
+    const validStatuses = ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"];
+
+    if (!validStatuses.includes(orderStatus)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid order status.",
+      });
+    }
+
+    const order = await Order.findByIdAndUpdate(
+      orderId,
+      { orderStatus },
+      { new: true }
+    );
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Order status updated.",
+      order,
+    });
+  } catch (error) {
+    console.error(error);
     return res.status(500).json({
       success: false,
       message: "Something went wrong.",

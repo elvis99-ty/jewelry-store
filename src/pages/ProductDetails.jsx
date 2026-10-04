@@ -1,21 +1,58 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import products from "../data/products";
+import { getProductById, getProducts } from "../api/productApi";
 import { motion } from "framer-motion";
 import { useCart } from "../context/CartContext";
+import { LuxuryLoader } from "../components/LuxuryLoader";
+
 
 function ProductDetails() {
   const { id } = useParams();
 
-  const product = products.find(
-    (item) => item.id === Number(id)
-  );
+  const [product, setProduct] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [quantity, setQuantity] = useState(1);
-  const [showSuccess, setShowSuccess ] = useState(false);
-  const { addToCart} = useCart(); 
+  const [showSuccess, setShowSuccess] = useState(false);
+  const { addToCart } = useCart();
+
+  useEffect(() => {
+    const loadProduct = async () => {
+      try {
+        setLoading(true);
+        const fetchedProduct = await getProductById(id);
+        setProduct(fetchedProduct);
+
+        const sameCategoryProducts = await getProducts(fetchedProduct.category);
+        const related = sameCategoryProducts
+          .filter((item) => item.id !== fetchedProduct.id)
+          .slice(0, 4);
+        setRelatedProducts(related);
+      } catch (error) {
+        console.error(error);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProduct();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <main style={{ minHeight: "75vh", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#fdfcfc" }}>
+          <LuxuryLoader message="Loading Piece Details..." />
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   if (!product) {
     return (
@@ -35,14 +72,6 @@ function ProductDetails() {
       </>
     );
   }
-
-  const relatedProducts = products
-    .filter(
-      (item) =>
-        item.category === product.category &&
-        item.id !== product.id
-    )
-    .slice(0, 4);
 
   const whatsappNumber = "234XXXXXXXXXX";
 

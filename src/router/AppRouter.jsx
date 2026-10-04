@@ -22,6 +22,9 @@ import Customers from "../admin/pages/Customers.jsx";
 import Reports from "../admin/pages/Reports.jsx";
 import PaymentIssues from "../admin/pages/PaymentIssues.jsx";
 import Settings from "../admin/pages/Settings.jsx";
+import ProtectedRoute from "../admin/components/ProtectedRoute.jsx";
+import CustomerProtectedRoute from "../components/CustomerProtectedRoute.jsx";
+import CustomerDetail from "../admin/pages/CustomerDetail.jsx";
 
 function AppRouter() {
     return (
@@ -42,15 +45,81 @@ function AppRouter() {
                 <Route path="/myorders" element={<MyOrders />} />
                 <Route path="/checkout" element={<Checkout/>}/>
                 <Route path="/payment-success" element={<PaymentSuccess/>}/>
-                <Route path="/myorders/history" element={<OrderHistory/>}/>
+                <Route
+                    path="/myorders/history"
+                    element={
+                        <CustomerProtectedRoute>
+                            <OrderHistory/>
+                        </CustomerProtectedRoute>
+                    }
+                />
                 <Route path="/admin" element={<AdminLogin />} />
-                <Route path="/admin/dashboard" element={<Dashboard />} />
-                <Route path="/admin/orders" element={<Orders />} />
-                <Route path="/admin/products" element={<Products />} />
-                <Route path="/admin/customers" element={<Customers />} />
-                <Route path="/admin/reports" element={<Reports />} />
-                <Route path="/admin/settings" element={<Settings />} />
-                <Route path="/admin/payment-issues" element={<PaymentIssues />} />
+                <Route
+                    path="/admin/dashboard"
+                    element={
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/admin/orders"
+                    element={
+                        <ProtectedRoute>
+                            <Orders />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/admin/products"
+                    element={
+                        <ProtectedRoute>
+                            <Products />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/admin/customers"
+                    element={
+                        <ProtectedRoute>
+                            <Customers />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/admin/reports"
+                    element={
+                        <ProtectedRoute>
+                            <Reports />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/admin/settings"
+                    element={
+                        <ProtectedRoute>
+                            <Settings />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/admin/payment-issues"
+                    element={
+                        <ProtectedRoute>
+                            <PaymentIssues />
+                        </ProtectedRoute>
+                    }
+                />
+
+                 <Route
+                    path="/admin/customers/:email"
+                    element={
+                        <ProtectedRoute>
+                            <CustomerDetail />
+                        </ProtectedRoute>
+                    }
+                />
+                
             </Routes>
 
         </BrowserRouter>

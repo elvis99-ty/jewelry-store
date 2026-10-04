@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import products from "../data/products";
+import { getProducts } from "../api/productApi";
+import { ProductGridSkeleton } from "../components/LuxuryLoader";
 import { useSearchParams, Link } from "react-router-dom";
 
 function Rings() {
+
+  const [ringProducts, setRingProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -15,6 +19,22 @@ function Rings() {
 
   const [searchParams ] = useSearchParams();
 
+  useEffect(() => {
+    const loadRings = async () => {
+      try {
+        setLoading(true);
+        const fetched = await getProducts("rings");
+        setRingProducts(fetched);
+      } catch (error) {
+        console.error(error);
+        setRingProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadRings();
+  }, []);
 
   useEffect(() => {
   const subCategory = searchParams.get("subcategory");
@@ -28,12 +48,6 @@ function Rings() {
     setActiveType(type);
   }
 }, [searchParams]);
-
-
-  // ALL RINGS
-const ringProducts = products.filter(
-  product => product.category === "rings"
-);
 
 // FILTER PRODUCTS
 const filteredProducts = ringProducts.filter(product => {
@@ -49,9 +63,13 @@ const filteredProducts = ringProducts.filter(product => {
   return matchesSubCategory && matchesType;
 });
 
-const [shuffledProducts ] = useState(() =>
-[...ringProducts].sort(() => Math.random() - 0.5)
-);
+const [shuffledProducts, setShuffledProducts] = useState([]);
+
+useEffect(() => {
+  setShuffledProducts(
+    [...ringProducts].sort(() => Math.random() - 0.5)
+  );
+}, [ringProducts]);
 
 const productVariants = {
   hidden: {
@@ -259,6 +277,7 @@ const productVariants = {
       margin: 0
     }
   };
+
 
   return (
     <>
@@ -496,8 +515,17 @@ const productVariants = {
         <section style={styles.productSection}>
 
           <div style={styles.container}>
-
-            <div style={styles.grid}>
+            {loading ? (
+              <ProductGridSkeleton count={8} />
+            ) : filteredProducts.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "60px 0", color: "#78716C" }}>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "28px", color: "#1C1917", margin: "0 0 10px" }}>
+                  No Rings Found
+                </p>
+                <p style={{ margin: 0, fontSize: "15px" }}>No pieces match this selected filter. Try choosing "All Rings".</p>
+              </div>
+            ) : (
+              <div style={styles.grid}>
 
               {(
               activeSubCategory === "all" &&
@@ -509,9 +537,8 @@ const productVariants = {
                 const isHovered = hoveredIndex === index;
 
                 return (
-                  <Link to={`/product/${product.id}`}>
+                  <Link to={`/product/${product.id}`} key={product.id}>
                   <motion.div
-                    key={product.id}
                     style={styles.card}
                     custom={index}
                     variants={productVariants}
@@ -586,6 +613,7 @@ const productVariants = {
               })}
 
             </div>
+            )}
 
           </div>
 

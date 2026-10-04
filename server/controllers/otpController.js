@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Order from "../models/Order.js";
 import Otp from "../models/Otp.js";
@@ -27,34 +27,30 @@ export const sendOtp = async (req, res) => {
       });
     }
 
-    const orderExists = await Order.exists({
+        const orderExists = await Order.exists({
       "customer.email": email,
     });
 
     if (!orderExists) {
-      return res.status(404).json({
-        success: false,
-        message: "No orders found for this email.",
+      return res.status(200).json({
+        success: true,
+        message: "If this email has orders, a code was sent.",
       });
     }
 
     const otpCode = generateOTP();
-
     const hashedOtp = await bcrypt.hash(otpCode, 10);
 
     const otpExpiry = new Date(Date.now() + OTP_EXPIRY_MS);
 
-    // Remove any existing OTP for this email
     await Otp.deleteOne({ email });
 
-    // Save new OTP
     await Otp.create({
       email,
       otp: hashedOtp,
       expiresAt: otpExpiry,
     });
 
-    // Send OTP email
     await sendEmail({
       to: email,
       subject: "Royal Rings - Your Verification Code",

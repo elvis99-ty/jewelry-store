@@ -1,15 +1,22 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminLayout from "../layouts/AdminLayout";
 import AdminTable from "../components/AdminTable";
 import OrderRow from "../components/OrderRow";
+import OrderDetailModal from "../components/OrderDetailModal";
+import { getAllOrders, updateOrderStatus } from "../../api/orderApi";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All Orders");
   const [loading, setLoading] = useState(true);
+  const [updatingOrderId, setUpdatingOrderId] = useState(null);
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  const navigate = useNavigate();
 
   const ordersPerPage = 10;
 
@@ -23,19 +30,43 @@ function Orders() {
 
   const fetchOrders = async () => {
     try {
-      const res = await fetch(
-        "http://localhost:5000/api/orders/admin/all-orders"
-      );
-
-      const data = await res.json();
+      const data = await getAllOrders();
 
       if (data.success) {
         setOrders(data.orders);
       }
     } catch (err) {
-      console.error(err);
+      if (err.response?.status === 401) {
+        sessionStorage.removeItem("adminToken");
+        navigate("/admin");
+      } else {
+        console.error(err);
+      }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleStatusChange = async (orderId, newStatus) => {
+    setUpdatingOrderId(orderId);
+
+    const previousOrders = orders;
+
+    // Optimistic update
+    setOrders((prev) =>
+      prev.map((order) =>
+        order._id === orderId ? { ...order, orderStatus: newStatus } : order
+      )
+    );
+
+    try {
+      await updateOrderStatus(orderId, newStatus);
+    } catch (err) {
+      // Roll back on failure
+      setOrders(previousOrders);
+      alert("Could not update order status. Please try again.");
+    } finally {
+      setUpdatingOrderId(null);
     }
   };
 
@@ -186,6 +217,9 @@ function Orders() {
             <OrderRow
               key={order._id}
               order={order}
+              onStatusChange={handleStatusChange}
+              updating={updatingOrderId === order._id}
+              onViewDetails={(ord) => setSelectedOrder(ord)}
             />
           ))
         )}
@@ -296,6 +330,20 @@ function Orders() {
             </button>
           </div>
         </div>
+      )}
+
+      {selectedOrder && (
+        <OrderDetailModal
+          order={selectedOrder}
+          onClose={() => setSelectedOrder(null)}
+          onStatusChange={(orderId, newStatus) => {
+            handleStatusChange(orderId, newStatus);
+            setSelectedOrder((prev) =>
+              prev ? { ...prev, orderStatus: newStatus } : null
+            );
+          }}
+          updating={updatingOrderId === selectedOrder._id}
+        />
       )}
     </AdminLayout>
   );

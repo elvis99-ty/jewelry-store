@@ -1,15 +1,34 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import products from "../data/products";
+import { getProducts } from "../api/productApi";
+import { ProductGridSkeleton } from "../components/LuxuryLoader";
 
 function Shop() {
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        const fetched = await getProducts();
+        setProducts(fetched);
+      } catch (error) {
+        console.error(error);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProducts();
+  }, []);
 
   const styles = {
 
@@ -198,6 +217,8 @@ function Shop() {
     }
   };
 
+
+
   return (
     <>
       <Navbar />
@@ -280,8 +301,17 @@ function Shop() {
         <section style={styles.productSection}>
 
           <div style={styles.container}>
-
-            <div style={styles.grid}>
+            {loading ? (
+              <ProductGridSkeleton count={8} />
+            ) : products.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "60px 0", color: "#78716C" }}>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "28px", color: "#1C1917", margin: "0 0 10px" }}>
+                  No Pieces Currently Available
+                </p>
+                <p style={{ margin: 0, fontSize: "15px" }}>Please check back shortly or explore another category.</p>
+              </div>
+            ) : (
+              <div style={styles.grid}>
 
               {products.map((product, index) => {
 
@@ -316,7 +346,7 @@ function Shop() {
 
   // NECKLACE
   else if (
-    product.category === "Necklace"
+    product.category === "necklace"
   ) {
     navigate("/necklace");
   }
@@ -330,7 +360,7 @@ function Shop() {
 
   // JEWELRY SET
   else if (
-    product.category === "jewelry-set"
+    product.category === "jewelry-sets"
   ) {
     navigate("/jewelryset");
   }
@@ -402,6 +432,7 @@ function Shop() {
               })}
 
             </div>
+            )}
 
           </div>
 

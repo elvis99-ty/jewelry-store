@@ -1,21 +1,29 @@
 import { useState, useEffect, useRef } from "react";
-import { Mail, PackageX, Search, Clock, Loader2 } from "lucide-react";
+import { Mail, ArrowLeft, RotateCw, CheckCircle2, AlertCircle, ShieldCheck, KeyRound, Loader2 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { sendOtp, verifyOtp } from "../services/otpService";
-import { getMyOrders } from "../services/orderService";
 
 function MyOrdersPage() {
   const [email, setEmail] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [foundOrders, setFoundOrders] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(45);
-  const [step, setStep] = useState("email");
+  const [step, setStep] = useState("email"); // "email" | "otp"
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [timeLeft, setTimeLeft] = useState(45);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [resendSuccess, setResendSuccess] = useState(false);
   const otpRefs = useRef([]);
   const navigate = useNavigate();
   const intervalRef = useRef(null);
+
+  // If already authenticated with orderToken, redirect to order history directly
+  useEffect(() => {
+    const existingToken = sessionStorage.getItem("orderToken");
+    if (existingToken) {
+      navigate("/myorders/history", { replace: true });
+    }
+  }, [navigate]);
 
   const stopCountdown = () => {
     if (intervalRef.current) {
@@ -24,81 +32,166 @@ function MyOrdersPage() {
     }
   };
 
+  const startCountdown = (seconds = 45) => {
+    stopCountdown();
+    setTimeLeft(seconds);
+    intervalRef.current = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          stopCountdown();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
   const handleResetSearch = () => {
     stopCountdown();
     setIsSearching(false);
-    setFoundOrders([]);
     setTimeLeft(45);
     setStep("email");
     setOtp(["", "", "", "", "", ""]);
+    setErrorMessage("");
+    setResendSuccess(false);
   };
 
   const handleSearch = async (e) => {
-    e.preventDefault();
-
+    if (e) e.preventDefault();
     if (!email.trim()) return;
 
     try {
       setIsSearching(true);
-      stopCountdown();
+      setErrorMessage("");
+      setResendSuccess(false);
 
-      const response = await sendOtp(email);
-      console.log(response);
+      await sendOtp(email.trim().toLowerCase());
 
-      // Trigger countdown timer
-      setTimeLeft(45);
-      intervalRef.current = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            handleResetSearch();
-            return 45;
-          }
-          return prev - 1;
-        });
-      }, 1000);
       setStep("otp");
-
+      setOtp(["", "", "", "", "", ""]);
+      startCountdown(45);
+      setTimeout(() => {
+        otpRefs.current[0]?.focus();
+      }, 100);
     } catch (err) {
       console.error(err);
+      setErrorMessage(
+        err.response?.data?.message ||
+        "Could not send verification code. Please check your email address and try again."
+      );
     } finally {
       setIsSearching(false);
     }
   };
 
-  const handleVerifyOtp = async () => {
+  const handleResendOtp = async () => {
+    if (timeLeft > 0 || isSearching) return;
 
-  const code = otp.join("");
+    try {
+      setIsSearching(true);
+      setErrorMessage("");
+      setResendSuccess(false);
 
-  if (code.length !== 6) return;
+      await sendOtp(email.trim().toLowerCase());
 
-  try {
+      setOtp(["", "", "", "", "", ""]);
+      setResendSuccess(true);
+      startCountdown(45);
+      setTimeout(() => {
+        otpRefs.current[0]?.focus();
+      }, 100);
+      setTimeout(() => setResendSuccess(false), 5000);
+    } catch (err) {
+      console.error(err);
+      setErrorMessage(
+        err.response?.data?.message ||
+        "Unable to resend verification code. Please try again in a few moments."
+      );
+    } finally {
+      setIsSearching(false);
+    }
+  };
 
-    setIsSearching(true);
+  const handleVerifyOtp = async (overrideCode) => {
+    const code = typeof overrideCode === "string" ? overrideCode : otp.join("");
+    if (code.length !== 6) return;
 
-    const response = await verifyOtp(email, code);
+    try {
+      setIsSearching(true);
+      setErrorMessage("");
 
-const token = response.token;
+      const response = await verifyOtp(email.trim().toLowerCase(), code);
+      const token = response.token;
 
-sessionStorage.setItem("orderToken", token);
+      sessionStorage.setItem("orderToken", token);
+      sessionStorage.setItem("userEmail", email.trim().toLowerCase());
 
-navigate("/myorders/history");
+      // Standard e-commerce navigation: replace current history so back arrow returns to shopping
+      navigate("/myorders/history", { replace: true });
+    } catch (err) {
+      console.error(err);
+      setErrorMessage(
+        err.response?.data?.message ||
+        "Invalid or expired verification code. Please check your inbox or request a new one."
+      );
+    } finally {
+      setIsSearching(false);
+    }
+  };
 
-  } catch (err) {
+  // Clipboard paste support across all 6 inputs
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasteData = e.clipboardData.getData("text").trim().replace(/\D/g, "").slice(0, 6);
+    if (!pasteData) return;
 
-    console.error(err);
+    const newOtp = pasteData.split("");
+    while (newOtp.length < 6) newOtp.push("");
+    setOtp(newOtp);
 
-    alert(
-      err.response?.data?.message ||
-      "Invalid verification code."
-    );
+    if (pasteData.length === 6) {
+      otpRefs.current[5]?.focus();
+      handleVerifyOtp(pasteData);
+    } else {
+      otpRefs.current[pasteData.length]?.focus();
+    }
+  };
 
-  } finally {
+  const handleOtpInput = (index, val) => {
+    const clean = val.replace(/\D/g, "");
+    if (!clean) {
+      const newOtp = [...otp];
+      newOtp[index] = "";
+      setOtp(newOtp);
+      return;
+    }
 
-    setIsSearching(false);
+    const lastChar = clean[clean.length - 1];
+    const newOtp = [...otp];
+    newOtp[index] = lastChar;
+    setOtp(newOtp);
 
-  }
+    if (index < 5) {
+      otpRefs.current[index + 1]?.focus();
+    } else {
+      // If 6th digit entered and full
+      if (newOtp.join("").length === 6) {
+        handleVerifyOtp(newOtp.join(""));
+      }
+    }
+  };
 
-};
+  const handleKeyDown = (index, e) => {
+    if (e.key === "Backspace") {
+      if (!otp[index] && index > 0) {
+        otpRefs.current[index - 1]?.focus();
+      }
+    } else if (e.key === "ArrowLeft" && index > 0) {
+      otpRefs.current[index - 1]?.focus();
+    } else if (e.key === "ArrowRight" && index < 5) {
+      otpRefs.current[index + 1]?.focus();
+    }
+  };
 
   useEffect(() => {
     return () => stopCountdown();
@@ -109,34 +202,17 @@ navigate("/myorders/history");
       <Navbar />
 
       <main 
-        className="flex-grow w-full flex flex-col justify-center items-center text-center px-6 py-12"
+        className="flex-grow w-full flex flex-col justify-center items-center text-center px-6 py-14"
         style={{ minHeight: "calc(100vh - 140px)" }}
       >
-        <div className="w-full max-w-[500px] mx-auto flex flex-col items-center">
+        <div className="w-full max-w-[560px] mx-auto flex flex-col items-center">
           
-          {/* Conditional View Rendering */}
-          {isSearching ? (
-            /* ================= LOADING STATE ================= */
-            <div className="w-full flex flex-col items-center py-16 animate-fade-in">
-              <div className="w-16 h-16 rounded-full bg-[#FAF7F2] border border-[#EFEAE4] flex items-center justify-center mb-5 text-[#C89B2C]">
-                <Loader2 size={26} className="animate-spin" />
-              </div>
-              <h2 
-                className="text-[#1A1A1A] text-2xl font-normal mb-2"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
-               Sending Your Verification Code
-              </h2>
-              <p className="text-[#888077] text-sm font-normal">
-                Searching account for <span className="text-[#1A1A1A] font-medium">{email}</span>...
-              </p>
-            </div>
-          ) : step === "email" ? (
-            /* ================= VIEW 1: DEFAULT SEARCH FORM ================= */
-            <div className="w-full flex flex-col items-center transition-all duration-500 animate-fade-in">
+          {step === "email" ? (
+            /* ================= VIEW 1: EMAIL ENTRY FORM ================= */
+            <div className="w-full flex flex-col items-center transition-all duration-300">
               
-              <span className="uppercase tracking-[0.35em] text-[#C89B2C] text-[11px] mb-6 font-semibold">
-                FIND YOUR ORDERS
+              <span className="uppercase tracking-[0.35em] text-[#C89B2C] text-[11px] mb-4 font-semibold">
+                ROYAL RINGS ARCHIVES
               </span>
 
               <h1 
@@ -144,16 +220,23 @@ navigate("/myorders/history");
                 style={{ 
                   fontFamily: "'Cormorant Garamond', serif", 
                   fontWeight: 400, 
-                  fontSize: "44px", 
+                  fontSize: "48px", 
                   lineHeight: "1.1"
                 }}
               >
-                Find Your Orders
+                Track Your Orders
               </h1>
 
-              <p className="text-[#888077] text-[14px] font-normal leading-relaxed mb-8 max-w-xs">
-                Enter the email used during checkout to securely access your order history and tracking information.
+              <p className="text-[#78716C] text-[15px] font-normal leading-relaxed mb-8 max-w-sm">
+                Enter the email address used during purchase. We will send a secure 6-digit access code to view your orders.
               </p>
+
+              {errorMessage && (
+                <div className="w-full mb-6 p-4 rounded-xl bg-[#FEF2F2] border border-[#FCA5A5] text-[#991B1B] text-sm flex items-start gap-3 text-left">
+                  <AlertCircle size={18} className="flex-shrink-0 mt-0.5 text-[#DC2626]" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
 
               <form onSubmit={handleSearch} className="w-full flex flex-col gap-4">
                 <div className="relative w-full">
@@ -164,13 +247,16 @@ navigate("/myorders/history");
                   />
                   <input
                     type="email"
-                    placeholder="Email address"
+                    placeholder="Enter your email address"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (errorMessage) setErrorMessage("");
+                    }}
                     required
                     style={{ paddingLeft: "52px" }}
                     className="
-                      w-full h-[52px] rounded-xl border border-[#E7E2DA] bg-white pr-5 text-left text-[14px] text-[#1A1A1A] 
+                      w-full h-[54px] rounded-xl border border-[#E7E2DA] bg-white pr-5 text-left text-[14px] text-[#1A1A1A] 
                       placeholder:text-[#B0A79B] placeholder:font-light outline-none focus:border-[#C89B2C] focus:ring-2 focus:ring-[#C89B2C]/10 transition-all duration-300
                     "
                   />
@@ -178,327 +264,185 @@ navigate("/myorders/history");
 
                 <button
                   type="submit"
+                  disabled={isSearching || !email.trim()}
                   className="
-                    w-full h-[50px] rounded-xl bg-[#C89B2C] text-white font-medium text-[14px] tracking-wide 
-                    transition-all duration-200 hover:bg-[#B58B24] active:scale-[0.99] flex items-center justify-center shadow-sm
+                    w-full h-[52px] rounded-xl bg-[#C89B2C] text-white font-medium text-[14px] tracking-wide 
+                    transition-all duration-200 hover:bg-[#B58B24] active:scale-[0.99] flex items-center justify-center gap-2 shadow-sm
+                    disabled:opacity-60 disabled:cursor-not-allowed
                   "
                 >
-                  CONTINUE
+                  {isSearching ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      <span>Sending Verification Code...</span>
+                    </>
+                  ) : (
+                    <span>CONTINUE SECURELY</span>
+                  )}
                 </button>
               </form>
+
+              <div className="mt-8 flex items-center justify-center gap-2 text-xs text-[#A8A29E]">
+                <ShieldCheck size={14} className="text-[#C89B2C]" />
+                <span>Protected by Royal Rings encrypted verification</span>
+              </div>
             </div>
 
-            ) : step === "otp" ? (
-
-<div className="w-full flex justify-center animate-fade-in">
-
-  <div className="w-full max-w-[650px] bg-white rounded-[28px] border border-[#EFEAE4] shadow-[0_12px_40px_rgba(0,0,0,0.05)] px-10 py-12">
-
-    {/* Success Icon */}
-    <div className="flex justify-center mb-6">
-
-      <div className="relative">
-
-        <div className="w-20 h-20 rounded-full border border-[#E8DDBE] bg-[#FDFBF7] flex items-center justify-center">
-
-          <svg
-            width="30"
-            height="30"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#C89B2C"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    {/* Heading */}
-
-    <h2
-      className="text-center text-[#1A1A1A]"
-      style={{
-        fontFamily: "'Cormorant Garamond', serif",
-        fontSize: "54px",
-        fontWeight: 400,
-        lineHeight: 1,
-      }}
-    >
-      Check Your Email
-    </h2>
-
-    {/* Gold Divider */}
-
-    <div className="flex justify-center items-center mt-6 mb-8">
-
-      <div className="w-16 h-px bg-[#E7D4A0]" />
-
-      <div className="w-2 h-2 rounded-full bg-[#C89B2C] mx-3" />
-
-      <div className="w-16 h-px bg-[#E7D4A0]" />
-
-    </div>
-
-    {/* Text */}
-
-    <p className="text-center text-[#7E776F] text-[17px] leading-8">
-
-      We've sent a secure verification code to
-
-      <br />
-
-      <span className="text-[#1A1A1A] font-semibold">
-
-        {email}
-
-      </span>
-
-    </p>
-
-    <p className="text-center text-[#A49C93] text-[15px] mt-3 mb-10">
-
-      Enter the 6-digit code below to continue.
-
-    </p>
-
-    {/* OTP */}
-
-    <div className="flex justify-center gap-4 mb-10">
-
-      {otp.map((digit, index) => (
-
-        <input
-          key={index}
-          ref={(el) => (otpRefs.current[index] = el)}
-          type="text"
-          maxLength={1}
-          value={digit}
-          onChange={(e) => {
-            const value = e.target.value.replace(/\D/g, "");
-
-            const newOtp = [...otp];
-            newOtp[index] = value;
-
-            setOtp(newOtp);
-
-            if (value && index < 5) {
-              otpRefs.current[index + 1]?.focus();
-            }
-          }}
-          onKeyDown={(e) => {
-            if (
-              e.key === "Backspace" &&
-              !otp[index] &&
-              index > 0
-            ) {
-              otpRefs.current[index - 1]?.focus();
-            }
-          }}
-          className="
-            w-[56px]
-            h-[56px]
-            rounded-xl
-            border
-            border-[#E9E3DA]
-            bg-[#FCFBF9]
-            text-center
-            text-2xl
-            font-semibold
-            text-[#1A1A1A]
-            outline-none
-            transition-all
-            duration-200
-            focus:border-[#C89B2C]
-            focus:ring-4
-            focus:ring-[#C89B2C]/10
-          "
-        />
-
-      ))}
-
-    </div>
-
-    {/* Verify */}
-
-    <button
-      onClick={handleVerifyOtp}
-      disabled={otp.join("").length !== 6}
-      className="
-        w-full
-        h-[58px]
-        rounded-2xl
-        bg-[#C89B2C]
-        text-white
-        text-[15px]
-        font-semibold
-        transition-all
-        hover:bg-[#B88A23]
-        disabled:opacity-40
-        disabled:cursor-not-allowed
-      "
-    >
-
-      Verify Code
-
-    </button>
-
-    {/* Divider */}
-
-    <div className="flex items-center my-10">
-
-      <div className="flex-1 h-px bg-[#F1ECE5]" />
-
-      <span className="mx-4 text-[#B5ACA2] text-sm">
-
-        or
-
-      </span>
-
-      <div className="flex-1 h-px bg-[#F1ECE5]" />
-
-    </div>
-
-    {/* Resend */}
-
-    <div className="text-center">
-
-      <p className="text-[#888077]">
-
-        Didn't receive the code?
-
-      </p>
-
-      <button
-        className="mt-2 text-[#C89B2C] font-medium hover:underline"
-      >
-
-        Resend Code
-
-      </button>
-
-      <p className="mt-2 text-[13px] text-[#AAA39A]">
-
-        Available in {timeLeft}s
-
-      </p>
-
-    </div>
-
-  </div>
-
-</div>
-
-            ) : (
-            /* ================= VIEW 2: SEARCH RESPONSE CARD ================= */
-            <div className="w-full flex flex-col items-center transition-all duration-500 animate-fade-in">
-              
-              <div className="mb-8">
-                <span className="uppercase tracking-[0.35em] text-[#C89B2C] text-[11px] font-semibold">
-                  ROYAL RINGS
-                </span>
-              </div>
-
-              {foundOrders.length > 0 ? (
-                /* ORDERS FOUND RESPONSE */
-                <div className="w-full min-h-[460px] p-8 rounded-[24px] bg-white border border-[#EFEAE4] flex flex-col justify-between text-left shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
-                  <div>
-                    <h2 
-                      className="text-[#1A1A1A] text-2xl text-center mb-1"
-                      style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          ) : (
+
+            /* ================= VIEW 2: OTP VERIFICATION VIEW ================= */
+            <div className="w-full flex justify-center transition-all duration-300">
+              <div className="w-full bg-white rounded-[28px] border border-[#EFEAE4] shadow-[0_16px_45px_rgba(0,0,0,0.04)] px-8 sm:px-12 py-10">
+                
+                {/* Header Icon */}
+                <div className="flex justify-center mb-5">
+                  <div className="w-16 h-16 rounded-2xl border border-[#E8DDBE] bg-[#FDFBF7] flex items-center justify-center text-[#C89B2C] shadow-sm">
+                    <KeyRound size={28} strokeWidth={1.5} />
+                  </div>
+                </div>
+
+                {/* Heading */}
+                <h2
+                  className="text-center text-[#1A1A1A]"
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "42px",
+                    fontWeight: 400,
+                    lineHeight: 1.15,
+                  }}
+                >
+                  Enter Verification Code
+                </h2>
+
+                {/* Subtitle / Email pill */}
+                <div className="flex flex-col items-center justify-center mt-3 mb-6">
+                  <p className="text-[#78716C] text-[14px]">
+                    We sent a 6-digit access code to
+                  </p>
+                  <div className="inline-flex items-center gap-2 mt-1 px-3 py-1 bg-[#FAF6EE] border border-[#EADBBE] rounded-full text-xs font-semibold text-[#1A1A1A]">
+                    <span>{email}</span>
+                    <button
+                      type="button"
+                      onClick={handleResetSearch}
+                      className="text-[#C89B2C] hover:underline font-medium text-[11px] ml-1"
+                      title="Use a different email"
                     >
-                      Your Purchase History
-                    </h2>
-                    <p className="text-[#888077] text-[11px] uppercase tracking-widest text-center mb-6">
-                      Showing results for <span className="text-[#1A1A1A] font-semibold">{email}</span>
-                    </p>
+                      (Edit)
+                    </button>
+                  </div>
+                </div>
 
-                    <div className="flex flex-col gap-4">
-                      {foundOrders.map((order, idx) => (
-                        <div 
-                          key={order.id || idx}
-                          className="p-4 rounded-xl bg-[#FCFBF9] border border-[#E7E2DA] flex flex-col gap-2"
-                        >
-                          <div className="flex justify-between items-center pb-2 border-b border-[#EFEAE4]">
-                            <div>
-                              <p className="text-[10px] uppercase tracking-wider text-[#A89F91] font-semibold">Order ID</p>
-                              <p className="text-xs font-medium text-[#1A1A1A]">#{order.id || order.orderId || "100" + idx}</p>
-                            </div>
-                            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-[#C89B2C] border border-[#E7E2DA]">
-                              {order.status || "Processing"}
-                            </span>
-                          </div>
+                {/* Feedback Alerts */}
+                {errorMessage && (
+                  <div className="w-full mb-6 p-3.5 rounded-xl bg-[#FEF2F2] border border-[#FCA5A5] text-[#991B1B] text-xs sm:text-sm flex items-start gap-2.5 text-left">
+                    <AlertCircle size={17} className="flex-shrink-0 mt-0.5 text-[#DC2626]" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
 
-                          <div className="flex justify-between items-center text-xs">
-                            <span className="text-[#888077]">Total</span>
-                            <span className="font-semibold text-[#1A1A1A]">${order.total || order.amount || "0.00"}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                {resendSuccess && (
+                  <div className="w-full mb-6 p-3.5 rounded-xl bg-[#F0FDF4] border border-[#86EFAC] text-[#166534] text-xs sm:text-sm flex items-center gap-2 text-left">
+                    <CheckCircle2 size={17} className="flex-shrink-0 text-[#16A34A]" />
+                    <span>A fresh verification code has been sent to your inbox.</span>
+                  </div>
+                )}
+
+                {/* OTP 6-Box Grid */}
+                <div className="flex justify-center gap-2.5 sm:gap-3.5 mb-8">
+                  {otp.map((digit, index) => (
+                    <input
+                      key={index}
+                      ref={(el) => (otpRefs.current[index] = el)}
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={1}
+                      value={digit}
+                      onPaste={handlePaste}
+                      onChange={(e) => handleOtpInput(index, e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(index, e)}
+                      className="
+                        w-[46px] h-[54px] sm:w-[56px] sm:h-[62px]
+                        rounded-xl
+                        border border-[#E2D9CC]
+                        bg-[#FCFBF9]
+                        text-center
+                        text-xl sm:text-2xl
+                        font-semibold
+                        text-[#1A1A1A]
+                        outline-none
+                        transition-all duration-200
+                        focus:border-[#C89B2C] focus:bg-white focus:ring-4 focus:ring-[#C89B2C]/10
+                      "
+                    />
+                  ))}
+                </div>
+
+                {/* Primary Verify Action */}
+                <button
+                  type="button"
+                  onClick={() => handleVerifyOtp()}
+                  disabled={isSearching || otp.join("").length !== 6}
+                  className="
+                    w-full
+                    h-[54px]
+                    rounded-xl
+                    bg-[#C89B2C]
+                    text-white
+                    text-[15px]
+                    font-semibold
+                    tracking-wide
+                    transition-all
+                    hover:bg-[#B88A23]
+                    active:scale-[0.99]
+                    disabled:opacity-40
+                    disabled:cursor-not-allowed
+                    flex items-center justify-center gap-2
+                    shadow-sm
+                  "
+                >
+                  {isSearching ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      <span>Verifying Code...</span>
+                    </>
+                  ) : (
+                    <span>VIEW ORDER HISTORY</span>
+                  )}
+                </button>
+
+                {/* Resend & Back Section */}
+                <div className="mt-8 pt-6 border-t border-[#F2ECE3] flex flex-col items-center gap-3">
+                  <div className="flex items-center gap-2 text-[14px] text-[#78716C]">
+                    <span>Didn't receive the email?</span>
+                    {timeLeft > 0 ? (
+                      <span className="text-[#A8A29E] font-medium text-xs">
+                        Resend in <strong className="text-[#1A1A1A]">{timeLeft}s</strong>
+                      </span>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={handleResendOtp}
+                        disabled={isSearching}
+                        className="text-[#C89B2C] font-semibold hover:underline inline-flex items-center gap-1 cursor-pointer"
+                      >
+                        <RotateCw size={13} />
+                        Resend Code
+                      </button>
+                    )}
                   </div>
 
                   <button
+                    type="button"
                     onClick={handleResetSearch}
-                    className="mt-6 text-xs font-medium text-[#A89F91] hover:text-[#C89B2C] transition-colors flex items-center justify-center gap-1.5"
+                    className="text-xs text-[#8C827A] hover:text-[#1A1A1A] inline-flex items-center gap-1.5 transition-colors mt-2"
                   >
-                    <Search size={13} /> Search a different email address
+                    <ArrowLeft size={13} />
+                    Use a different email address
                   </button>
                 </div>
-              ) : (
-                /* NO ORDERS FOUND: TALLER CARD WITH INTERNAL SPACING */
-                <div className="w-full min-h-[460px] px-8 pt-12 pb-8 rounded-[24px] bg-white border border-[#EFEAE4] flex flex-col justify-between items-center text-center shadow-[0_6px_25px_rgba(0,0,0,0.03)]">
-                  
-                  <div className="flex flex-col items-center w-full">
-                    {/* Icon Badge sitting clearly below the border line */}
-                    <div className="w-16 h-16 rounded-full bg-[#FAF7F2] border border-[#EFEAE4] flex items-center justify-center mb-6 text-[#C89B2C]">
-                      <PackageX size={28} strokeWidth={1.3} />
-                    </div>
 
-                    {/* Title */}
-                    <h2 
-                      className="text-[#1A1A1A] font-normal mb-4 tracking-tight"
-                      style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "34px", lineHeight: "1.1" }}
-                    >
-                      No Orders Found
-                    </h2>
-                    
-                    {/* Paragraph */}
-                    <p className="text-[#888077] text-[14px] font-normal mb-8 max-w-sm leading-relaxed px-2">
-                      We couldn't find any purchases associated with <span className="font-semibold text-[#1A1A1A]">{email}</span>. Please double-check your spelling or search using another email.
-                    </p>
-
-                    {/* Button */}
-                    <button
-                      onClick={handleResetSearch}
-                      className="
-                        h-[42px] px-7 rounded-lg bg-[#C89B2C] text-white text-[11px] font-medium tracking-[0.1em] uppercase
-                        hover:bg-[#B58B24] transition-all duration-200 flex items-center justify-center gap-2 shadow-sm
-                        active:scale-[0.98]
-                      "
-                    >
-                      <Search size={13} />
-                      Try Another Email
-                    </button>
-                  </div>
-
-                  {/* Countdown Footer */}
-                  <div className="pt-4 border-t border-[#F7F4EF] w-full flex items-center justify-center mt-6">
-                    <p className="text-[11px] text-[#A89F91] flex items-center gap-1.5 font-medium tracking-wide">
-                      <Clock size={12} className="text-[#C89B2C]" /> 
-                      Auto-resetting in <span className="text-[#1A1A1A] font-semibold">{timeLeft}s</span>
-                    </p>
-                  </div>
-
-                </div>
-              )}
-
+              </div>
             </div>
           )}
 

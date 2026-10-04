@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { User, Package, Diamond, ChevronRight, CheckCircle2, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { User, Package, Diamond, ChevronRight, CheckCircle2, ArrowLeft, Printer, LogOut, Clock, Truck } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { getMyOrders } from "../services/orderService";
+import { LuxuryLoader } from "../components/LuxuryLoader";
 
 export default function MyOrders() {
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null); 
@@ -13,11 +16,22 @@ export default function MyOrders() {
   const [showReportModal, setShowReportModal] = useState(false);
   const ordersPerPage = 10;
 
-  const userEmail = sessionStorage.getItem("userEmail") || "nwoguelvis92@gmail.com";
+  const userEmail = sessionStorage.getItem("userEmail") || "Valued Customer";
 
   useEffect(() => {
+    const token = sessionStorage.getItem("orderToken");
+    if (!token) {
+      navigate("/myorders", { replace: true });
+      return;
+    }
     loadOrders();
-  }, []);
+  }, [navigate]);
+
+  const handleSignOut = () => {
+    sessionStorage.removeItem("orderToken");
+    sessionStorage.removeItem("userEmail");
+    navigate("/myorders", { replace: true });
+  };
 
   const loadOrders = async () => {
     try {
@@ -112,8 +126,8 @@ const currentOrders = useMemo(() => {
     return (
       <div style={{ minHeight: "100vh", backgroundColor: "#FAF8F5", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
         <Navbar />
-        <div style={{ display: "flex", flex: 1, alignItems: "center", justifyContent: "center", padding: "60px 20px" }}>
-          <div style={{ width: "36px", height: "36px", border: "3px solid #E5DFD5", borderTopColor: "#C89B2C", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+        <div style={{ display: "flex", flex: 1, alignItems: "center", justifyContent: "center", padding: "80px 20px" }}>
+          <LuxuryLoader text="Retrieving verified purchase history..." />
         </div>
         <Footer />
       </div>
@@ -161,7 +175,7 @@ const currentOrders = useMemo(() => {
       style={{
         marginTop: "18px",
         marginBottom: "18px",
-        fontFamily: "'Arial', serif",
+        fontFamily: "'Cormorant Garamond', serif",
         fontSize: "72px",
         lineHeight: "72px",
         fontWeight: "400",
@@ -291,6 +305,30 @@ const currentOrders = useMemo(() => {
           Verified Purchase History
         </div>
 
+        <button
+          onClick={handleSignOut}
+          style={{
+            marginTop: "14px",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "6px",
+            background: "#FAF7F2",
+            border: "1px solid #E5DFD5",
+            borderRadius: "8px",
+            padding: "6px 12px",
+            fontSize: "12px",
+            fontWeight: "600",
+            color: "#78716C",
+            cursor: "pointer",
+            transition: "all 0.2s ease"
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = "#C89B2C"; e.currentTarget.style.borderColor = "#C89B2C"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = "#78716C"; e.currentTarget.style.borderColor = "#E5DFD5"; }}
+        >
+          <LogOut size={13} />
+          Switch Account / Sign Out
+        </button>
+
       </div>
 
     </div>
@@ -322,8 +360,8 @@ const currentOrders = useMemo(() => {
 
                 <div style={{ zIndex: 1 }}>
                   <div style={{ fontSize: "14px", fontWeight: "600", color: "#1C1917" }}>Total Orders</div>
-                  <div style={{ fontFamily: "'Arial', serif", fontSize: "42px", fontWeight: "400", color: "#1C1917", lineHeight: "1.1", margin: "4px 0 8px 0" }}>
-                    {orders.length || 29}
+                  <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "42px", fontWeight: "400", color: "#1C1917", lineHeight: "1.1", margin: "4px 0 8px 0" }}>
+                    {orders.length}
                   </div>
                   <a href="#recent" style={{ fontSize: "13px", color: "#C89B2C", fontWeight: "600", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "4px" }}>
                   </a>
@@ -357,8 +395,8 @@ const currentOrders = useMemo(() => {
 
                 <div style={{ zIndex: 1 }}>
                   <div style={{ fontSize: "14px", fontWeight: "600", color: "#1C1917" }}>Total Investment</div>
-                  <div style={{ fontFamily: "'Arial', serif", fontSize: "38px", fontWeight: "400", color: "#1C1917", lineHeight: "1.1", margin: "4px 0 8px 0" }}>
-                    ₦{(totalSpent || 10065000).toLocaleString()}
+                  <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "38px", fontWeight: "400", color: "#1C1917", lineHeight: "1.1", margin: "4px 0 8px 0" }}>
+                    ₦{totalSpent.toLocaleString()}
                   </div>
                   <a href="#recent" style={{ fontSize: "13px", color: "#C89B2C", fontWeight: "600", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "4px" }}>
                   </a>
@@ -403,7 +441,7 @@ const currentOrders = useMemo(() => {
       <h2
         style={{
           margin: "10px 0 6px",
-          fontFamily: "'Arial', serif",
+          fontFamily: "'Cormorant Garamond', serif",
           fontSize: "42px",
           fontWeight: "400",
           color: "#1C1917",
@@ -510,24 +548,26 @@ const currentOrders = useMemo(() => {
     }}
   >
 
-    {(currentOrders.length
-      ? currentOrders
-      : [
-          {
-            id: "RR031",
-            name: "Diamond Eternity Ring",
-            amount: 295000,
-            date: "2026-07-21",
-            status: "Paid",
-          },
-          {
-            id: "RR030",
-            name: "Luxury Gold Bracelet",
-            amount: 450000,
-            date: "2026-07-18",
-            status: "Delivered",
-          },
-        ]).map((order, index) => (
+    {currentOrders.length === 0 ? (
+      <div
+        style={{
+          background: "#FFFFFF",
+          border: "1px solid #ECE7DF",
+          borderRadius: "24px",
+          padding: "50px 30px",
+          textAlign: "center",
+          color: "#78716C",
+        }}
+      >
+        <p style={{ fontSize: "20px", fontWeight: "600", color: "#1C1917", margin: "0 0 8px 0" }}>
+          No Purchases Found
+        </p>
+        <p style={{ margin: 0, fontSize: "14px" }}>
+          You have no orders matching this filter.
+        </p>
+      </div>
+    ) : (
+      currentOrders.map((order, index) => (
 
       <div
         key={order._id || order.id || index}
@@ -599,7 +639,7 @@ const currentOrders = useMemo(() => {
         >
           <div
             style={{
-              fontFamily: "'Arial', serif",
+              fontFamily: "'Cormorant Garamond', serif",
               fontSize: "15px",
               color: "#1C1917",
             }}
@@ -648,38 +688,39 @@ const currentOrders = useMemo(() => {
         </button>
 
       </div>
-
-    ))}
+    )))}
 
   </div>
 
 </section>
             {/* Pagination Controls */}
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "8px", marginTop: "32px" }}>
-              <button
-                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                disabled={currentPage === 1}
-                style={{ padding: "10px 20px", borderRadius: "20px", border: "1px solid #EFEAE3", backgroundColor: "#FAF6F0", color: "#78716C", fontSize: "13px", fontWeight: "600", cursor: currentPage === 1 ? "not-allowed" : "pointer" }}
-              >
-                Previous
-              </button>
-              {[1, 2, 3].map((page) => (
+            {totalPages > 1 && (
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "8px", marginTop: "32px" }}>
                 <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  style={{ width: "38px", height: "38px", borderRadius: "50%", border: "none", backgroundColor: currentPage === page ? "#C89B2C" : "#FAF6F0", color: currentPage === page ? "#FFFFFF" : "#78716C", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}
+                  onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                  disabled={currentPage === 1}
+                  style={{ padding: "10px 20px", borderRadius: "20px", border: "1px solid #EFEAE3", backgroundColor: "#FAF6F0", color: "#78716C", fontSize: "13px", fontWeight: "600", cursor: currentPage === 1 ? "not-allowed" : "pointer" }}
                 >
-                  {page}
+                  Previous
                 </button>
-              ))}
-              <button
-                onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                style={{ padding: "10px 20px", borderRadius: "20px", border: "1px solid #EFEAE3", backgroundColor: "#FAF6F0", color: "#78716C", fontSize: "13px", fontWeight: "600", cursor: currentPage === totalPages ? "not-allowed" : "pointer" }}
-              >
-                Next
-              </button>
-            </div>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    style={{ width: "38px", height: "38px", borderRadius: "50%", border: "none", backgroundColor: currentPage === page ? "#C89B2C" : "#FAF6F0", color: currentPage === page ? "#FFFFFF" : "#78716C", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}
+                  >
+                    {page}
+                  </button>
+                ))}
+                <button
+                  onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  style={{ padding: "10px 20px", borderRadius: "20px", border: "1px solid #EFEAE3", backgroundColor: "#FAF6F0", color: "#78716C", fontSize: "13px", fontWeight: "600", cursor: currentPage === totalPages ? "not-allowed" : "pointer" }}
+                >
+                  Next
+                </button>
+              </div>
+            )}
           </>
         ) : (
           /* ================= VIEW 2: ORDER DETAILS (IN-PAGE) ================= */
@@ -696,12 +737,89 @@ const currentOrders = useMemo(() => {
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", paddingBottom: "20px", borderBottom: "1px solid #ECE4D8", marginBottom: "24px" }}>
               <div>
                 <span style={{ fontSize: "12px", color: "#A8A29E", fontWeight: "600", textTransform: "uppercase" }}>Order Reference</span>
-                <h2 style={{ fontFamily: "'Arial', serif", fontSize: "32px", margin: "4px 0 0 0", color: "#1C1917" }}>
+                <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "32px", margin: "4px 0 0 0", color: "#1C1917" }}>
                   Order #{selectedOrder.orderNumber || selectedOrder.id || "RR031"}
                 </h2>
               </div>
-              <div>{getStatusBadge(selectedOrder.orderStatus)}</div>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <button
+                  onClick={() => window.print()}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    background: "#FFFFFF",
+                    border: "1px solid #E2D9CC",
+                    borderRadius: "10px",
+                    padding: "8px 14px",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    color: "#1C1917",
+                    cursor: "pointer",
+                    boxShadow: "0 1px 4px rgba(0,0,0,0.03)"
+                  }}
+                >
+                  <Printer size={15} color="#C89B2C" /> Print Receipt
+                </button>
+                {getStatusBadge(selectedOrder.orderStatus)}
+              </div>
             </div>
+
+            {/* Fulfillment Progress Tracker */}
+            {(() => {
+              const statusStr = (selectedOrder.orderStatus || "Processing").toLowerCase();
+              const steps = [
+                { label: "Order Placed", icon: Clock, completed: true, active: false },
+                { label: "Processing", icon: Package, completed: statusStr.includes("process") || statusStr.includes("ship") || statusStr.includes("deliver"), active: statusStr.includes("process") },
+                { label: "Dispatched", icon: Truck, completed: statusStr.includes("ship") || statusStr.includes("deliver"), active: statusStr.includes("ship") },
+                { label: "Delivered", icon: CheckCircle2, completed: statusStr.includes("deliver"), active: statusStr.includes("deliver") },
+              ];
+              return (
+                <div style={{
+                  background: "#FFFFFF",
+                  border: "1px solid #ECE7DF",
+                  borderRadius: "16px",
+                  padding: "24px",
+                  marginBottom: "28px"
+                }}>
+                  <div style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "#A89F91", marginBottom: "18px" }}>
+                    Fulfillment Status
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "16px" }}>
+                    {steps.map((st, sIdx) => {
+                      const IconComp = st.icon;
+                      const isDone = st.completed;
+                      return (
+                        <div key={sIdx} style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                          <div style={{
+                            width: "38px",
+                            height: "38px",
+                            borderRadius: "50%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: isDone ? "#FAF3E6" : "#F5F2EC",
+                            color: isDone ? "#C89B2C" : "#A8A29E",
+                            border: isDone ? "1.5px solid #C89B2C" : "1.5px solid #E5E0D8",
+                            flexShrink: 0
+                          }}>
+                            <IconComp size={18} />
+                          </div>
+                          <div>
+                            <div style={{ fontSize: "11px", color: isDone ? "#C89B2C" : "#A8A29E", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                              Step {sIdx + 1}
+                            </div>
+                            <div style={{ fontSize: "13px", fontWeight: isDone ? "600" : "500", color: isDone ? "#1C1917" : "#78716C" }}>
+                              {st.label}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Details Breakdown */}
 
@@ -791,7 +909,7 @@ const currentOrders = useMemo(() => {
 
 <h3
   style={{
-    fontFamily: "'Arial', serif",
+    fontFamily: "'Cormorant Garamond', serif",
     fontSize: "26px",
     margin: "0 0 20px",
     color: "#1C1917",
@@ -884,7 +1002,7 @@ const currentOrders = useMemo(() => {
     style={{
       margin: 0,
       marginBottom: "24px",
-      fontFamily: "'Arial', serif",
+      fontFamily: "'Cormorant Garamond', serif",
       fontSize: "32px",
       color: "#1C1917",
       fontWeight: "400",
@@ -1032,7 +1150,7 @@ const currentOrders = useMemo(() => {
       <h2
         style={{
           margin: "8px 0 0",
-          fontFamily: "'Arial', serif",
+          fontFamily: "'Cormorant Garamond', serif",
           fontSize: "42px",
           fontWeight: "400",
           color: "#1C1917",
@@ -1109,7 +1227,7 @@ const currentOrders = useMemo(() => {
       <h2
         style={{
           marginTop: "24px",
-          fontFamily: "'Arial', serif",
+          fontFamily: "'Cormorant Garamond', serif",
           fontSize: "36px",
           color: "#1C1917",
           fontWeight: "400",

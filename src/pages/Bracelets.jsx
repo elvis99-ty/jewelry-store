@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { useSearchParams, Link, useNavigate} from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import products from "../data/products";
+import { getProducts } from "../api/productApi";
+import { ProductGridSkeleton } from "../components/LuxuryLoader";
 
 function Bracelets() {
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [braceletProducts, setBraceletProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [searchParams] = useSearchParams();
 
@@ -22,11 +25,27 @@ function Bracelets() {
     : "all"
 );
 
-  const braceletProducts = products.filter(
-    product =>
-      product.category === "female-bracelets" ||
-      product.category === "male-bracelets"
-  );
+  useEffect(() => {
+    const loadBracelets = async () => {
+      try {
+        setLoading(true);
+        const allProducts = await getProducts();
+        const bracelets = allProducts.filter(
+          product =>
+            product.category === "female-bracelets" ||
+            product.category === "male-bracelets"
+        );
+        setBraceletProducts(bracelets);
+      } catch (error) {
+        console.error(error);
+        setBraceletProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadBracelets();
+  }, []);
 
   const filteredProducts = braceletProducts.filter(product => {
 
@@ -222,6 +241,7 @@ function Bracelets() {
     }
   };
 
+
   return (
     <>
       <Navbar />
@@ -297,78 +317,78 @@ function Bracelets() {
 
           <div style={styles.container}>
 
-            <div style={styles.grid}>
+            {loading ? (
+              <ProductGridSkeleton count={8} />
+            ) : filteredProducts.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "60px 0", color: "#78716C" }}>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "28px", color: "#1C1917", margin: "0 0 10px" }}>
+                  No Bracelets Found
+                </p>
+                <p style={{ margin: 0, fontSize: "15px" }}>No pieces match this selected filter.</p>
+              </div>
+            ) : (
+              <div style={styles.grid}>
+                {filteredProducts.map((product, index) => {
+                  const isHovered = hoveredIndex === index;
 
-              {filteredProducts.map((product, index) => {
+                  return (
+                    <div
+                      key={product.id}
+                      style={{
+                        ...styles.card,
+                        cursor: "pointer",
+                      }}
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      onClick={() => navigate(`/product/${product.id}`)}
+                    >
+                      <div style={styles.imageWrapper}>
+                        <img
+                          loading="lazy"
+                          src={product.image}
+                          alt={product.name}
+                          style={{
+                            ...styles.image,
+                            transform: isHovered
+                              ? "scale(1.05)"
+                              : "scale(1)"
+                          }}
+                        />
 
-                const isHovered = hoveredIndex === index;
-
-                return (
-
-                  <div
-  key={product.id}
-  style={{
-    ...styles.card,
-    cursor: "pointer",
-  }}
-  onMouseEnter={() => setHoveredIndex(index)}
-  onMouseLeave={() => setHoveredIndex(null)}
-  onClick={() => navigate(`/product/${product.id}`)}
->
-
-                    <div style={styles.imageWrapper}>
-                      <img
-                      loading="lazy"
-                        src={product.image}
-                        alt={product.name}
-                        style={{
-                          ...styles.image,
-                          transform: isHovered
-                            ? "scale(1.05)"
-                            : "scale(1)"
-                        }}
-                      />
-
-                      <div
-                        style={{
-                          ...styles.cartOverlay,
-                          opacity: isHovered ? 1 : 0,
-                          transform: isHovered
-                            ? "translateY(0)"
-                            : "translateY(10px)"
-                        }}
-                      >
-
+                        <div
+                          style={{
+                            ...styles.cartOverlay,
+                            opacity: isHovered ? 1 : 0,
+                            transform: isHovered
+                              ? "translateY(0)"
+                              : "translateY(10px)"
+                          }}
+                        >
+                        </div>
                       </div>
 
+                      <div style={styles.infoContainer}>
+                        <span style={styles.category}>
+                          {product.category
+                            .replaceAll("-", " ")
+                            .toUpperCase()}
+                        </span>
+
+                        <h3 style={styles.productTitle}>
+                          {product.name}
+                        </h3>
+
+                        {product.price && (
+                          <p style={styles.price}>
+                            ₦{product.price.toLocaleString()}
+                          </p>
+                        )}
+                      </div>
                     </div>
-
-                    <div style={styles.infoContainer}>
-
-                      <span style={styles.category}>
-                        {product.category
-                          .replaceAll("-", " ")
-                          .toUpperCase()}
-                      </span>
-
-                      <h3 style={styles.productTitle}>
-                        {product.name}
-                      </h3>
-
-                      {product.price && (
-                        <p style={styles.price}>
-                          ₦{product.price.toLocaleString()}
-                        </p>
-                      )}
-
-                    </div>
-
-                  </div>
-
-                );
-              })}
-
-            </div>
+                  );
+                })}
+              </div>
+            )}
 
           </div>
 

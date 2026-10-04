@@ -2,16 +2,32 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import products from "../data/products";
+import { getProducts } from "../api/productApi";
+import { ProductGridSkeleton } from "../components/LuxuryLoader";
 
 function Necklace() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-
-  const necklaceProducts = products.filter(
-    (product) => product.category === "necklace"
-  );
+  const [necklaceProducts, setNecklaceProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadNecklaces = async () => {
+      try {
+        setLoading(true);
+        const fetched = await getProducts("necklace");
+        setNecklaceProducts(fetched);
+      } catch (error) {
+        console.error(error);
+        setNecklaceProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadNecklaces();
+  }, []);
 
   const styles = {
     mainBg: {
@@ -161,6 +177,7 @@ function Necklace() {
     },
   };
 
+
   return (
     <>
       <Navbar />
@@ -182,65 +199,76 @@ function Necklace() {
 
         <section style={styles.productSection}>
           <div style={styles.container}>
-            <div style={styles.grid}>
-              {necklaceProducts.map((product, index) => {
-                const isHovered = hoveredIndex === index;
+            {loading ? (
+              <ProductGridSkeleton count={8} />
+            ) : necklaceProducts.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "60px 0", color: "#78716C" }}>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "28px", color: "#1C1917", margin: "0 0 10px" }}>
+                  No Necklaces Found
+                </p>
+                <p style={{ margin: 0, fontSize: "15px" }}>No pieces currently available in this category.</p>
+              </div>
+            ) : (
+              <div style={styles.grid}>
+                {necklaceProducts.map((product, index) => {
+                  const isHovered = hoveredIndex === index;
 
-                return (
-                  <div
-  key={product.id}
-  style={{
-    ...styles.card,
-    cursor: "pointer",
-  }}
-  onMouseEnter={() => setHoveredIndex(index)}
-  onMouseLeave={() => setHoveredIndex(null)}
-  onClick={() => navigate(`/product/${product.id}`)}
->
-                    <div style={styles.imageWrapper}>
-                      <img
-                      loading="lazy"
-                        src={product.image}
-                        alt={product.name}
-                        style={{
-                          ...styles.image,
-                          transform: isHovered
-                            ? "scale(1.05)"
-                            : "scale(1)",
-                        }}
-                      />
+                  return (
+                    <div
+                      key={product.id}
+                      style={{
+                        ...styles.card,
+                        cursor: "pointer",
+                      }}
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      onClick={() => navigate(`/product/${product.id}`)}
+                    >
+                      <div style={styles.imageWrapper}>
+                        <img
+                          loading="lazy"
+                          src={product.image}
+                          alt={product.name}
+                          style={{
+                            ...styles.image,
+                            transform: isHovered
+                              ? "scale(1.05)"
+                              : "scale(1)",
+                          }}
+                        />
 
-                      <div
-                        style={{
-                          ...styles.cartOverlay,
-                          opacity: isHovered ? 1 : 0,
-                          transform: isHovered
-                            ? "translateY(0)"
-                            : "translateY(10px)",
-                        }}
-                      >
+                        <div
+                          style={{
+                            ...styles.cartOverlay,
+                            opacity: isHovered ? 1 : 0,
+                            transform: isHovered
+                              ? "translateY(0)"
+                              : "translateY(10px)",
+                          }}
+                        >
+                        </div>
+                      </div>
+
+                      <div style={styles.infoContainer}>
+                        <span style={styles.category}>
+                          Necklace
+                        </span>
+
+                        <h3 style={styles.productTitle}>
+                          {product.name}
+                        </h3>
+
+                        {product.price && (
+                          <p style={styles.price}>
+                            ₦{product.price.toLocaleString()}
+                          </p>
+                        )}
                       </div>
                     </div>
-
-                    <div style={styles.infoContainer}>
-                      <span style={styles.category}>
-                        Necklace
-                      </span>
-
-                      <h3 style={styles.productTitle}>
-                        {product.name}
-                      </h3>
-
-                      {product.price && (
-                        <p style={styles.price}>
-                          ₦{product.price.toLocaleString()}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </section>
       </main>

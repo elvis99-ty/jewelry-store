@@ -16,7 +16,15 @@ function Badge({ text, colour, bg }) {
   );
 }
 
-function OrderRow({ order }) {
+const STATUS_STYLES = {
+  Pending: { colour: "#B8860B", bg: "#FFF8E8" },
+  Processing: { colour: "#2563EB", bg: "#DBEAFE" },
+  Shipped: { colour: "#7C3AED", bg: "#EDE9FE" },
+  Delivered: { colour: "#15803D", bg: "#DCFCE7" },
+  Cancelled: { colour: "#DC2626", bg: "#FEE2E2" },
+};
+
+function OrderRow({ order, onStatusChange, updating, onViewDetails }) {
   const paymentBadge = () => {
     switch (order.paymentStatus?.toLowerCase()) {
       case "paid":
@@ -48,54 +56,8 @@ function OrderRow({ order }) {
     }
   };
 
-  const statusBadge = () => {
-    switch (order.orderStatus) {
-      case "Processing":
-        return (
-          <Badge
-            text="Processing"
-            colour="#2563EB"
-            bg="#DBEAFE"
-          />
-        );
-
-      case "Shipped":
-        return (
-          <Badge
-            text="Shipped"
-            colour="#7C3AED"
-            bg="#EDE9FE"
-          />
-        );
-
-      case "Delivered":
-        return (
-          <Badge
-            text="Delivered"
-            colour="#15803D"
-            bg="#DCFCE7"
-          />
-        );
-
-      case "Cancelled":
-        return (
-          <Badge
-            text="Cancelled"
-            colour="#DC2626"
-            bg="#FEE2E2"
-          />
-        );
-
-      default:
-        return (
-          <Badge
-            text="Pending"
-            colour="#B8860B"
-            bg="#FFF8E8"
-          />
-        );
-    }
-  };
+  const currentStatusStyle =
+    STATUS_STYLES[order.orderStatus] || STATUS_STYLES.Pending;
 
   return (
     <div
@@ -156,11 +118,35 @@ function OrderRow({ order }) {
       {/* Payment */}
       <div>{paymentBadge()}</div>
 
-      {/* Status */}
-      <div>{statusBadge()}</div>
+      {/* Status - editable */}
+      <div>
+        <select
+          value={order.orderStatus || "Pending"}
+          disabled={updating}
+          onChange={(e) => onStatusChange(order._id, e.target.value)}
+          style={{
+            padding: "6px 10px",
+            borderRadius: "20px",
+            fontSize: "13px",
+            fontWeight: "600",
+            color: currentStatusStyle.colour,
+            backgroundColor: currentStatusStyle.bg,
+            border: "none",
+            cursor: updating ? "not-allowed" : "pointer",
+            outline: "none",
+          }}
+        >
+          <option value="Pending">Pending</option>
+          <option value="Processing">Processing</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+      </div>
 
       {/* Action */}
       <button
+        onClick={() => onViewDetails?.(order)}
         style={{
           background: "#C89B2C",
           color: "#FFFFFF",
