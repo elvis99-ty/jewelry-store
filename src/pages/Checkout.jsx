@@ -168,34 +168,27 @@ function Checkout() {
         style={{
           backgroundColor: "#fdfcfc",
           minHeight: "100vh",
-          padding: "40px 60px",
         }}
+        className="py-8 sm:py-12 px-4 sm:px-8 lg:px-12"
       >
         <div
-          style={{
-            maxWidth: "1300px",
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "1.5fr 1fr",
-            gap: "40px",
-          }}
+          className="max-w-[1300px] mx-auto grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-10"
         >
           {/* LEFT SIDE */}
           <div
             style={{
               backgroundColor: "#fff",
-              padding: "35px",
-              borderRadius: "20px",
               border: "1px solid #e7e1d8",
             }}
+            className="p-5 sm:p-9 rounded-[20px]"
           >
             <h1
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "48px",
                 color: "#111",
-                marginBottom: "30px",
+                marginBottom: "24px",
               }}
+              className="text-3xl sm:text-4xl md:text-[48px]"
             >
               Checkout
             </h1>
@@ -203,35 +196,27 @@ function Checkout() {
             {/* DELIVERY METHOD TOGGLE */}
             <h2
               style={{
-                marginTop: "35px",
-                marginBottom: "20px",
+                marginTop: "25px",
+                marginBottom: "16px",
                 color: "#111",
-                fontSize: "32px",
                 fontFamily: "'Cormorant Garamond', serif",
               }}
+              className="text-2xl sm:text-[32px]"
             >
               Delivery Method
             </h2>
 
             <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                backgroundColor: "#f4f1ec",
-                borderRadius: "14px",
-                color: "#111",
-                padding: "4px",
-                marginBottom: "30px",
-              }}
+              className="grid grid-cols-2 bg-[#f4f1ec] rounded-2xl p-1 mb-7 text-[#111]"
             >
               <button
                 onClick={() => setDeliveryMethod("delivery")}
                 style={{
-                  height: "64px",
+                  height: "56px",
                   border: "none",
                   borderRadius: "12px",
                   backgroundColor: deliveryMethod === "delivery" ? "#fff" : "transparent",
-                  fontSize: "18px",
+                  fontSize: "16px",
                   fontWeight: "600",
                   cursor: "pointer",
                   boxShadow: deliveryMethod === "delivery" ? "0 2px 10px rgba(0,0,0,0.08)" : "none",
@@ -243,11 +228,11 @@ function Checkout() {
               <button
                 onClick={() => setDeliveryMethod("pickup")}
                 style={{
-                  height: "64px",
+                  height: "56px",
                   border: "none",
                   borderRadius: "12px",
                   backgroundColor: deliveryMethod === "pickup" ? "#fff" : "transparent",
-                  fontSize: "18px",
+                  fontSize: "16px",
                   color: "#000",
                   fontWeight: "600",
                   cursor: "pointer",
@@ -272,7 +257,7 @@ function Checkout() {
             />
             {errors.contact && <p style={errorStyle}>{errors.contact}</p>}
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <input
                   name="firstName"
@@ -320,7 +305,7 @@ function Checkout() {
                 />
                 {errors.address && <p style={errorStyle}>{errors.address}</p>}
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <input
                       name="city"
@@ -447,13 +432,10 @@ function Checkout() {
           <div
             style={{
               backgroundColor: "#fff",
-              padding: "30px",
-              borderRadius: "20px",
               border: "1px solid #e7e1d8",
-              position: "sticky",
-              top: "120px",
               height: "fit-content",
             }}
+            className="p-5 sm:p-8 rounded-[20px] lg:sticky top-[100px]"
           >
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "36px", color: "#111", marginBottom: "25px" }}>
               Order Summary

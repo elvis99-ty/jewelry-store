@@ -5,12 +5,12 @@ import logo from "../assets/images/Logoo.jpeg";
 function Footer() {
   return (
     <footer 
-      className="w-full bg-[#151521] text-white mt-[120px]"
+      className="w-full bg-[#151521] text-white mt-16 sm:mt-24 md:mt-[120px]"
       style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
     >
       <div 
-        className="mx-auto w-full" 
-        style={{ maxWidth: "1380px", paddingLeft: "48px", paddingRight: "48px", paddingTop:"50px", paddingBottom: "20px" }}
+        className="mx-auto w-full px-5 sm:px-8 md:px-12 pt-12 pb-6" 
+        style={{ maxWidth: "1380px" }}
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-10 items-start">
           

@@ -46,19 +46,19 @@ function Shop() {
       maxWidth: "1400px",
       marginLeft: "auto",
       marginRight: "auto",
-      paddingLeft: "40px",
-      paddingRight: "40px",
+      paddingLeft: "clamp(16px, 4vw, 40px)",
+      paddingRight: "clamp(16px, 4vw, 40px)",
       boxSizing: "border-box"
     },
 
     heroSpace: {
-      paddingTop: "50px",
-      paddingBottom: "40px"
+      paddingTop: "40px",
+      paddingBottom: "30px"
     },
 
     title: {
       fontFamily: "'Cormorant Garamond', serif",
-      fontSize: "42px",
+      fontSize: "clamp(32px, 5vw, 42px)",
       lineHeight: "1.2",
       fontWeight: "400",
       color: "#111111",
@@ -69,7 +69,7 @@ function Shop() {
     subtext: {
       fontSize: "16px",
       color: "#6f6f6f",
-      marginBottom: "32px",
+      marginBottom: "28px",
       marginTop: 0
     },
 
@@ -110,14 +110,14 @@ function Shop() {
     },
 
     productSection: {
-      paddingTop: "40px",
+      paddingTop: "30px",
       paddingBottom: "64px"
     },
 
     grid: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-      gap: "32px 24px"
+      gridTemplateColumns: "repeat(auto-fill, minmax(min(260px, 100%), 1fr))",
+      gap: "28px 20px"
     },
 
     card: {

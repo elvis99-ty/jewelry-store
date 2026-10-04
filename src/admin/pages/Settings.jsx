@@ -87,10 +87,10 @@ function Settings() {
         <h1
           style={{
             margin: 0,
-            fontSize: "40px",
             fontFamily: "'Cormorant Garamond', serif",
             color: "#1C1917",
           }}
+          className="text-3xl sm:text-4xl lg:text-[40px]"
         >
           Store Settings
         </h1>
@@ -99,7 +99,7 @@ function Settings() {
           style={{
             color: "#78716C",
             marginTop: "8px",
-            marginBottom: "32px",
+            marginBottom: "28px",
             fontSize: "15px",
           }}
         >
@@ -140,9 +140,9 @@ function Settings() {
               background: "#FFFFFF",
               border: "1px solid #ECE7DF",
               borderRadius: "20px",
-              padding: "36px",
               boxShadow: "0 8px 24px rgba(0,0,0,.03)",
             }}
+            className="p-5 sm:p-9"
           >
             {/* General Brand Details */}
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
@@ -159,7 +159,7 @@ function Settings() {
               </h3>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "22px" }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-5">
               <div>
                 <label style={labelStyle}>Store Name</label>
                 <input

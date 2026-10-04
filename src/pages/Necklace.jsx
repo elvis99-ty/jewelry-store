@@ -44,19 +44,19 @@ function Necklace() {
       maxWidth: "1400px",
       marginLeft: "auto",
       marginRight: "auto",
-      paddingLeft: "40px",
-      paddingRight: "40px",
+      paddingLeft: "clamp(16px, 4vw, 40px)",
+      paddingRight: "clamp(16px, 4vw, 40px)",
       boxSizing: "border-box",
     },
 
     heroSpace: {
-      paddingTop: "110px",
+      paddingTop: "60px",
       paddingBottom: "30px",
     },
 
     title: {
       fontFamily: "'Cormorant Garamond', serif",
-      fontSize: "42px",
+      fontSize: "clamp(32px, 5vw, 42px)",
       lineHeight: "1.2",
       fontWeight: "400",
       color: "#111111",
@@ -72,14 +72,14 @@ function Necklace() {
     },
 
     productSection: {
-      paddingTop: "40px",
+      paddingTop: "35px",
       paddingBottom: "70px",
     },
 
     grid: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-      gap: "32px 24px",
+      gridTemplateColumns: "repeat(auto-fill, minmax(min(260px, 100%), 1fr))",
+      gap: "28px 20px",
     },
 
     card: {

@@ -45,19 +45,19 @@ function Earrings() {
       maxWidth: "1400px",
       marginLeft: "auto",
       marginRight: "auto",
-      paddingLeft: "40px",
-      paddingRight: "40px",
+      paddingLeft: "clamp(16px, 4vw, 40px)",
+      paddingRight: "clamp(16px, 4vw, 40px)",
       boxSizing: "border-box"
     },
 
     heroSpace: {
-      paddingTop: "50px",
-      paddingBottom: "30px"
+      paddingTop: "40px",
+      paddingBottom: "25px"
     },
 
     title: {
       fontFamily: "'Cormorant Garamond', serif",
-      fontSize: "42px",
+      fontSize: "clamp(32px, 5vw, 42px)",
       lineHeight: "1.2",
       fontWeight: "400",
       color: "#111111",
@@ -73,14 +73,14 @@ function Earrings() {
     },
 
     productSection: {
-      paddingTop: "40px",
+      paddingTop: "30px",
       paddingBottom: "70px"
     },
 
     grid: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-      gap: "32px 24px"
+      gridTemplateColumns: "repeat(auto-fill, minmax(min(260px, 100%), 1fr))",
+      gap: "28px 20px"
     },
 
     card: {

@@ -40,8 +40,6 @@ function Collections() {
     section: {
       width: "100%",
       backgroundColor: "#fdfcfc",
-      paddingTop: "100px",
-      paddingBottom: "100px",
       fontFamily: "'Plus Jakarta Sans', sans-serif",
       boxSizing: "border-box"
     },
@@ -49,12 +47,10 @@ function Collections() {
       maxWidth: "1440px",
       marginLeft: "auto",
       marginRight: "auto",
-      paddingLeft: "40px",
-      paddingRight: "40px",
       boxSizing: "border-box"
     },
     
-    headerBlock: { textAlign: "center", marginBottom: "64px" },
+    headerBlock: { textAlign: "center" },
     subTitle: {
       color: "#cfa76e",
       textTransform: "uppercase",
@@ -66,18 +62,10 @@ function Collections() {
     },
     mainTitle: {
       fontFamily: "'Cormorant Garamond', serif",
-      fontSize: "56px",
       color: "#111111",
       fontWeight: "400",
       margin: 0,
       lineHeight: "1.1"
-    },
-
-    gridContainer: {
-      display: "grid",
-      gridTemplateColumns: "repeat(4, minmax(200px, 1fr))",
-      gap: "20px",
-      width: "100%"
     },
 
     cardFrame: {
@@ -236,15 +224,15 @@ const [shuffledCollections] = useState(() => {
 });
 
   return (
-    <section style={styles.section}>
-      <div style={styles.container}>
+    <section style={styles.section} className="py-14 sm:py-20 md:py-[100px]">
+      <div style={styles.container} className="px-5 sm:px-8 md:px-10">
         
-        <div style={styles.headerBlock}>
+        <div style={styles.headerBlock} className="mb-10 sm:mb-14 md:mb-16">
           <p style={styles.subTitle}>Browse By</p>
-          <h2 style={styles.mainTitle}>Our Collections</h2>
+          <h2 style={styles.mainTitle} className="text-[34px] sm:text-[44px] md:text-[56px]">Our Collections</h2>
         </div>
 
-        <div style={styles.gridContainer}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 w-full">
           {shuffledCollections.map((item, index) => {
             const isHovered = hoveredIndex === index;
 

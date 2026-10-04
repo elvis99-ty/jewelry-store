@@ -64,10 +64,10 @@ function PaymentIssues() {
       <h1
         style={{
           margin: 0,
-          fontSize: "42px",
           fontFamily: "'Cormorant Garamond', serif",
           color: "#1C1917",
         }}
+        className="text-3xl sm:text-4xl lg:text-[42px]"
       >
         Payment Issues
       </h1>
@@ -75,8 +75,9 @@ function PaymentIssues() {
       <p
         style={{
           color: "#78716C",
-          marginTop: "10px",
-          marginBottom: "30px",
+          marginTop: "8px",
+          marginBottom: "28px",
+          fontSize: "15px",
         }}
       >
         Orders where a payment was started but never confirmed as paid.
@@ -84,6 +85,7 @@ function PaymentIssues() {
 
       <AdminTable
         columns="1fr 1.6fr 1fr 1fr 1.2fr .8fr"
+        minWidth="860px"
         headers={["Order No", "Customer", "Amount", "Status", "Reference", "Action"]}
       >
         {loading ? (

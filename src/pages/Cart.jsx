@@ -136,67 +136,40 @@ function Cart() {
       <Navbar />
       
       <div style={styles.divider} />
-      <main
-  style={{
-    backgroundColor: "#fdfcfc",
-    minHeight: "100vh",
-    padding: "30px 60px 40px"
-  }}
->
-  <div
-    style={{
-      maxWidth: "1200px",
-      margin: "0 auto",
-      display: "grid",
-      gridTemplateColumns: "2fr 1fr",
-      gap: "40px"
-    }}
-  >
+      <main className="w-full bg-[#fdfcfc] min-h-screen px-4 sm:px-8 md:px-12 py-8 md:py-12">
+  <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
     {/* CART ITEMS */}
-    <div>
+    <div className="lg:col-span-2">
       <h1
-  style={{
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: "54px",
-    color: "#111",
-    marginBottom: "8px"
-  }}
->
-  Shopping Bag
-</h1>
+        style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          color: "#111",
+          marginBottom: "8px"
+        }}
+        className="text-[38px] sm:text-[46px] md:text-[54px]"
+      >
+        Shopping Bag
+      </h1>
 
-<p
-  style={{
-    color: "#777",
-    fontSize: "15px",
-    marginBottom: "40px"
-  }}
->
-  Review your selected pieces before checkout
-</p>
+      <p
+        style={{
+          color: "#777",
+          fontSize: "15px",
+          marginBottom: "32px"
+        }}
+      >
+        Review your selected pieces before checkout
+      </p>
 
       {cartItems.map((item) => (
         <div
           key={item.id}
-          style={{
-            display: "flex",
-            gap: "20px",
-            backgroundColor: "#fff",
-            border: "1px solid #e7e1d8",
-            borderRadius: "18px",
-            padding: "20px",
-            marginBottom: "20px"
-          }}
+          className="flex flex-col sm:flex-row gap-5 bg-white border border-[#e7e1d8] rounded-2xl p-4 sm:p-5 mb-5 items-start sm:items-center"
         >
           <img
             src={item.image}
             alt={item.name}
-            style={{
-              width: "160px",
-              height: "160px",
-              objectFit: "cover",
-              borderRadius: "12px"
-            }}
+            className="w-full sm:w-[150px] sm:h-[150px] aspect-square object-cover rounded-xl shrink-0"
           />
 
           <div style={{ flex: 1 }}>
@@ -335,16 +308,15 @@ function Cart() {
     </div>
 
     {/* ORDER SUMMARY */}
-    <div>
+    <div className="lg:col-span-1">
       <div
         style={{
           backgroundColor: "#fff",
           border: "1px solid #e7e1d8",
           borderRadius: "18px",
           padding: "24px",
-          position: "sticky",
-          top: "120px"
         }}
+        className="lg:sticky lg:top-28"
       >
         <h2
           style={{

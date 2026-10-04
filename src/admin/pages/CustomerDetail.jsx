@@ -69,22 +69,15 @@ function CustomerDetail() {
       ) : (
         <>
           {/* CUSTOMER HEADER */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "24px",
-              marginBottom: "35px",
-            }}
-          >
-            <div style={{ gridColumn: "span 4" }}>
+          <div className="mb-8">
+            <div className="mb-6">
               <h1
                 style={{
                   margin: 0,
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: "42px",
                   color: "#1C1917",
                 }}
+                className="text-3xl sm:text-4xl lg:text-[42px]"
               >
                 {customer.firstName} {customer.lastName}
               </h1>
@@ -93,13 +86,15 @@ function CustomerDetail() {
               </p>
             </div>
 
-            <InfoCard label="Total Orders" value={customerOrders.length.toString()} />
-            <InfoCard label="Total Spent" value={`₦${totalSpent.toLocaleString()}`} />
-            <InfoCard
-              label="Last Order"
-              value={new Date(customerOrders[0].createdAt).toLocaleDateString()}
-            />
-            <InfoCard label="Address" value={customer.address || "—"} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              <InfoCard label="Total Orders" value={customerOrders.length.toString()} />
+              <InfoCard label="Total Spent" value={`₦${totalSpent.toLocaleString()}`} />
+              <InfoCard
+                label="Last Order"
+                value={new Date(customerOrders[0].createdAt).toLocaleDateString()}
+              />
+              <InfoCard label="Address" value={customer.address || "—"} />
+            </div>
           </div>
 
           {/* ORDER HISTORY */}
@@ -116,6 +111,7 @@ function CustomerDetail() {
 
           <AdminTable
             columns="1fr 1fr 1fr 1fr 1fr"
+            minWidth="720px"
             headers={["Order No", "Date", "Amount", "Payment", "Status"]}
           >
             {customerOrders.map((order) => (

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { Bell, Menu, ChevronDown, ExternalLink, LogOut, Settings as SettingsIcon } from "lucide-react";
 
-function Topbar() {
+function Topbar({ onMenuClick }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
@@ -24,9 +24,9 @@ function Topbar() {
     if (p.includes("/products")) return "Product Inventory";
     if (p.includes("/customers")) return "Customers Directory";
     if (p.includes("/reports")) return "Analytics & Reports";
-    if (p.includes("/payment-issues")) return "Payment Issues & Reconciliation";
-    if (p.includes("/settings")) return "Store Settings & Logistics";
-    return "Dashboard Overview";
+    if (p.includes("/payment-issues")) return "Payment Issues";
+    if (p.includes("/settings")) return "Store Settings";
+    return "Dashboard";
   };
 
   const handleLogout = () => {
@@ -44,28 +44,37 @@ function Topbar() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "0 32px",
         position: "sticky",
         top: 0,
-        zIndex: 100,
+        zIndex: 40,
       }}
+      className="px-4 sm:px-6 md:px-8"
     >
       {/* Left Side */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "18px",
+          gap: "12px",
         }}
       >
+        {onMenuClick && (
+          <button
+            onClick={onMenuClick}
+            className="lg:hidden p-2 -ml-2 rounded-lg text-[#1C1917] hover:bg-[#F5F2EB] focus:outline-none"
+            aria-label="Toggle admin sidebar"
+          >
+            <Menu size={22} />
+          </button>
+        )}
         <h3
           style={{
             margin: 0,
-            fontSize: "20px",
             color: "#1C1917",
             fontWeight: "600",
             fontFamily: "'Plus Jakarta Sans', sans-serif",
           }}
+          className="text-[17px] sm:text-[20px] truncate max-w-[190px] sm:max-w-none"
         >
           {getPageTitle()}
         </h3>

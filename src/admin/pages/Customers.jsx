@@ -83,22 +83,16 @@ function Customers() {
   return (
     <AdminLayout>
       <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          marginBottom: "35px",
-          gap: "20px",
-        }}
+        className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8"
       >
         <div>
           <h1
             style={{
               margin: 0,
-              fontSize: "42px",
               fontFamily: "'Cormorant Garamond', serif",
               color: "#1C1917",
             }}
+            className="text-3xl sm:text-4xl lg:text-[42px]"
           >
             Customers
           </h1>
@@ -106,8 +100,8 @@ function Customers() {
           <p
             style={{
               color: "#78716C",
-              marginTop: "10px",
-              fontSize: "16px",
+              marginTop: "8px",
+              fontSize: "15px",
             }}
           >
             {loading ? "Loading..." : `${customers.length} customers, based on order history.`}
@@ -120,7 +114,6 @@ function Customers() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           style={{
-            width: "320px",
             height: "48px",
             borderRadius: "12px",
             border: "1px solid #D9D2C7",
@@ -130,11 +123,13 @@ function Customers() {
             outline: "none",
             fontSize: "15px",
           }}
+          className="w-full sm:w-[320px]"
         />
       </div>
 
       <AdminTable
         columns="1.3fr 1.6fr 1.2fr .8fr 1fr 1.2fr"
+        minWidth="850px"
         headers={["Customer", "Email", "Phone", "Orders", "Total Spent", "Last Order"]}
       >
         {loading ? (

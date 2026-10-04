@@ -245,12 +245,7 @@ function Dashboard() {
 
         {/* 4 Stat Cards */}
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: "24px",
-            marginBottom: "36px",
-          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8"
         >
           <StatCard
             title="Total Orders"
@@ -279,12 +274,7 @@ function Dashboard() {
 
         {/* Quick Navigation Cards */}
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: "20px",
-            marginBottom: "36px",
-          }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 mb-8"
         >
           <Link
             to="/admin/orders"
@@ -359,9 +349,9 @@ function Dashboard() {
             backgroundColor: "#FFFFFF",
             border: "1px solid #ECE7DF",
             borderRadius: "20px",
-            padding: "28px 32px",
             boxShadow: "0 8px 24px rgba(0,0,0,0.03)",
           }}
+          className="p-4 sm:p-7"
         >
           <div
             style={{
@@ -414,8 +404,8 @@ function Dashboard() {
               <p style={{ margin: 0, fontSize: "16px" }}>No orders placed yet.</p>
             </div>
           ) : (
-            <div style={{ overflowX: "auto" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+            <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch", width: "100%" }}>
+              <table style={{ minWidth: "700px", width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
                 <thead>
                   <tr style={{ borderBottom: "1px solid #ECE7DF", color: "#A8A29E", fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase" }}>
                     <th style={{ padding: "12px 14px", fontWeight: "700" }}>Order ID</th>

@@ -100,10 +100,10 @@ function Reports() {
       <h1
         style={{
           margin: 0,
-          fontSize: "42px",
           fontFamily: "'Cormorant Garamond', serif",
           color: "#1C1917",
         }}
+        className="text-3xl sm:text-4xl lg:text-[42px]"
       >
         Reports
       </h1>
@@ -111,8 +111,9 @@ function Reports() {
       <p
         style={{
           color: "#78716C",
-          marginTop: "10px",
-          marginBottom: "35px",
+          marginTop: "8px",
+          marginBottom: "28px",
+          fontSize: "15px",
         }}
       >
         A quick look at how your store is performing.
@@ -124,12 +125,7 @@ function Reports() {
         <>
           {/* SUMMARY CARDS */}
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "24px",
-              marginBottom: "40px",
-            }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8"
           >
             <ReportCard label="Total Revenue" value={`₦${totalRevenue.toLocaleString()}`} />
             <ReportCard label="Paid Orders" value={paidOrders.length.toString()} />
@@ -137,11 +133,7 @@ function Reports() {
           </div>
 
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "30px",
-            }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
           >
             {/* TOP PRODUCTS */}
             <div

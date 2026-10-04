@@ -146,13 +146,7 @@ const currentOrders = useMemo(() => {
           {/* ================= Header ================= */}
 
 <div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "1fr 420px",
-    alignItems: "center",
-    gap: "60px",
-    marginBottom: "70px",
-  }}
+  className="grid grid-cols-1 lg:grid-cols-[1fr_420px] items-center gap-8 lg:gap-[60px] mb-12 lg:mb-[70px]"
 >
 
   {/* Left Side */}
@@ -176,11 +170,10 @@ const currentOrders = useMemo(() => {
         marginTop: "18px",
         marginBottom: "18px",
         fontFamily: "'Cormorant Garamond', serif",
-        fontSize: "72px",
-        lineHeight: "72px",
         fontWeight: "400",
         color: "#1C1917",
       }}
+      className="text-4xl sm:text-6xl lg:text-[72px] leading-tight sm:leading-[72px]"
     >
       Purchase
       <br />
@@ -575,13 +568,9 @@ const currentOrders = useMemo(() => {
           background: "#FFFFFF",
           border: "1px solid #ECE7DF",
           borderRadius: "24px",
-          padding: "28px 32px",
-          display: "grid",
-          gridTemplateColumns: "90px 1fr auto auto",
-          alignItems: "center",
-          gap: "28px",
           boxShadow: "0 8px 24px rgba(0,0,0,.03)",
         }}
+        className="flex flex-col sm:grid sm:grid-cols-[72px_1fr_auto_auto] items-start sm:items-center gap-4 sm:gap-6 p-5 sm:p-7"
       >
 
         {/* Order Number */}
@@ -597,6 +586,7 @@ const currentOrders = useMemo(() => {
             alignItems: "center",
             fontWeight: "700",
             color: "#C89B2C",
+            flexShrink: 0,
           }}
         >
           {order.orderNumber || order.id}
@@ -604,7 +594,7 @@ const currentOrders = useMemo(() => {
 
         {/* Product */}
 
-        <div>
+        <div className="w-full">
 
           <h3
             style={{
@@ -633,9 +623,7 @@ const currentOrders = useMemo(() => {
         {/* Amount */}
 
         <div
-          style={{
-            textAlign: "right",
-          }}
+          className="w-full sm:w-auto flex sm:flex-col justify-between sm:justify-start items-center sm:items-end text-left sm:text-right"
         >
           <div
             style={{
@@ -670,19 +658,19 @@ const currentOrders = useMemo(() => {
 
         <button
           onClick={() => {
-    console.log("Clicked Order:", order);
-    setSelectedOrder(order);
-}}
+            console.log("Clicked Order:", order);
+            setSelectedOrder(order);
+          }}
           style={{
             border: "none",
             background: "#C89B2C",
             boxShadow: "0 10px 20px rgba(200,155,44,.25)",
             color: "#fff",
-            padding: "14px 22px",
             borderRadius: "14px",
             cursor: "pointer",
             fontWeight: "600",
           }}
+          className="w-full sm:w-auto py-3 px-5 text-center text-sm"
         >
           Details
         </button>

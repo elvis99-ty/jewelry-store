@@ -50,37 +50,27 @@ function FeaturedPieces() {
 
   return (
     <section 
-      className="w-full bg-[#f7f6f6] overflow-hidden"
-      style={{ 
-        fontFamily: "'Plus Jakarta Sans', sans-serif",
-        marginTop: "120px" 
-      }}
+      className="w-full bg-[#f7f6f6] overflow-hidden mt-16 sm:mt-24 md:mt-[120px]"
+      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
     >
       <div 
-        className="mx-auto w-full" 
-        style={{ 
-          maxWidth: "1380px", 
-          paddingLeft: "48px", 
-          paddingRight: "48px",
-          paddingTop: "60px",
-          paddingBottom: "100px"
-        }}
+        className="mx-auto w-full px-5 sm:px-8 md:px-12 py-12 md:py-20" 
+        style={{ maxWidth: "1380px" }}
       >
         <motion.div
-  className="flex items-end justify-between"
-  style={{ marginBottom: "48px" }}
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.8 }}
->
+          className="flex items-end justify-between mb-8 sm:mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <div>
-            <p className="uppercase tracking-[4px] text-[#cda052] text-[12px] font-semibold" style={{ marginBottom: "12px" }}>
+            <p className="uppercase tracking-[4px] text-[#cda052] text-[11px] sm:text-[12px] font-semibold mb-2 sm:mb-3">
               Curated For You
             </p>
             <h2 
-              className="text-[#1a1a1a] leading-tight"
-              style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: "46px" }}
+              className="text-[#1a1a1a] leading-tight text-[32px] sm:text-[40px] md:text-[46px]"
+              style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400 }}
             >
               Featured Pieces
             </h2>
@@ -90,13 +80,7 @@ function FeaturedPieces() {
         {loading ? (
           <ProductGridSkeleton count={8} />
         ) : (
-          <div 
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full"
-            style={{ 
-              columnGap: "28px", 
-              rowGap: "44px" 
-            }}
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full gap-6 sm:gap-7 md:gap-x-7 md:gap-y-11">
               {items.map((item, index) => (
               <motion.div
               key={item.id}

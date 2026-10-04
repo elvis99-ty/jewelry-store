@@ -13,7 +13,7 @@ function Navbar() {
   );
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-[#fdfcfc] py-5 md:px-12 md:py-14 flex items-center justify-between md:justify-relative">
+    <nav className="sticky top-0 z-50 w-full bg-[#fdfcfc] py-5 md:px-12 md:py-14 flex items-center justify-between">
 
       <div className="w-[120px] md:w-[160px] flex justify-start md:justify-end pl-6 md:pl-0">
         <Link to="/">
@@ -78,13 +78,13 @@ function Navbar() {
 
   </Link>
 </div>
-      <div className="flex items-center gap-6 md:hidden mr-8">
-        <Link to="/cart">
+      <div className="flex items-center gap-5 md:hidden pr-5">
+        <Link to="/cart" className="relative p-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.2}
+            strokeWidth={1.4}
             stroke="currentColor"
             className="w-6 h-6 text-black"
           >
@@ -94,16 +94,22 @@ function Navbar() {
               d="M15.75 10.5V7.875a3.75 3.75 0 10-7.5 0V10.5m-3 0h13.5l-.825 8.25a1.5 1.5 0 01-1.492 1.35H7.567a1.5 1.5 0 01-1.492-1.35L5.25 10.5z"
             />
           </svg>
+          {cartCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-[#cfa76e] text-white text-[10px] font-bold min-w-[16px] h-[16px] rounded-full flex items-center justify-center px-1">
+              {cartCount}
+            </span>
+          )}
         </Link>
         <button 
           onClick={() => setIsMobileMenuOpen(true)}
-          className="text-black focus:outline-none"
+          className="p-1 text-black focus:outline-none"
+          aria-label="Open mobile menu"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.2}
+            strokeWidth={1.4}
             stroke="currentColor"
             className="w-6 h-6"
           >
@@ -111,61 +117,86 @@ function Navbar() {
           </svg>
         </button>
       </div>
-      <div 
-        className={`fixed inset-0 z-50 bg-[#fdfcfc] transition-transform duration-300 ease-in-out md:hidden flex flex-col ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="w-full py-5 flex items-center justify-between">
-          <div className="w-[120px] pl-6">
-            <img src={logo} alt="Logo" className="w-full h-auto object-contain" />
-          </div>
-          <div className="flex items-center gap-6 mr-8">
-            <Link to="/cart" onClick={() => setIsMobileMenuOpen(false)} className="text-black">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.2}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 10.5V7.875a3.75 3.75 0 10-7.5 0V10.5m-3 0h13.5l-.825 8.25a1.5 1.5 0 01-1.492 1.35H7.567a1.5 1.5 0 01-1.492-1.35L5.25 10.5z"
-                />
-              </svg>
-            </Link>
 
-            <button 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-black focus:outline-none"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.2}
-                stroke="currentColor"
-                className="w-6 h-6"
+      {/* Mobile Floating Navigation Card & Backdrop */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 md:hidden flex justify-end items-start p-4">
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+
+          {/* Floating Compact Menu Card */}
+          <div className="relative w-full max-w-[330px] bg-white rounded-2xl shadow-2xl border border-[#ede8df] z-10 overflow-hidden flex flex-col">
+            {/* Header with Logo and Close button */}
+            <div className="flex items-center justify-between px-6 pt-5 pb-3 border-b border-[#f3efe6]">
+              <div className="w-[115px]">
+                <img src={logo} alt="Logo" className="w-full h-auto object-contain" />
+              </div>
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 -mr-1 rounded-full text-[#4a4a4a] hover:text-[#cda052] hover:bg-[#faf8f5] transition-colors focus:outline-none"
+                aria-label="Close menu"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.8}
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Menu Links with Chevron */}
+            <div className="flex flex-col px-4 py-3 space-y-1 text-[14px] text-[#2c2c2c]">
+              {[
+                { name: "Home", path: "/" },
+                { name: "Shop", path: "/shop" },
+                { name: "Rings", path: "/rings" },
+                { name: "Chains", path: "/necklace" },
+                { name: "Bracelets", path: "/bracelets" },
+                { name: "Ear Rings", path: "/earrings" },
+                { name: "My Orders", path: "/myorders" },
+              ].map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-[#faf7f0] hover:text-[#cda052] transition-colors font-medium"
+                >
+                  <span>{link.name}</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="w-4 h-4 text-[#cda052]"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </Link>
+              ))}
+            </div>
+
+            {/* Bottom Luxury Action Button */}
+            <div className="p-5 pt-2">
+              <Link
+                to="/shop"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full py-3 bg-[#cda052] hover:bg-[#b88c3e] text-white text-[13px] font-semibold tracking-widest uppercase rounded-xl flex items-center justify-center transition-colors shadow-sm"
+              >
+                Shop Now
+              </Link>
+            </div>
           </div>
         </div>
-
-        <div className="flex flex-col gap-9 px-8 pt-14 text-[14px] uppercase tracking-widest text-[#6b6b6b]">
-          <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">HOME</Link>
-          <Link to="/shop" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">SHOP</Link>
-          <Link to="/rings" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">RINGS</Link>
-          <Link to="/necklace" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">CHAINS</Link>
-          <Link to="/bracelets" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">BRACELETS</Link>
-           <Link to="/earrings" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">EAR RINGS</Link>
-          <Link to="/myorders" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d4af37] transition duration-200">MY ORDERS</Link>
-        </div>
-      </div>
+      )}
 
     </nav>
   )

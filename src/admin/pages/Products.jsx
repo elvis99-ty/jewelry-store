@@ -102,32 +102,26 @@ function Products() {
       {/* Header */}
 
       <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          marginBottom: "35px",
-          gap: "20px",
-        }}
+        className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8"
       >
         <div>
           <h1
             style={{
               margin: 0,
               fontFamily: "'Cormorant Garamond', serif",
-              fontSize: "46px",
               color: "#1C1917",
               fontWeight: "500",
             }}
+            className="text-3xl sm:text-4xl lg:text-[46px]"
           >
             Products
           </h1>
 
           <p
             style={{
-              marginTop: "10px",
+              marginTop: "8px",
               color: "#78716C",
-              fontSize: "16px",
+              fontSize: "15px",
             }}
           >
             Manage every product in your store.
@@ -135,11 +129,7 @@ function Products() {
         </div>
 
         <div
-          style={{
-            display: "flex",
-            gap: "15px",
-            alignItems: "center",
-          }}
+          className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center w-full lg:w-auto"
         >
           <select
             value={filter}
@@ -151,10 +141,10 @@ function Products() {
               padding: "0 16px",
               background: "#FFFFFF",
               color: "#1C1917",
-              minWidth: "190px",
               fontSize: "15px",
               outline: "none",
             }}
+            className="w-full sm:w-[190px]"
           >
             {CATEGORY_FILTERS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -169,7 +159,6 @@ function Products() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             style={{
-              width: "320px",
               height: "48px",
               borderRadius: "12px",
               border: "1px solid #D9D2C7",
@@ -179,6 +168,7 @@ function Products() {
               outline: "none",
               fontSize: "15px",
             }}
+            className="w-full sm:w-[280px]"
           />
 
           <button
@@ -193,6 +183,7 @@ function Products() {
               fontWeight: "600",
               cursor: "pointer",
               fontSize: "15px",
+              whiteSpace: "nowrap",
             }}
           >
             + Add Product
@@ -202,6 +193,7 @@ function Products() {
 
       <AdminTable
         columns="80px 1.2fr 1fr 1fr 1fr .8fr 1fr 1.3fr"
+        minWidth="920px"
         headers={[
           "Image",
           "Name",

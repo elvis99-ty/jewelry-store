@@ -132,8 +132,8 @@ function ProductDetails() {
           style={{
             maxWidth: "1300px",
             margin: "0 auto",
-            padding: "60px 40px"
           }}
+          className="py-8 sm:py-14 px-4 sm:px-8"
         >
           <motion.div
             initial={{
@@ -147,21 +147,16 @@ function ProductDetails() {
             transition={{
               duration: 0.6
             }}
-            style={{
-            display: "grid",
-            gridTemplateColumns: "0.8fr 1.3fr",
-            gap: "80px",
-            alignItems: "start"
-            }}
+            className="flex flex-col md:grid md:grid-cols-[0.8fr_1.3fr] gap-8 md:gap-20 items-start"
           >
             {/* IMAGE */}
-            <div>
+            <div className="w-full flex justify-center md:justify-start">
               <img
                 src={product.image}
                 alt={product.name}
                 style={{
                   width: "100%",
-                  maxWidth: "280px",
+                  maxWidth: "320px",
                   aspectRatio : "1/1",
                   objectFit : "cover",
                   borderRadius: "20px",
@@ -172,7 +167,7 @@ function ProductDetails() {
             </div>
 
             {/* PRODUCT INFO */}
-            <div>
+            <div className="w-full">
               <p
                 style={{
                   color: "#cfa76e",
@@ -189,12 +184,10 @@ function ProductDetails() {
                 style={{
                   fontFamily:
                     "'Cormorant Garamond', serif",
-                  fontSize: "54px",
                   fontWeight: "400",
-                  marginTop: "10px",
-                  marginBottom: "20px",
                   color: "#111111"
                 }}
+                className="text-3xl sm:text-4xl md:text-[54px] mt-2.5 mb-5 leading-tight"
               >
                 {product.name}
               </h1>

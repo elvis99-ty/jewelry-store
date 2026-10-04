@@ -108,32 +108,26 @@ function Orders() {
       {/* Header */}
 
       <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          marginBottom: "35px",
-          gap: "20px",
-        }}
+        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8"
       >
         <div>
           <h1
             style={{
               margin: 0,
               fontFamily: "'Cormorant Garamond', serif",
-              fontSize: "46px",
               color: "#1C1917",
               fontWeight: "500",
             }}
+            className="text-3xl sm:text-4xl md:text-[46px]"
           >
             Orders
           </h1>
 
           <p
             style={{
-              marginTop: "10px",
+              marginTop: "8px",
               color: "#78716C",
-              fontSize: "16px",
+              fontSize: "15px",
             }}
           >
             Manage every customer order.
@@ -141,11 +135,7 @@ function Orders() {
         </div>
 
         <div
-          style={{
-            display: "flex",
-            gap: "15px",
-            alignItems: "center",
-          }}
+          className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center w-full md:w-auto"
         >
           <select
             value={filter}
@@ -160,8 +150,8 @@ function Orders() {
               fontSize: "15px",
               outline: "none",
               cursor: "pointer",
-              minWidth: "170px",
             }}
+            className="w-full sm:w-[170px]"
           >
             <option>All Orders</option>
             <option>Pending</option>
@@ -179,7 +169,6 @@ function Orders() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             style={{
-              width: "320px",
               height: "48px",
               borderRadius: "12px",
               border: "1px solid #D9D2C7",
@@ -190,6 +179,7 @@ function Orders() {
               fontSize: "15px",
               boxSizing: "border-box",
             }}
+            className="w-full sm:w-[320px]"
           />
         </div>
       </div>
@@ -229,12 +219,7 @@ function Orders() {
 
       {!loading && filteredOrders.length > 0 && (
         <div
-          style={{
-            marginTop: "25px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
+          className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4"
         >
           <span
             style={{

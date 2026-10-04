@@ -31,12 +31,12 @@ function OrderDetailModal({ order, onClose, onStatusChange, updating }) {
         style={{
           backgroundColor: "#fff",
           borderRadius: "20px",
-          padding: "36px",
           width: "100%",
           maxWidth: "680px",
           maxHeight: "88vh",
           overflowY: "auto",
         }}
+        className="p-5 sm:p-9"
       >
         {/* Header */}
         <div
@@ -102,16 +102,7 @@ function OrderDetailModal({ order, onClose, onStatusChange, updating }) {
 
         {/* Customer & Shipping Details */}
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "20px",
-            background: "#FAF8F5",
-            padding: "20px",
-            borderRadius: "14px",
-            marginBottom: "24px",
-            fontSize: "14px",
-          }}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-6 p-4 sm:p-5 rounded-2xl bg-[#FAF8F5] text-sm"
         >
           <div>
             <strong style={{ color: "#1C1917", display: "block", marginBottom: "6px" }}>
@@ -145,16 +136,7 @@ function OrderDetailModal({ order, onClose, onStatusChange, updating }) {
 
         {/* Payment & Status Control */}
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "16px",
-            marginBottom: "24px",
-            padding: "16px",
-            background: "#FFFFFF",
-            border: "1px solid #ECE7DF",
-            borderRadius: "14px",
-          }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 p-4 rounded-2xl bg-white border border-[#ECE7DF]"
         >
           <div>
             <span style={{ fontSize: "12px", color: "#78716C", display: "block" }}>

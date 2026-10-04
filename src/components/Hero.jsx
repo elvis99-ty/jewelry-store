@@ -23,37 +23,37 @@ function Hero() {
         >
 
           {/* Small Top Text */}
-          <div className="flex items-center gap-3 mb-5">
+          <div className="flex items-center gap-3 mb-4 sm:mb-5">
 
-            <span className="text-[#d4af37] text-[18px]">
+            <span className="text-[#d4af37] text-[16px] sm:text-[18px]">
               ✦
             </span>
 
-            <p className="text-[#d4af37] uppercase tracking-[8px] text-[14px]">
+            <p className="text-[#d4af37] uppercase tracking-[5px] sm:tracking-[8px] text-[12px] sm:text-[14px]">
 
               Handcrafted Luxury
 
             </p>
 
           </div>
-          <div className="w-full leading-[0.92]">
+          <div className="w-full leading-[0.95] sm:leading-[0.92] text-center sm:text-left">
 
-            <h1 className="text-[88px] font-light text-white">
+            <h1 className="text-[48px] sm:text-[68px] md:text-[88px] font-light text-white">
               Timeless
             </h1>
 
-            <h1 className="text-[88px] italic font-light text-[#d4af37]">
+            <h1 className="text-[48px] sm:text-[68px] md:text-[88px] italic font-light text-[#d4af37]">
               Elegance
             </h1>
 
-            <h1 className="text-[88px] font-light text-white">
+            <h1 className="text-[48px] sm:text-[68px] md:text-[88px] font-light text-white">
               Redefined
             </h1>
 
           </div>
-          <div className="w-full mt-8">
+          <div className="w-full mt-6 sm:mt-8 text-center sm:text-left">
 
-            <p className="text-gray-300 text-[18px] leading-[46px] font-light">
+            <p className="text-gray-300 text-[15px] sm:text-[18px] leading-[26px] sm:leading-[46px] font-light">
 
               Discover our exquisite collection of handcrafted
               rings, chains, bracelets, and more — designed to
@@ -62,8 +62,8 @@ function Hero() {
             </p>
 
           </div>
-          <div className="w-full flex items-center gap-5 mt-9">
-            <button className="w-[200px] h-[42px] bg-[#f59e0b] hover:bg-[#c29d2c] transition-all duration-300 rounded-full flex items-center justify-center gap-4 text-[13px] font-semibold text-black">
+          <div className="w-full flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3.5 sm:gap-5 mt-7 sm:mt-9">
+            <button className="w-full sm:w-[200px] h-[44px] sm:h-[42px] bg-[#f59e0b] hover:bg-[#c29d2c] transition-all duration-300 rounded-full flex items-center justify-center gap-4 text-[13px] font-semibold text-black">
 
               Shop Collection
 
@@ -72,7 +72,7 @@ function Hero() {
               </span>
 
             </button>
-            <button className="w-[200px] h-[42px] bg-[#2f2f2f]/70 hover:bg-[#3a3a3a] transition-all duration-300 rounded-full border border-gray-500 backdrop-blur-sm text-[13px] text-white">
+            <button className="w-full sm:w-[200px] h-[44px] sm:h-[42px] bg-[#2f2f2f]/70 hover:bg-[#3a3a3a] transition-all duration-300 rounded-full border border-gray-500 backdrop-blur-sm text-[13px] text-white">
 
               View Rings
 

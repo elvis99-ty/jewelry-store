@@ -98,12 +98,12 @@ function EditProductModal({ product, onClose, onProductUpdated }) {
         style={{
           backgroundColor: "#fff",
           borderRadius: "20px",
-          padding: "36px",
           width: "100%",
           maxWidth: "520px",
           maxHeight: "88vh",
           overflowY: "auto",
         }}
+        className="p-5 sm:p-9"
       >
         <h2
           style={{
@@ -193,7 +193,7 @@ function EditProductModal({ product, onClose, onProductUpdated }) {
             </p>
           )}
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label style={labelStyle}>Price (₦) *</label>
               <input

@@ -10,9 +10,14 @@ import {
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-function Sidebar() {
+function Sidebar({ onClose }) {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handleNav = (path) => {
+    navigate(path);
+    if (onClose) onClose();
+  };
 
   const menu = [
     {
@@ -69,10 +74,21 @@ function Sidebar() {
       <div>
         <div
           style={{
+            position: "relative",
             textAlign: "center",
-            marginBottom: "45px",
+            marginBottom: "35px",
           }}
         >
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="absolute right-0 top-0 p-1.5 rounded-lg text-[#A8A29E] hover:text-white hover:bg-[#25211E] transition-colors focus:outline-none"
+              aria-label="Close sidebar"
+            >
+              ✕
+            </button>
+          )}
+
           <div
             style={{
               fontSize: "34px",
@@ -109,7 +125,7 @@ function Sidebar() {
             return (
               <button
                 key={item.name}
-                onClick={() => navigate(item.path)}
+                onClick={() => handleNav(item.path)}
                 style={{
                   display: "flex",
                   alignItems: "center",
